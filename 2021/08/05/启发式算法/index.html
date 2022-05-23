@@ -20,19 +20,23 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	有一些神棍算法在面对解空间庞大的算一天一夜都搜不出来的时候是很有效的，起码可以让我能给出一个答案，所以还是有必要整理的。">
+    <meta name="description" content="​ 有一些神棍算法在面对解空间庞大的算一天一夜都搜不出来的时候是很有效的，起码可以让我能给出一个答案，所以还是有必要整理的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="启发式算法">
 <meta property="og:url" content="http://example.com/2021/08/05/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	有一些神棍算法在面对解空间庞大的算一天一夜都搜不出来的时候是很有效的，起码可以让我能给出一个答案，所以还是有必要整理的。">
+<meta property="og:description" content="​ 有一些神棍算法在面对解空间庞大的算一天一夜都搜不出来的时候是很有效的，起码可以让我能给出一个答案，所以还是有必要整理的。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Heuristic%20Algorithm_1.png">
+<meta property="og:image" content="http://example.com/images/Heuristic%20Algorithm_2.gif">
+<meta property="og:image" content="http://example.com/images/Heuristic%20Algorithm_3.jpg">
 <meta property="article:published_time" content="2021-08-05T09:53:54.000Z">
 <meta property="article:modified_time" content="2021-10-06T16:37:23.729Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="数学建模">
 <meta property="article:tag" content="启发式算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Heuristic%20Algorithm_1.png">
 
 
 <link rel="canonical" href="http://example.com/2021/08/05/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95/">
@@ -52,7 +56,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -231,106 +239,140 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	有一些神棍算法在面对解空间庞大的算一天一夜都搜不出来的时候是很有效的，起码可以让我能给出一个答案，所以还是有必要整理的。</p>
+        <p>​
+有一些神棍算法在面对解空间庞大的算一天一夜都搜不出来的时候是很有效的，起码可以让我能给出一个答案，所以还是有必要整理的。</p>
 <span id="more"></span>
-
-<p>​	现在我们考虑眼虫藻（一种神奇的有鞭毛的可以光合作用的单细胞藻类）在一个河床中寻找阳光最充裕，也就是最高点的这么一个过程。那么会有如下的三种策略：</p>
-<p>​	一只眼虫藻判断周围的亮度，一直贪婪地沿着亮度增加的方向前进，直到发现自己所在的地方相对周围而言都是最亮的，这种方法被称为爬山算法，很容易陷入局部最优。</p>
-<p>​	一只眼虫藻最初佛系的随机移动，它可能走到更暗的地方，或者更亮的地方，或者亮度不变的地方。但是渐渐地它顿悟了，开始朝着最高的方向移动。这种方法称为模拟退火算法，它有可能可以跳出局部最优。</p>
-<p>​	现在有一群眼虫藻，它们分别处在不同的亮度的地方生活，但是逐渐由于相对低处的有毒物质积累而渐渐杀死了在低亮度区域的眼虫藻，在较高区域的眼虫藻繁殖变异，而有毒物质也越来越向高处蔓延，最后筛选出的眼虫藻就是在最高处的眼虫藻。这种方法就是遗传算法。</p>
-<p>​	这三种都是经典的启发式算法，下面来进行细致的介绍。</p>
-<h4 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h4><p>![](&#x2F;images&#x2F;Heuristic Algorithm_1.png)</p>
-<p>​	上图表示了遗传算法的流程，实际上就是：“<strong>以一种“合理”的方式优化随机出的序列</strong>”下面来举一个实际的例子来更好的体会这个过程，这里我们选取一个三角函数的最大值问题，因为它能很好的模拟我们有些问题中，极值点很多的情况。<br>$$<br>f(x)&#x3D;9sin(5x)+8cos(4x)，x\in \left[ 0,15 \right]<br>$$<br>​	这样一个一元函数的最大值，假设我们其实画不出来这个函数的图像更不用说利用导数工具之类的。这里直接给出我写好的代码，然后一步步进行分析。</p>
+<p>​
+现在我们考虑眼虫藻（一种神奇的有鞭毛的可以光合作用的单细胞藻类）在一个河床中寻找阳光最充裕，也就是最高点的这么一个过程。那么会有如下的三种策略：</p>
+<p>​
+一只眼虫藻判断周围的亮度，一直贪婪地沿着亮度增加的方向前进，直到发现自己所在的地方相对周围而言都是最亮的，这种方法被称为爬山算法，很容易陷入局部最优。</p>
+<p>​
+一只眼虫藻最初佛系的随机移动，它可能走到更暗的地方，或者更亮的地方，或者亮度不变的地方。但是渐渐地它顿悟了，开始朝着最高的方向移动。这种方法称为模拟退火算法，它有可能可以跳出局部最优。</p>
+<p>​
+现在有一群眼虫藻，它们分别处在不同的亮度的地方生活，但是逐渐由于相对低处的有毒物质积累而渐渐杀死了在低亮度区域的眼虫藻，在较高区域的眼虫藻繁殖变异，而有毒物质也越来越向高处蔓延，最后筛选出的眼虫藻就是在最高处的眼虫藻。这种方法就是遗传算法。</p>
+<p>​ 这三种都是经典的启发式算法，下面来进行细致的介绍。</p>
+<h4 id="遗传算法">遗传算法</h4>
+<p><img src="/images/Heuristic%20Algorithm_1.png" /></p>
+<p>​
+上图表示了遗传算法的流程，实际上就是：“<strong>以一种“合理”的方式优化随机出的序列</strong>”下面来举一个实际的例子来更好的体会这个过程，这里我们选取一个三角函数的最大值问题，因为它能很好的模拟我们有些问题中，极值点很多的情况。
+<span class="math display">\[
+f(x)=9sin(5x)+8cos(4x)，x\in \left[ 0,15 \right]
+\]</span> ​
+这样一个一元函数的最大值，假设我们其实画不出来这个函数的图像更不用说利用导数工具之类的。这里直接给出我写好的代码，然后一步步进行分析。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">clc</span><br><span class="line">popsize=<span class="number">30</span>;<span class="comment">%群体大小</span></span><br><span class="line">chromlength=<span class="number">10</span>;<span class="comment">%字符串/染色体长度(个体长度)</span></span><br><span class="line">pc=<span class="number">0.7</span>;<span class="comment">%交叉概率</span></span><br><span class="line">pm=<span class="number">0.005</span>;<span class="comment">%变异概率</span></span><br><span class="line">pop=initpop(popsize,chromlength);<span class="comment">%初始化种群</span></span><br><span class="line"><span class="comment">%开始迭代</span></span><br><span class="line">X=<span class="number">0</span>:<span class="number">0.01</span>:<span class="number">15</span>;</span><br><span class="line">Y=<span class="number">9.</span>*<span class="built_in">sin</span>(<span class="number">5.</span>*X)+<span class="number">8.</span>*<span class="built_in">cos</span>(<span class="number">4.</span>*X);</span><br><span class="line"><span class="built_in">plot</span>(X,Y)</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">100</span></span><br><span class="line">    [objvalue]=calobjvalue(pop);<span class="comment">%计算当前种群相对要求解的问题的各自的值</span></span><br><span class="line">    fitvalue=calfitvalue(objvalue);<span class="comment">%通过上一步计算的值来得出适应度</span></span><br><span class="line">    [newpop]=selection(pop,fitvalue);<span class="comment">%通过适应度来进行选择，淘汰部分种群</span></span><br><span class="line">    [newpop2]=crossover(newpop,pc);<span class="comment">%进行交叉操作</span></span><br><span class="line">    [newpop3]=mutation(newpop2,pm);<span class="comment">%再进行变异操作</span></span><br><span class="line">    y=objvalue;</span><br><span class="line">    x=decodechrom(pop,<span class="number">1</span>,chromlength)*<span class="number">15</span>/<span class="number">1023</span>;</span><br><span class="line">    <span class="built_in">plot</span>(X,Y);</span><br><span class="line">    <span class="built_in">hold</span> on</span><br><span class="line">    <span class="built_in">scatter</span>(x,y);</span><br><span class="line">    action(<span class="built_in">i</span>)=getframe;</span><br><span class="line">    <span class="built_in">hold</span> off</span><br><span class="line">    <span class="comment">%%%</span></span><br><span class="line">    pop=newpop3;<span class="comment">%将经过交叉变异筛选后的种群用来下一步迭代</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%hold off</span></span><br><span class="line">xlabel(<span class="string">&#x27;done&#x27;</span>)</span><br><span class="line">y_final=<span class="built_in">max</span>(y)</span><br></pre></td></tr></table></figure>
-
-<p>​	我们知道一个染色体有一条DNA，DNA有两条链…AGCT等等，该算法吸取了这样的思想并进行了简化，意思是用一些手段将我们解空间中的值变成一串编码，这样的话对这个编码进行交叉，变异，淘汰等等操作，来模拟这个过程（是不是相当神棍？确实很神棍！）。那么对于这个具体的例子，我们怎么办呢？由于$x\in \left[ 0,15 \right] $​​​,我们选取一个合适的染色体长度，并先用二进制编码来举例子。为了简单起见，因为我们精度不需要那么高，就确定是10了，这样的话它大概能满足小数点后三位，我们建立二进制编码与$x$的转化关系：<br>$$<br>\left( a_0a_1…a_{l-1} \right) <em>2&#x3D;\left( \sum</em>{i&#x3D;0}^{l-1}{b_i2^i} \right) _{10}&#x3D;x^t<br>\<br>x&#x3D;a+x^t\frac{\left( b-a \right)}{2^l-1}<br>$$<br>​	在这里，$a&#x3D;0,b&#x3D;15,l&#x3D;10$，注意：这里编码方式是不唯一的，根据问题的不同，其实选择不同的编码方式更加合理，比如对于TSP问题，编码选择排列，自然就很科学。总之确定了这个以后我们初始化种群：</p>
+<p>​
+我们知道一个染色体有一条DNA，DNA有两条链…AGCT等等，该算法吸取了这样的思想并进行了简化，意思是用一些手段将我们解空间中的值变成一串编码，这样的话对这个编码进行交叉，变异，淘汰等等操作，来模拟这个过程（是不是相当神棍？确实很神棍！）。那么对于这个具体的例子，我们怎么办呢？由于$x<span
+class="math inline">\(​​​,我们选取一个合适的染色体长度，并先用二进制编码来举例子。为了简单起见，因为我们精度不需要那么高，就确定是10了，这样的话它大概能满足小数点后三位，我们建立二进制编码与\)</span>x$的转化关系：
+<span class="math display">\[
+\left( a_0a_1...a_{l-1} \right) _2=\left( \sum_{i=0}^{l-1}{b_i2^i}
+\right) _{10}=x^t
+\\
+x=a+x^t\frac{\left( b-a \right)}{2^l-1}
+\]</span> ​ 在这里，<span
+class="math inline">\(a=0,b=15,l=10\)</span>，注意：这里编码方式是不唯一的，根据问题的不同，其实选择不同的编码方式更加合理，比如对于TSP问题，编码选择排列，自然就很科学。总之确定了这个以后我们初始化种群：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pop</span> = <span class="title">initpop</span><span class="params">(popsize,chromlength)</span></span></span><br><span class="line">pop=<span class="built_in">round</span>(<span class="built_in">rand</span>(popsize,chromlength));</span><br><span class="line"><span class="comment">%rand均匀产生(0,1)的随机数，然后再round取整，我们最终得到以popsize为行数，chromlength为列数的矩阵</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	于是我们的pop矩阵中，一行对应着一个$x$,列数仅仅表示该条染色体的长度。</p>
-<p>​	之后我们来计算此时种群对应的值：</p>
+<p>​ 于是我们的pop矩阵中，一行对应着一个<span
+class="math inline">\(x\)</span>,列数仅仅表示该条染色体的长度。</p>
+<p>​ 之后我们来计算此时种群对应的值：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[objvalue]</span>=<span class="title">calobjvalue</span><span class="params">(pop)</span></span></span><br><span class="line">temp1=decodechrom(pop,<span class="number">1</span>,<span class="number">10</span>);<span class="comment">%这里按照样例的要求,取spoint=1,length=10</span></span><br><span class="line">x=temp1*<span class="number">15</span>/<span class="number">1023</span>;<span class="comment">%将二值域的数转化为变量域的数</span></span><br><span class="line">objvalue=<span class="number">9</span>*<span class="built_in">sin</span>(<span class="number">5</span>*x)+<span class="number">8</span>*<span class="built_in">cos</span>(<span class="number">4</span>*x);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	这里decodechrom的实现因人而异，我这里分为了两个.m文件，只要可以实现就可。</p>
+<p>​
+这里decodechrom的实现因人而异，我这里分为了两个.m文件，只要可以实现就可。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%spoint是待解码的二进制串的起始位置，length表示截取的长度</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pop2</span>=<span class="title">decodechrom</span><span class="params">(pop,spoint,length)</span></span></span><br><span class="line">pop1=pop(:,spoint:spoint+<span class="built_in">length</span><span class="number">-1</span>);</span><br><span class="line">pop2=decodebinary(pop1);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%将二进制转为十进制的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pop2</span>=<span class="title">decodebinary</span><span class="params">(pop)</span></span></span><br><span class="line">[px,py]=<span class="built_in">size</span>(pop);<span class="comment">%得到初始化后种群的行数px和列数py</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:py</span><br><span class="line">    pop1(:,<span class="built_in">i</span>)=<span class="number">2.</span>^(py-<span class="built_in">i</span>).*pop(:,<span class="built_in">i</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">pop2=sum(pop1,<span class="number">2</span>);<span class="comment">%sum(A,2)是对A按行求和，sum(A,1)是对A按列求和</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	然后我们用objvalue来计算适应度fitvalue,这里就牵扯到一个问题，适应度函数怎么选择比较合适：我们希望适应度函数足够简单来进行筛选，并且这个适应度函数与后面筛选的方式有关，而这一块，往往也是在不同问题中需要着重考虑的一块，对于这个问题我们如此选取：</p>
+<p>​
+然后我们用objvalue来计算适应度fitvalue,这里就牵扯到一个问题，适应度函数怎么选择比较合适：我们希望适应度函数足够简单来进行筛选，并且这个适应度函数与后面筛选的方式有关，而这一块，往往也是在不同问题中需要着重考虑的一块，对于这个问题我们如此选取：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fitvalue</span>=<span class="title">calfitvalue</span><span class="params">(objvalue)</span></span></span><br><span class="line"><span class="keyword">global</span> Con;</span><br><span class="line">Con=<span class="number">0</span>;</span><br><span class="line">[px,py]=<span class="built_in">size</span>(objvalue);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:px</span><br><span class="line">    <span class="keyword">if</span> objvalue(<span class="built_in">i</span>)+Con&gt;<span class="number">0</span></span><br><span class="line">        temp=Con+objvalue(<span class="built_in">i</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        temp=<span class="number">0.0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    fitvalue(<span class="built_in">i</span>)=temp;</span><br><span class="line">    <span class="comment">%fitvalue(i)=objvalue(i);</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">fitvalue=fitvalue&#x27;;</span><br></pre></td></tr></table></figure>
-
-<p>​	这里说的是，由于我们知道$f(x)$​的最大值一定是个正数，所以我们令每个个体所对应的适应度形成一个类似于$ReLU$的函数，这里$Con$是用来表征筛选难度的，如果$Con$比较小，那么对种群起到的筛选作用越厉害，很可能导致种群第一轮就所剩无几；如果$Con$​比较大​，那么对于这个问题，就将是起不到什么筛选作用，这里的筛选实际上与下一步的轮盘赌选择法密切相关：</p>
+<p>​ 这里说的是，由于我们知道<span
+class="math inline">\(f(x)\)</span>​的最大值一定是个正数，所以我们令每个个体所对应的适应度形成一个类似于<span
+class="math inline">\(ReLU\)</span>的函数，这里<span
+class="math inline">\(Con\)</span>是用来表征筛选难度的，如果<span
+class="math inline">\(Con\)</span>比较小，那么对种群起到的筛选作用越厉害，很可能导致种群第一轮就所剩无几；如果<span
+class="math inline">\(Con\)</span>​比较大​，那么对于这个问题，就将是起不到什么筛选作用，这里的筛选实际上与下一步的轮盘赌选择法密切相关：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[newpop]</span>=<span class="title">selection</span><span class="params">(pop,fitvalue)</span></span></span><br><span class="line">totalfit=sum(fitvalue);</span><br><span class="line">fitvalue=fitvalue/totalfit;</span><br><span class="line">fitvalue=cumsum(fitvalue); <span class="comment">%cumsum是累积求和函数，例如fitvalue=[1 2 3 4],则cumsum(fitvalue)=[1 3 6 10]</span></span><br><span class="line">[px,py]=<span class="built_in">size</span>(pop);</span><br><span class="line">ms=<span class="built_in">sort</span>(<span class="built_in">rand</span>(px,<span class="number">1</span>));</span><br><span class="line">fitin=<span class="number">1</span>;</span><br><span class="line">newin=<span class="number">1</span>;</span><br><span class="line"><span class="comment">%轮盘赌选择算法</span></span><br><span class="line"><span class="keyword">while</span> newin&lt;=px</span><br><span class="line">    <span class="keyword">if</span> (ms(newin))&lt;fitvalue(fitin) || fitvalue(fitin)==<span class="built_in">max</span>(fitvalue)</span><br><span class="line">        newpop(newin,:)=pop(fitin,:);<span class="comment">%%%%%</span></span><br><span class="line">        newin=newin+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        fitin=fitin+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	轮盘赌选择法实现的是，对于经归一化处理到0~1的适应度，适应度越高的，越有可能活下来，也就是被收入newpop的一员，但在这里根据问题的不同，我们可能会考虑无条件保留当前种群中最优的那个个体，这样可以避免它的丢失，但可能会让算法跳不出局部最优。</p>
-<p>​	到这里，还算是合理，但接下来的交叉和变异操作，我是真的觉得神棍，即使它有一定的道理，上面我们定义的两个参数pc,pm就是来判定是否发生交叉和变异的参数，交叉函数的意思是，对每个个体进行一次随机数生成，当他们对应的随机数比pc小，就进行“交叉”，交叉是将两组编码真的进行“交叉互换”，这里实际上交叉函数怎么交叉，也是不一定的，对于不同的问题，可能别的交叉方法更加合适，但他们的目的都是想从已有的解里产生一些新解，而理论依据居然是：“适应度强的DNA的交叉应该会产生更强的子代”；变异的方法是类似的，当生成的随机数小于pm时进行变异，让某个位点的编码从0变1或从1变0，这也不是一定的，你可以选择不同的变异方法，我仅实现了两种最简单的。</p>
+<p>​
+轮盘赌选择法实现的是，对于经归一化处理到0~1的适应度，适应度越高的，越有可能活下来，也就是被收入newpop的一员，但在这里根据问题的不同，我们可能会考虑无条件保留当前种群中最优的那个个体，这样可以避免它的丢失，但可能会让算法跳不出局部最优。</p>
+<p>​
+到这里，还算是合理，但接下来的交叉和变异操作，我是真的觉得神棍，即使它有一定的道理，上面我们定义的两个参数pc,pm就是来判定是否发生交叉和变异的参数，交叉函数的意思是，对每个个体进行一次随机数生成，当他们对应的随机数比pc小，就进行“交叉”，交叉是将两组编码真的进行“交叉互换”，这里实际上交叉函数怎么交叉，也是不一定的，对于不同的问题，可能别的交叉方法更加合适，但他们的目的都是想从已有的解里产生一些新解，而理论依据居然是：“适应度强的DNA的交叉应该会产生更强的子代”；变异的方法是类似的，当生成的随机数小于pm时进行变异，让某个位点的编码从0变1或从1变0，这也不是一定的，你可以选择不同的变异方法，我仅实现了两种最简单的。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%交叉</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[newpop]</span>=<span class="title">crossover</span><span class="params">(pop,pc)</span></span></span><br><span class="line">[px,py]=<span class="built_in">size</span>(pop);</span><br><span class="line">newpop=<span class="built_in">ones</span>(<span class="built_in">size</span>(pop));</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">2</span>:px<span class="number">-1</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">rand</span>&lt;pc)</span><br><span class="line">        cpoint=<span class="built_in">round</span>(<span class="built_in">rand</span>*py);</span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=[pop(<span class="built_in">i</span>,<span class="number">1</span>:cpoint),pop(<span class="built_in">i</span>+<span class="number">1</span>,cpoint+<span class="number">1</span>:py)];</span><br><span class="line">        newpop(<span class="built_in">i</span>+<span class="number">1</span>,:)=[pop(<span class="built_in">i</span>+<span class="number">1</span>,<span class="number">1</span>:cpoint),pop(<span class="built_in">i</span>,cpoint+<span class="number">1</span>:py)];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=pop(<span class="built_in">i</span>,:);</span><br><span class="line">        newpop(<span class="built_in">i</span>+<span class="number">1</span>,:)=pop(<span class="built_in">i</span>+<span class="number">1</span>,:);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%变异</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[newpop]</span>=<span class="title">mutation</span><span class="params">(pop,pm)</span></span></span><br><span class="line">[px,py]=<span class="built_in">size</span>(pop);</span><br><span class="line">newpop=<span class="built_in">ones</span>(<span class="built_in">size</span>(pop));</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:px</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">rand</span>&lt;pm)</span><br><span class="line">        mpoint=<span class="built_in">round</span>(<span class="built_in">rand</span>*py);</span><br><span class="line">        <span class="keyword">if</span> mpoint&lt;=<span class="number">0</span></span><br><span class="line">            mpoint=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=pop(<span class="built_in">i</span>,:);</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:mpoint</span><br><span class="line">            <span class="keyword">if</span> newpop(<span class="built_in">i</span>,<span class="built_in">j</span>)==<span class="number">0</span></span><br><span class="line">                newpop(<span class="built_in">i</span>,<span class="built_in">j</span>)=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                newpop(<span class="built_in">i</span>,<span class="built_in">j</span>)=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=pop(<span class="built_in">i</span>,:);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	接下来就是迭代求解了，之后将结果给出，在这个流程中，我们可以知道，遗传算法是要根据具体问题调整的，并且其中①染色体长度②适应度函数③相关参数（pc,pm,Con等）都要根据具体问题来进行修改，上面的例子运行后的结果是：</p>
-<p>![](&#x2F;images&#x2F;Heuristic Algorithm_2.gif)</p>
-<p>​	这个效果并不是特别好，我们都发现，如果多次实验，它不一定能到达最优解，有时甚至会只是停留在一个可以“可以接受的解”，但这就是有用的地方，考虑38个坐标的TSP问题，如果用蒙特卡罗模拟100000000次，得到结果为1.6843e+04,编写遗传算法实现，可以在很短的时间得到7.681e+03的效果不错的解：</p>
-<p>![](&#x2F;images&#x2F;Heuristic Algorithm_3.jpg)</p>
+<p>​
+接下来就是迭代求解了，之后将结果给出，在这个流程中，我们可以知道，遗传算法是要根据具体问题调整的，并且其中①染色体长度②适应度函数③相关参数（pc,pm,Con等）都要根据具体问题来进行修改，上面的例子运行后的结果是：</p>
+<p><img src="/images/Heuristic%20Algorithm_2.gif" /></p>
+<p>​
+这个效果并不是特别好，我们都发现，如果多次实验，它不一定能到达最优解，有时甚至会只是停留在一个可以“可以接受的解”，但这就是有用的地方，考虑38个坐标的TSP问题，如果用蒙特卡罗模拟100000000次，得到结果为1.6843e+04,编写遗传算法实现，可以在很短的时间得到7.681e+03的效果不错的解：</p>
+<p><img src="/images/Heuristic%20Algorithm_3.jpg" /></p>
 <p>（根据公测，最短路径是6500左右），也就是说，我们即使知道它不是最优解，但是也可以将这个解拿来使用，以那个三角函数最值问题为例，假设真正的函数比这个三角函数复杂的多的多，那么用这种方法可以有效的避免高维搜索，并且得到合适的解。</p>
-<p>​	但是在最后还有个比较头疼的问题，假设我在参加数学建模，拿到这个问题的时候我只有三天时间，三天时间就算仿照各种实例重建一个对应要求解的问题的遗传算法，是有难度的，并且我也不能确定结果的好坏，这里matlab给出了一个解决方案：ga()函数，它可以帮助我们用遗传算法确定最小值，调用格式：</p>
+<p>​
+但是在最后还有个比较头疼的问题，假设我在参加数学建模，拿到这个问题的时候我只有三天时间，三天时间就算仿照各种实例重建一个对应要求解的问题的遗传算法，是有难度的，并且我也不能确定结果的好坏，这里matlab给出了一个解决方案：ga()函数，它可以帮助我们用遗传算法确定最小值，调用格式：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x=ga(fun,nvars,A,b,Aeq,beq,lb,ub,nonlcon,IntCon,options)</span><br></pre></td></tr></table></figure>
-
-<p>​	这里fun是适应度函数句柄，nvars是x中的自变量个数，A,b是$Ax\leqslant b$的线性约束，Aeq,beq是$Aeqx&#x3D;beq$​​​的等式约束，lb,ub是自变量的下限和上限，nonlcon是非线性规划条件,IntCon是整数规划条件，options是关于遗传算法的设置，这里很多时候用不到这么的多参数，不需要的就[]或者略掉就好了。</p>
-<p>​	这里面的options可以用gaoptimset(‘parameter1’,value1,’parameter2’,value2,…)的形式来调用，它的属性是，当然一般用默认的效果也很好了。</p>
+<p>​ 这里fun是适应度函数句柄，nvars是x中的自变量个数，A,b是<span
+class="math inline">\(Ax\leqslant b\)</span>的线性约束，Aeq,beq是<span
+class="math inline">\(Aeqx=beq\)</span>​​​的等式约束，lb,ub是自变量的下限和上限，nonlcon是非线性规划条件,IntCon是整数规划条件，options是关于遗传算法的设置，这里很多时候用不到这么的多参数，不需要的就[]或者略掉就好了。</p>
+<p>​
+这里面的options可以用gaoptimset('parameter1',value1,'parameter2',value2,...)的形式来调用，它的属性是，当然一般用默认的效果也很好了。</p>
 <table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 9%" />
+<col style="width: 64%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>属性名</th>
 <th>默认值</th>
 <th>实现功能</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>PopInitRange</td>
 <td>[0,1]</td>
 <td>初始种群生成区间</td>
 </tr>
-<tr>
+<tr class="even">
 <td>PopulationSize</td>
 <td>20</td>
 <td>种群规模</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>CrossoverFraction</td>
 <td>0.8</td>
 <td>交叉概率</td>
 </tr>
-<tr>
+<tr class="even">
 <td>MigrationFraction</td>
 <td>0.2</td>
 <td>变异概率</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Generations</td>
 <td>100</td>
 <td>超过该代数停止</td>
 </tr>
-<tr>
+<tr class="even">
 <td>TimeLimit</td>
 <td>Inf</td>
 <td>超过时间限制时停止</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>FitnessLimit</td>
 <td>-Inf</td>
 <td>最佳个体等于或小于适应度</td>
 </tr>
-<tr>
+<tr class="even">
 <td>InitialPopulation</td>
 <td>[]</td>
 <td>可以用上次遗传生成的种群作为下一次的初始值</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>EliteCount</td>
 <td>0</td>
 <td>用于精英原则，每次一定活下来的个体数</td>
 </tr>
-</tbody></table>
-<p>​		应用封装好的的ga()函数，解决之前的问题只需</p>
+</tbody>
+</table>
+<p>​ 应用封装好的的ga()函数，解决之前的问题只需</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ObjectiveFunction = @simple_fitness;</span><br><span class="line">nvars = <span class="number">1</span>;<span class="comment">%变量个数</span></span><br><span class="line">LB = [<span class="number">0</span>]<span class="comment">%定义域下限</span></span><br><span class="line">UB = [<span class="number">15</span>]<span class="comment">%定义域上限</span></span><br><span class="line"> </span><br><span class="line">[x,fval] = ga(ObjectiveFunction,nvars,[],[],[],[],LB,UB)<span class="comment">%调用ga函数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span> = <span class="title">simple_fitness</span><span class="params">(x)</span></span></span><br><span class="line"> </span><br><span class="line">y = <span class="number">9</span>*<span class="built_in">sin</span>(<span class="number">5</span>*x)+<span class="number">8</span>*<span class="built_in">cos</span>(<span class="number">4</span>*x);</span><br><span class="line">y=-y;<span class="comment">%%求的是最大值，要变号</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	至此就有了一个相对圆满的应对短时间内的解空间巨大的优化问题的解决方案，虽然它的优化依据十分玄学，但能抓到耗子的都是好猫orz。</p>
+<p>​
+至此就有了一个相对圆满的应对短时间内的解空间巨大的优化问题的解决方案，虽然它的优化依据十分玄学，但能抓到耗子的都是好猫orz。</p>
 
     </div>
 

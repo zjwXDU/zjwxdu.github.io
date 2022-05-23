@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	最近有亿点忙以至于没时间写blog自娱自乐，但最近一次的信号大作业是如此的有趣以至于我还是想整理一下。">
+    <meta name="description" content="​ 最近有亿点忙以至于没时间写blog自娱自乐，但最近一次的信号大作业是如此的有趣以至于我还是想整理一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ICA与PCA">
 <meta property="og:url" content="http://example.com/2022/05/21/ICA%E4%B8%8EPCA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	最近有亿点忙以至于没时间写blog自娱自乐，但最近一次的信号大作业是如此的有趣以至于我还是想整理一下。">
+<meta property="og:description" content="​ 最近有亿点忙以至于没时间写blog自娱自乐，但最近一次的信号大作业是如此的有趣以至于我还是想整理一下。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/ICA_and_PCA_1.png">
 <meta property="og:image" content="http://example.com/images/ICA_and_PCA_2.png">
@@ -55,7 +55,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -233,28 +237,169 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	最近有亿点忙以至于没时间写blog自娱自乐，但最近一次的信号大作业是如此的有趣以至于我还是想整理一下。</p>
+        <p>​
+最近有亿点忙以至于没时间写blog自娱自乐，但最近一次的信号大作业是如此的有趣以至于我还是想整理一下。</p>
 <span id="more"></span>
-
-<p>​	实际上这次的信号大作业跟信号与系统本身并没有太大的关系，意在盲源分离。处理这种问题有一种方法：独立成分分析（ICA）。最开始做这个作业，是想直接复刻Andrew Ng布置的作业，但是后来一看这种朴素的机器学习方法，还是比搭积木炼丹要更亦可赛艇一点，遂记录。</p>
-<p>​	(前排提醒，实际上大作业里使用的基于负熵的独立成分分析已经是好多年前的理论和成果了（当时的人真聪明），以现在很多的refer来看或多或少都不太严谨，但就像教高中生，逻辑自洽即可。要现在的我一口气赶上前人的智慧，也不现实。)</p>
-<p>​	独立成分分析是希望分开的成分尽可能的“独立”，也就是统计意义上的独立。</p>
-<p>​	首先要明确一个定理：<strong>Darmois-Skitovitch</strong>定理，假设$S_1,S_2,…,S_n$是相互独立的声源，对于两个随机变量$X,Y$：<br>$$<br>X&#x3D;\sum_{i&#x3D;1}^n{\alpha <em>iS_i}<br>\<br>Y&#x3D;\sum</em>{i&#x3D;1}^n{\beta _iS_i}<br>$$<br>​	如果$X,Y$独立，那么一定对于任意的$\alpha_i\beta_i \ne 0$，且$S_i$一定是高斯分布。</p>
-<p>​	换句话说，如果$S_i$不是高斯分布，那如果$X,Y$独立，则$\alpha_i\beta_i &#x3D; 0$。这一点是我们得以分离的基础。这个定理的证明比较复杂，就不管了。总之我们应用ICA时，信号一定要是非高斯的。当然，各个信号本身也要是独立的，这是一个很基本的假设。</p>
-<p>​	基于上面的定理，我们考虑一种特殊的情形：<br>$$<br>X&#x3D;\alpha _1S_1+\alpha _2S_2<br>\<br>Y&#x3D;\beta _1S_1+\beta _2S_2<br>$$<br>​	由线性代数知，我们可以找一个旋转矩阵$W$，使得旋转后的$X,Y$独立，而又因为$DS$定理，旋转后的$\alpha_i\beta_i &#x3D;0$，因为我们假设信号$S$是非高斯的，而$\alpha,\beta$不可能全为0，否则有一个信号就成0了。所以只会有两种可能：<br>$$<br>\left{ \begin{array}{c}<br>    X’&#x3D;0S_1+\alpha _2’S_2\<br>    Y’&#x3D;\beta _1’S_1+0S_2\<br>\end{array} \right. ,\left{ \begin{array}{c}<br>    X’&#x3D;\alpha _1’S_1+0S_2\<br>    Y’&#x3D;0S_1+\beta _2’S_2\<br>\end{array} \right.<br>$$<br>​	于是我们就找到了分离，就像个奇迹，唯一的缺点就是分离后顺序和幅度不能保证而已，但这问题不大。</p>
-<p>​	所以我们现在找到矩阵$W$就好啦，但是怎么找是个问题。注意到，当我们完成分离后，$X’,Y’$就变成了$S_1,S_2$的常数倍，它们的分布是非高斯的，而在此之前分布都是$S_1,S_2$的线性组合。中心极限定理告诉我们，即使是非高斯的分布，只要组合的够多，也会服从正态分布，那么越组合高斯性肯定越强。(严格来说，我们这里只是为了下面的负熵给出了一个直观的解释，它其实并不能成为一个严谨的论断，但对于我现在的水平，知道到这里就够了。)</p>
-<p>​	而我们知道，所有同一方差下的概率分布中，高斯分布的熵最大，以及，高斯分布是唯一一个满足旋转不变性的分布（结合这个想想前面的$W$就能知道我们为什么要让信号$S_i$是非高斯的了）。所以我们可以利用熵来度量分布的非高斯性。</p>
-<p>​	但是这并不容易，我们先补充一些熵的必要知识：</p>
-<p>​	离散的熵被定义为：<br>$$<br>H\left( Y \right) &#x3D;-\sum_i{P\left( Y&#x3D;a_i \right) \log P\left( Y&#x3D;a_i \right)}<br>$$<br>​	将其连续泛化，得到微分熵的定义：<br>$$<br>H\left( y \right) &#x3D;-\int{f\left( y \right) \log f\left( y \right) \mathrm{d}y}<br>$$<br>​	所以负熵就定义为了：<br>$$<br>J\left( y \right) &#x3D;H\left( y_G \right) -H\left( y \right)<br>$$<br>​	其中$y_G$是一个与$y$同方差的高斯分布，这是最大熵告诉我们的。</p>
-<p>​	但在ICA计算时，这个理论式子是无法使用的，为此前人提出了各种有效的近似算法，其中一个是：<br>$$<br>J\left( y \right) \propto \left[ E\left{ G\left( y \right) \right} -E\left{ G\left( v \right) \right} \right] ^2<br>$$<br>​	这个近似非常的不显然，可以参见Hyvärinen当时的论文。其中$G$是一个被选取的非二次函数，$v$是一个零均值单位方差的高斯分布。这里的细节就不好展开讲了。</p>
-<p>​	那么有了上述的铺垫，我们梳理一下我们要做的，原信号记为$X$，混合后的为$Y$，待求的旋转矩阵为$W$，$Y&#x3D;W^TX$。那么我们要做的其实就是按照$Y$的分量逐个优化，优化函数就是$J(y)$，其中$y&#x3D;w^Tx$。</p>
-<p>​	那么如何具体的优化呢？我们进一步分析，注意到我们的$x$在优化时是不变的，下面我写的标准一点：<br>$$<br>J\left( \mathbf{w} \right) &#x3D;\left[ E\left{ G\left( \mathbf{w}^T\mathbf{x} \right) \right} -E\left{ G\left( v \right) \right} \right] ^2<br>$$<br>​	注意，这并不是一个无约束的优化，实际上：<br>$$<br>E\left[ \left( \mathbf{w}^T\mathbf{x} \right) ^2 \right] &#x3D;E\left( \mathbf{w}^T\mathbf{xx}^T\mathbf{w} \right) &#x3D;E\left( \mathbf{w}^T\mathbf{w} \right) &#x3D;\left| \mathbf{w} \right| ^2&#x3D;1<br>$$<br>​	注意，在我们作ICA之前$x$应该已经经过了预处理，那么：<br>$$<br>E\left( \mathbf{xx}^T \right) &#x3D;I<br>$$<br>​	这个是预处理的直接结果，实际上这种预处理叫作白化(球化)。我们后面再提及它。</p>
-<p>​	注意到$J(\mathrm{w})$是引入高斯信号$v$来进行非高斯型的对比，所以$J(\mathrm{w})$的极值和$E\left{ G\left( w^T x \right) \right} $的极值在同一处取到，因此由KKT条件，在$E\left[ \left( \mathbf{w}^T\mathbf{x} \right) ^2 \right]&#x3D;1$的情况下：<br>$$<br>\frac{\partial E\left{ G\left( \mathbf{w}^T\mathbf{x} \right) \right}}{\partial \mathbf{w}}-\beta \frac{\partial \left( \left| \mathbf{w} \right| ^2-1 \right)}{\partial \mathbf{w}}&#x3D;0<br>\<br>E\left{ \mathbf{x}G’\left( \mathbf{w}^T\mathbf{x} \right) \right} -\beta \mathbf{w}&#x3D;0<br>\<br>\beta &#x3D;E\left{ \mathbf{w}<em>{0}^{T}\mathbf{x}G’\left( \mathbf{w}</em>{0}^{T}\mathbf{x} \right) \right}<br>$$<br>​	其中$\mathbf{w}<em>{0}^{T}$是最优的$\mathbf{w}$​，那么这个搜索根的问题可以用牛顿法来解决，记：<br>$$<br>F(\mathbf{w)}&#x3D;E\left{ \mathbf{x}G’\left( \mathbf{w}^T\mathbf{x} \right) \right} -\beta \mathbf{w}<br>$$<br>​	其雅可比矩阵为：<br>$$<br>J\left[ F\left( \mathbf{w} \right) \right] &#x3D;E\left{ \mathbf{xx}^TG’’\left( \mathbf{w}^T\mathbf{x} \right) \right} -\beta \mathbf{I}<br>$$<br>​	为了简化牛顿法求逆阵时的步骤，注意到此时的$\mathbf{x}$​已经是球化后的结果，那么很自然：<br>$$<br>E\left{ \mathbf{xx}^TG’’\left( \mathbf{w}^T\mathbf{x} \right) \right} \approx E\left{ \mathbf{xx}^T \right} E\left{ G’’\left( \mathbf{w}^T\mathbf{x} \right) \right} \approx E\left{ G’’\left( \mathbf{w}^T\mathbf{x} \right) \right}<br>$$<br>​	所以迭代公式就成了：<br>$$<br>\mathbf{w}</em>{n+1}&#x3D;\mathbf{w}<em>n-\frac{E\left{ \mathbf{x}G’\left( \mathbf{w}</em>{n}^{T}\mathbf{x} \right) \right} -\beta \mathbf{w}<em>n}{E\left{ G’’\left( \mathbf{w}</em>{n}^{T}\mathbf{x} \right) \right} -\beta}<br>\<br>&#x3D;\frac{E\left{ G’’\left( \mathbf{w}<em>{n}^{T}\mathbf{x} \right) \right} \mathbf{w}<em>n-E\left{ \mathbf{x}G’\left( \mathbf{w}</em>{n}^{T}\mathbf{x} \right) \right}}{E\left{ G’’\left( \mathbf{w}</em>{n}^{T}\mathbf{x} \right) \right} -\beta}<br>$$<br>​	每次计算一iter后，$\mathbf{w}$都会归一化一次，于是乎分母并不需要进去计算，所以总的迭代是：<br>$$<br>\mathbf{w}<em>{n+1}&#x3D;E\left{ G’’\left( \mathbf{w}</em>{n}^{T}\mathbf{x} \right) \right} \mathbf{w}<em>n-E\left{ \mathbf{x}G’\left( \mathbf{w}</em>{n}^{T}\mathbf{x} \right) \right}<br>\<br>\mathbf{w}_{n+1}&#x3D;\mathbf{w}_n&#x2F;\left| \mathbf{w}_n \right|<br>$$<br>​	除了基于负熵的独立成分分析法，实际上这个办法相对粗糙，还有基于峭度和极大似然估计的方法，这里先不展开了，有空填坑。但还是很惊讶于依托一个定理和重要的近似，即可有很简短的操作实现如此复杂的功能。下面我们介绍一下之前说的预处理–白化环节：</p>
-<p>​	我们注意到在上面的推导里：$E\left( \mathbf{xx}^T \right) &#x3D;I$这个结果非常好用，实际上白化就是起到了这样的作用，白化和另一个熟悉的方法–主成分分析法（PCA），其实是一回事。</p>
-<p>​	首先我们对每一个属性字段的数据作零均值化，这是必须的。主成分分析最后希望得到的组分尽可能的“不相关”。实际上就是对协方差矩阵作特征值分解。分解后我们即有了上述所需的性质，即各行向量不相关。这里的详细推导以后有空再整理……</p>
-<p>​	然后大作业作出的时域波形和STFT幅度图如图所示：</p>
-<p><img src="/images/ICA_and_PCA_1.png"></p>
-<p><img src="/images/ICA_and_PCA_2.png"></p>
+<p>​
+实际上这次的信号大作业跟信号与系统本身并没有太大的关系，意在盲源分离。处理这种问题有一种方法：独立成分分析（ICA）。最开始做这个作业，是想直接复刻Andrew
+Ng布置的作业，但是后来一看这种朴素的机器学习方法，还是比搭积木炼丹要更亦可赛艇一点，遂记录。</p>
+<p>​
+(前排提醒，实际上大作业里使用的基于负熵的独立成分分析已经是好多年前的理论和成果了（当时的人真聪明），以现在很多的refer来看或多或少都不太严谨，但就像教高中生，逻辑自洽即可。要现在的我一口气赶上前人的智慧，也不现实。)</p>
+<p>​
+独立成分分析是希望分开的成分尽可能的“独立”，也就是统计意义上的独立。</p>
+<p>​
+首先要明确一个定理：<strong>Darmois-Skitovitch</strong>定理，假设<span
+class="math inline">\(S_1,S_2,...,S_n\)</span>是相互独立的声源，对于两个随机变量<span
+class="math inline">\(X,Y\)</span>： <span class="math display">\[
+X=\sum_{i=1}^n{\alpha _iS_i}
+\\
+Y=\sum_{i=1}^n{\beta _iS_i}
+\]</span> ​ 如果<span
+class="math inline">\(X,Y\)</span>独立，那么一定对于任意的<span
+class="math inline">\(\alpha_i\beta_i \ne 0\)</span>，且<span
+class="math inline">\(S_i\)</span>一定是高斯分布。</p>
+<p>​ 换句话说，如果<span
+class="math inline">\(S_i\)</span>不是高斯分布，那如果<span
+class="math inline">\(X,Y\)</span>独立，则<span
+class="math inline">\(\alpha_i\beta_i =
+0\)</span>。这一点是我们得以分离的基础。这个定理的证明比较复杂，就不管了。总之我们应用ICA时，信号一定要是非高斯的。当然，各个信号本身也要是独立的，这是一个很基本的假设。</p>
+<p>​ 基于上面的定理，我们考虑一种特殊的情形： <span
+class="math display">\[
+X=\alpha _1S_1+\alpha _2S_2
+\\
+Y=\beta _1S_1+\beta _2S_2
+\]</span> ​ 由线性代数知，我们可以找一个旋转矩阵<span
+class="math inline">\(W\)</span>，使得旋转后的<span
+class="math inline">\(X,Y\)</span>独立，而又因为<span
+class="math inline">\(DS\)</span>定理，旋转后的<span
+class="math inline">\(\alpha_i\beta_i =0\)</span>，因为我们假设信号<span
+class="math inline">\(S\)</span>是非高斯的，而<span
+class="math inline">\(\alpha,\beta\)</span>不可能全为0，否则有一个信号就成0了。所以只会有两种可能：
+<span class="math display">\[
+\left\{ \begin{array}{c}
+    X&#39;=0S_1+\alpha _2&#39;S_2\\
+    Y&#39;=\beta _1&#39;S_1+0S_2\\
+\end{array} \right. ,\left\{ \begin{array}{c}
+    X&#39;=\alpha _1&#39;S_1+0S_2\\
+    Y&#39;=0S_1+\beta _2&#39;S_2\\
+\end{array} \right.
+\]</span> ​
+于是我们就找到了分离，就像个奇迹，唯一的缺点就是分离后顺序和幅度不能保证而已，但这问题不大。</p>
+<p>​ 所以我们现在找到矩阵<span
+class="math inline">\(W\)</span>就好啦，但是怎么找是个问题。注意到，当我们完成分离后，<span
+class="math inline">\(X&#39;,Y&#39;\)</span>就变成了<span
+class="math inline">\(S_1,S_2\)</span>的常数倍，它们的分布是非高斯的，而在此之前分布都是<span
+class="math inline">\(S_1,S_2\)</span>的线性组合。中心极限定理告诉我们，即使是非高斯的分布，只要组合的够多，也会服从正态分布，那么越组合高斯性肯定越强。(严格来说，我们这里只是为了下面的负熵给出了一个直观的解释，它其实并不能成为一个严谨的论断，但对于我现在的水平，知道到这里就够了。)</p>
+<p>​
+而我们知道，所有同一方差下的概率分布中，高斯分布的熵最大，以及，高斯分布是唯一一个满足旋转不变性的分布（结合这个想想前面的<span
+class="math inline">\(W\)</span>就能知道我们为什么要让信号<span
+class="math inline">\(S_i\)</span>是非高斯的了）。所以我们可以利用熵来度量分布的非高斯性。</p>
+<p>​ 但是这并不容易，我们先补充一些熵的必要知识：</p>
+<p>​ 离散的熵被定义为： <span class="math display">\[
+H\left( Y \right) =-\sum_i{P\left( Y=a_i \right) \log P\left( Y=a_i
+\right)}
+\]</span> ​ 将其连续泛化，得到微分熵的定义： <span
+class="math display">\[
+H\left( y \right) =-\int{f\left( y \right) \log f\left( y \right)
+\mathrm{d}y}
+\]</span> ​ 所以负熵就定义为了： <span class="math display">\[
+J\left( y \right) =H\left( y_G \right) -H\left( y \right)
+\]</span> ​ 其中<span class="math inline">\(y_G\)</span>是一个与<span
+class="math inline">\(y\)</span>同方差的高斯分布，这是最大熵告诉我们的。</p>
+<p>​
+但在ICA计算时，这个理论式子是无法使用的，为此前人提出了各种有效的近似算法，其中一个是：
+<span class="math display">\[
+J\left( y \right) \propto \left[ E\left\{ G\left( y \right) \right\}
+-E\left\{ G\left( v \right) \right\} \right] ^2
+\]</span> ​ 这个近似非常的不显然，可以参见Hyvärinen当时的论文。其中<span
+class="math inline">\(G\)</span>是一个被选取的非二次函数，<span
+class="math inline">\(v\)</span>是一个零均值单位方差的高斯分布。这里的细节就不好展开讲了。</p>
+<p>​ 那么有了上述的铺垫，我们梳理一下我们要做的，原信号记为<span
+class="math inline">\(X\)</span>，混合后的为<span
+class="math inline">\(Y\)</span>，待求的旋转矩阵为<span
+class="math inline">\(W\)</span>，<span
+class="math inline">\(Y=W^TX\)</span>。那么我们要做的其实就是按照<span
+class="math inline">\(Y\)</span>的分量逐个优化，优化函数就是<span
+class="math inline">\(J(y)\)</span>，其中<span
+class="math inline">\(y=w^Tx\)</span>。</p>
+<p>​ 那么如何具体的优化呢？我们进一步分析，注意到我们的<span
+class="math inline">\(x\)</span>在优化时是不变的，下面我写的标准一点：
+<span class="math display">\[
+J\left( \mathbf{w} \right) =\left[ E\left\{ G\left(
+\mathbf{w}^T\mathbf{x} \right) \right\} -E\left\{ G\left( v \right)
+\right\} \right] ^2
+\]</span> ​ 注意，这并不是一个无约束的优化，实际上： <span
+class="math display">\[
+E\left[ \left( \mathbf{w}^T\mathbf{x} \right) ^2 \right] =E\left(
+\mathbf{w}^T\mathbf{xx}^T\mathbf{w} \right) =E\left(
+\mathbf{w}^T\mathbf{w} \right) =\left\| \mathbf{w} \right\| ^2=1
+\]</span> ​ 注意，在我们作ICA之前<span
+class="math inline">\(x\)</span>应该已经经过了预处理，那么： <span
+class="math display">\[
+E\left( \mathbf{xx}^T \right) =I
+\]</span> ​
+这个是预处理的直接结果，实际上这种预处理叫作白化(球化)。我们后面再提及它。</p>
+<p>​ 注意到<span
+class="math inline">\(J(\mathrm{w})\)</span>是引入高斯信号<span
+class="math inline">\(v\)</span>来进行非高斯型的对比，所以<span
+class="math inline">\(J(\mathrm{w})\)</span>的极值和$E{ G( w^T x ) }
+<span
+class="math inline">\(的极值在同一处取到，因此由KKT条件，在\)</span>E$的情况下：
+<span class="math display">\[
+\frac{\partial E\left\{ G\left( \mathbf{w}^T\mathbf{x} \right)
+\right\}}{\partial \mathbf{w}}-\beta \frac{\partial \left( \left\|
+\mathbf{w} \right\| ^2-1 \right)}{\partial \mathbf{w}}=0
+\\
+E\left\{ \mathbf{x}G&#39;\left( \mathbf{w}^T\mathbf{x} \right) \right\}
+-\beta \mathbf{w}=0
+\\
+\beta =E\left\{ \mathbf{w}_{0}^{T}\mathbf{x}G&#39;\left(
+\mathbf{w}_{0}^{T}\mathbf{x} \right) \right\}
+\]</span> ​ 其中<span
+class="math inline">\(\mathbf{w}_{0}^{T}\)</span>是最优的<span
+class="math inline">\(\mathbf{w}\)</span>​，那么这个搜索根的问题可以用牛顿法来解决，记：
+<span class="math display">\[
+F(\mathbf{w)}=E\left\{ \mathbf{x}G&#39;\left( \mathbf{w}^T\mathbf{x}
+\right) \right\} -\beta \mathbf{w}
+\]</span> ​ 其雅可比矩阵为： <span class="math display">\[
+J\left[ F\left( \mathbf{w} \right) \right] =E\left\{
+\mathbf{xx}^TG&#39;&#39;\left( \mathbf{w}^T\mathbf{x} \right) \right\}
+-\beta \mathbf{I}
+\]</span> ​ 为了简化牛顿法求逆阵时的步骤，注意到此时的<span
+class="math inline">\(\mathbf{x}\)</span>​已经是球化后的结果，那么很自然：
+<span class="math display">\[
+E\left\{ \mathbf{xx}^TG&#39;&#39;\left( \mathbf{w}^T\mathbf{x} \right)
+\right\} \approx E\left\{ \mathbf{xx}^T \right\} E\left\{
+G&#39;&#39;\left( \mathbf{w}^T\mathbf{x} \right) \right\} \approx
+E\left\{ G&#39;&#39;\left( \mathbf{w}^T\mathbf{x} \right) \right\}
+\]</span> ​ 所以迭代公式就成了： <span class="math display">\[
+\mathbf{w}_{n+1}=\mathbf{w}_n-\frac{E\left\{ \mathbf{x}G&#39;\left(
+\mathbf{w}_{n}^{T}\mathbf{x} \right) \right\} -\beta
+\mathbf{w}_n}{E\left\{ G&#39;&#39;\left( \mathbf{w}_{n}^{T}\mathbf{x}
+\right) \right\} -\beta}
+\\
+=\frac{E\left\{ G&#39;&#39;\left( \mathbf{w}_{n}^{T}\mathbf{x} \right)
+\right\} \mathbf{w}_n-E\left\{ \mathbf{x}G&#39;\left(
+\mathbf{w}_{n}^{T}\mathbf{x} \right) \right\}}{E\left\{
+G&#39;&#39;\left( \mathbf{w}_{n}^{T}\mathbf{x} \right) \right\} -\beta}
+\]</span> ​ 每次计算一iter后，<span
+class="math inline">\(\mathbf{w}\)</span>都会归一化一次，于是乎分母并不需要进去计算，所以总的迭代是：
+<span class="math display">\[
+\mathbf{w}_{n+1}=E\left\{ G&#39;&#39;\left( \mathbf{w}_{n}^{T}\mathbf{x}
+\right) \right\} \mathbf{w}_n-E\left\{ \mathbf{x}G&#39;\left(
+\mathbf{w}_{n}^{T}\mathbf{x} \right) \right\}
+\\
+\mathbf{w}_{n+1}=\mathbf{w}_n/\left\| \mathbf{w}_n \right\|
+\]</span> ​
+除了基于负熵的独立成分分析法，实际上这个办法相对粗糙，还有基于峭度和极大似然估计的方法，这里先不展开了，有空填坑。但还是很惊讶于依托一个定理和重要的近似，即可有很简短的操作实现如此复杂的功能。下面我们介绍一下之前说的预处理--白化环节：</p>
+<p>​ 我们注意到在上面的推导里：<span class="math inline">\(E\left(
+\mathbf{xx}^T \right)
+=I\)</span>这个结果非常好用，实际上白化就是起到了这样的作用，白化和另一个熟悉的方法--主成分分析法（PCA），其实是一回事。</p>
+<p>​
+首先我们对每一个属性字段的数据作零均值化，这是必须的。主成分分析最后希望得到的组分尽可能的“不相关”。实际上就是对协方差矩阵作特征值分解。分解后我们即有了上述所需的性质，即各行向量不相关。这里的详细推导以后有空再整理……</p>
+<p>​ 然后大作业作出的时域波形和STFT幅度图如图所示：</p>
+<p><img src="/images/ICA_and_PCA_1.png" /></p>
+<p><img src="/images/ICA_and_PCA_2.png" /></p>
 
     </div>
 

@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	我们都十分希望有个“解析式”，这样把把变量的值带入就能得到想要的数值。在求定积分时，我们希望可以直接用牛顿莱布尼茨公式得到答案，但是对于多种情况都要借助数值积分。">
+    <meta name="description" content="​ 我们都十分希望有个“解析式”，这样把把变量的值带入就能得到想要的数值。在求定积分时，我们希望可以直接用牛顿莱布尼茨公式得到答案，但是对于多种情况都要借助数值积分。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数值积分">
 <meta property="og:url" content="http://example.com/2021/09/08/%E6%95%B0%E5%80%BC%E7%A7%AF%E5%88%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	我们都十分希望有个“解析式”，这样把把变量的值带入就能得到想要的数值。在求定积分时，我们希望可以直接用牛顿莱布尼茨公式得到答案，但是对于多种情况都要借助数值积分。">
+<meta property="og:description" content="​ 我们都十分希望有个“解析式”，这样把把变量的值带入就能得到想要的数值。在求定积分时，我们希望可以直接用牛顿莱布尼茨公式得到答案，但是对于多种情况都要借助数值积分。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/integral_1.jpg">
 <meta property="og:image" content="http://example.com/images/integral_2.jpg">
@@ -60,7 +60,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -238,34 +242,104 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	我们都十分希望有个“解析式”，这样把把变量的值带入就能得到想要的数值。在求定积分时，我们希望可以直接用牛顿莱布尼茨公式得到答案，但是对于多种情况都要借助数值积分。</p>
+        <p>​
+我们都十分希望有个“解析式”，这样把把变量的值带入就能得到想要的数值。在求定积分时，我们希望可以直接用牛顿莱布尼茨公式得到答案，但是对于多种情况都要借助数值积分。</p>
 <span id="more"></span>
-
-<p>​	对于数值积分的大多数实践方法其实和之前对微分方程的处理是十分相似的，因为抛去理论的分析，在数值求解上，这两者近乎就是完全一致的。</p>
-<p>​	有许多效果很好的数值积分方法，比如多项式逼近，辛普森方法，并且matlab已经封装了许多完好的数值积分器，自己造的轮子性能是跟商业化的比不了的。对于实际操作时，其实用一些基础的方法就够了。</p>
-<p>​	关于数值积分有一道经典的问题：CUMCM2010A储油罐的变位标定，这个问题具有非常好的现实意义，但是放在今天看难度已经太低了，问题简单说来就是由于加油站地下地基的变位导致的储油罐油浮子高度导出的体积的变化，需要对原有的表格重新标定，基于此要建立纵向和横向偏角对体积方程。</p>
-<p><img src="/images/integral_1.jpg"></p>
-<p>​	罐体的具体参数在题目原件里已经给出，实际上在解决这个两端是球缺中间是圆柱的比较复杂的情况之前，题目用一个小的椭圆柱形的小储油罐进行了过渡。</p>
-<p>​	我们先考虑一种特殊的，即没有发生任何变位时，小储油罐的情况。</p>
-<p><img src="/images/integral_2.jpg"></p>
-<p>​	这是我们第一反应会建立的模型，此时积分也并不复杂：<br>$$<br>V&#x3D;\int_0^{2.45}{\int_{-b}^{-b+h}{a\sqrt{1-\frac{y^2}{b^2}}dydx}}<br>$$<br>​	给定一个$h$就可以计算出此时的体积，但是当有变位时，上述公式就不适用了，容易分析出，变位$\beta$实际上只是对高度的改变，在实际的储油罐中，$\beta$​作用下从截面上看液面仍然水平，所以通过简单的几何关系可以导出：</p>
-<p><img src="/images/integral_3.jpg"><br>$$<br>h_{ideal}&#x3D;\left( 1-\cos \beta \right) R+h\cos \beta<br>$$<br>​	要注意，这么写实际上是为了解耦，利用上面的关系，就可以将$\beta$的影响转化为对$h$的更新。对于$\alpha$问题变得稍微复杂了一些，因为实际上由于倾斜，第一直觉就是：在$h&#x3D;0$时仍然会有油。并且由于倾斜，两端不再对称，两端的边界条件会导致这个问题复杂化。比如当倾起一个角度时，当油比较多时，较低端已经被注满，所以需要分类讨论。</p>
-<p>​	但运用一些比较显然的技巧，可以帮助简化整个过程。</p>
-<p><img src="/images/integral_4.jpg"></p>
-<p>​	如果将坐标系改成这种形式，问题就会得到简化。但仍然有一个问题，若左端有油而油不够多，右端没有油，则仍然要分类讨论，实际上是不需要的，此时的积分会积出一个复数，它的实部是零，虚部对我们没有意义，此时一个积分式就可以完成第一问，这个积分的方式可以理解为“切片”。</p>
-<p><img src="/images/integral_6.jpg"></p>
-<p>​	计算得到的4.1°时的结果与实际数据的比较，考虑到实际的储油罐是有厚度的而题目并没有给相关的信息，误差是可以接受的。</p>
-<p>​	而第二问是一个反问题，加之变成了两端是球缺的储油罐，难度增加。此时通过第一问的铺垫，可以直接推出此时应该建立的坐标系是：</p>
-<p><img src="/images/integral_5.jpg"></p>
-<p>​	此时对于给定的一个$h$,体积可以如下求得：<br>$$<br>\left{ \begin{array}{c}<br>    x\in \left[ -3,-2 \right) \left{ \begin{array}{c}<br>    \begin{array}{c}<br>    \begin{array}{c}<br>    \begin{array}{c}<br>    S&#x3D;\int_{-\sqrt{2R\left( x+3 \right) -\left( x+3 \right) ^2}}^{h-x\tan \left( \alpha \right) -1.5}{2\sqrt{2R\left( x+3 \right) -\left( x+3 \right) ^2-y^2}dy}\<br>    V_{left}&#x3D;\int_{-3}^{-2}{S\left( x \right) dx}\<br>\end{array}\<br>\end{array}\<br>\end{array}\<br>\end{array} \right.\<br>    x\in \left[ -2,6 \right) \left{ \begin{array}{c}<br>    \begin{array}{c}<br>    S&#x3D;\int_{-1.5}^{h-x\tan \left( \alpha \right) -1.5}{2\sqrt{R_{b}^{2}-y^2}dy}\<br>    V_{mid}&#x3D;\int_{-2}^6{S\left( x \right) dx}\<br>\end{array}\<br>\end{array} \right.\<br>    x\in \left[ 6,7 \right) \left{ \begin{array}{c}<br>    \begin{array}{c}<br>    \begin{array}{c}<br>    \begin{array}{c}<br>    S&#x3D;\int_{-\sqrt{2R\left( 7-x \right) -\left( 7-x \right) ^2}}^{h-x\tan \left( \alpha \right) -1.5}{2\sqrt{2R\left( 7-x \right) -\left( 7-x \right) ^2-y^2}dy}\<br>    V_{right}&#x3D;\int_6^7{S\left( x \right) dx}\<br>\end{array}\<br>\end{array}\<br>\end{array}\<br>\end{array} \right.\<br>    V&#x3D;real\left( V_{left}+V_{mid}+V_{right} \right)\<br>\end{array} \right.<br>$$<br>​	由于上述的积分式都很难得到解析解，所以数值解是出路。但是数值解一定会带来误差，此时附件的数据就起到了作用，这个问题的有趣之处是要分辨清楚附件中所给数据的意义。对于附件2来说，此时的“显示油量容积”是不准确的，这是由于此时变位后导致高度的“畸变”，此时高度和体积的关系对应的是$\alpha,\beta$均为零时的体积，我们可以利用此数据与数值积分的结果进行校验，来选取合适的积分步长$dx$</p>
-<p>​	并且由于附件2中没有给初始油量的体积，所以仅从附件2是无法知晓储油罐内当时的准确体积的，所以试图用$h-V$来进行最小二乘的解法都是不正确的。应该从附件2中提取$\varDelta h-\varDelta V$的关系进行最小二乘，接下来的问题就是如何选取合适的数据进行最小二乘，实际上这个的计算速度不是很快，处理时需要进一步考虑选取哪些数据点对进行最小二乘，以及对用matlab的计算代码进行加速处理。</p>
+<p>​
+对于数值积分的大多数实践方法其实和之前对微分方程的处理是十分相似的，因为抛去理论的分析，在数值求解上，这两者近乎就是完全一致的。</p>
+<p>​
+有许多效果很好的数值积分方法，比如多项式逼近，辛普森方法，并且matlab已经封装了许多完好的数值积分器，自己造的轮子性能是跟商业化的比不了的。对于实际操作时，其实用一些基础的方法就够了。</p>
+<p>​
+关于数值积分有一道经典的问题：CUMCM2010A储油罐的变位标定，这个问题具有非常好的现实意义，但是放在今天看难度已经太低了，问题简单说来就是由于加油站地下地基的变位导致的储油罐油浮子高度导出的体积的变化，需要对原有的表格重新标定，基于此要建立纵向和横向偏角对体积方程。</p>
+<p><img src="/images/integral_1.jpg" /></p>
+<p>​
+罐体的具体参数在题目原件里已经给出，实际上在解决这个两端是球缺中间是圆柱的比较复杂的情况之前，题目用一个小的椭圆柱形的小储油罐进行了过渡。</p>
+<p>​ 我们先考虑一种特殊的，即没有发生任何变位时，小储油罐的情况。</p>
+<p><img src="/images/integral_2.jpg" /></p>
+<p>​ 这是我们第一反应会建立的模型，此时积分也并不复杂： <span
+class="math display">\[
+V=\int_0^{2.45}{\int_{-b}^{-b+h}{a\sqrt{1-\frac{y^2}{b^2}}dydx}}
+\]</span> ​ 给定一个<span
+class="math inline">\(h\)</span>就可以计算出此时的体积，但是当有变位时，上述公式就不适用了，容易分析出，变位<span
+class="math inline">\(\beta\)</span>实际上只是对高度的改变，在实际的储油罐中，<span
+class="math inline">\(\beta\)</span>​作用下从截面上看液面仍然水平，所以通过简单的几何关系可以导出：</p>
+<p><img src="/images/integral_3.jpg" /> <span class="math display">\[
+h_{ideal}=\left( 1-\cos \beta \right) R+h\cos \beta
+\]</span> ​ 要注意，这么写实际上是为了解耦，利用上面的关系，就可以将<span
+class="math inline">\(\beta\)</span>的影响转化为对<span
+class="math inline">\(h\)</span>的更新。对于<span
+class="math inline">\(\alpha\)</span>问题变得稍微复杂了一些，因为实际上由于倾斜，第一直觉就是：在<span
+class="math inline">\(h=0\)</span>时仍然会有油。并且由于倾斜，两端不再对称，两端的边界条件会导致这个问题复杂化。比如当倾起一个角度时，当油比较多时，较低端已经被注满，所以需要分类讨论。</p>
+<p>​ 但运用一些比较显然的技巧，可以帮助简化整个过程。</p>
+<p><img src="/images/integral_4.jpg" /></p>
+<p>​
+如果将坐标系改成这种形式，问题就会得到简化。但仍然有一个问题，若左端有油而油不够多，右端没有油，则仍然要分类讨论，实际上是不需要的，此时的积分会积出一个复数，它的实部是零，虚部对我们没有意义，此时一个积分式就可以完成第一问，这个积分的方式可以理解为“切片”。</p>
+<p><img src="/images/integral_6.jpg" /></p>
+<p>​
+计算得到的4.1°时的结果与实际数据的比较，考虑到实际的储油罐是有厚度的而题目并没有给相关的信息，误差是可以接受的。</p>
+<p>​
+而第二问是一个反问题，加之变成了两端是球缺的储油罐，难度增加。此时通过第一问的铺垫，可以直接推出此时应该建立的坐标系是：</p>
+<p><img src="/images/integral_5.jpg" /></p>
+<p>​ 此时对于给定的一个<span
+class="math inline">\(h\)</span>,体积可以如下求得： <span
+class="math display">\[
+\left\{ \begin{array}{c}
+    x\in \left[ -3,-2 \right) \left\{ \begin{array}{c}
+    \begin{array}{c}
+    \begin{array}{c}
+    \begin{array}{c}
+    S=\int_{-\sqrt{2R\left( x+3 \right) -\left( x+3 \right)
+^2}}^{h-x\tan \left( \alpha \right) -1.5}{2\sqrt{2R\left( x+3 \right)
+-\left( x+3 \right) ^2-y^2}dy}\\
+    V_{left}=\int_{-3}^{-2}{S\left( x \right) dx}\\
+\end{array}\\
+\end{array}\\
+\end{array}\\
+\end{array} \right.\\
+    x\in \left[ -2,6 \right) \left\{ \begin{array}{c}
+    \begin{array}{c}
+    S=\int_{-1.5}^{h-x\tan \left( \alpha \right)
+-1.5}{2\sqrt{R_{b}^{2}-y^2}dy}\\
+    V_{mid}=\int_{-2}^6{S\left( x \right) dx}\\
+\end{array}\\
+\end{array} \right.\\
+    x\in \left[ 6,7 \right) \left\{ \begin{array}{c}
+    \begin{array}{c}
+    \begin{array}{c}
+    \begin{array}{c}
+    S=\int_{-\sqrt{2R\left( 7-x \right) -\left( 7-x \right)
+^2}}^{h-x\tan \left( \alpha \right) -1.5}{2\sqrt{2R\left( 7-x \right)
+-\left( 7-x \right) ^2-y^2}dy}\\
+    V_{right}=\int_6^7{S\left( x \right) dx}\\
+\end{array}\\
+\end{array}\\
+\end{array}\\
+\end{array} \right.\\
+    V=real\left( V_{left}+V_{mid}+V_{right} \right)\\
+\end{array} \right.
+\]</span> ​
+由于上述的积分式都很难得到解析解，所以数值解是出路。但是数值解一定会带来误差，此时附件的数据就起到了作用，这个问题的有趣之处是要分辨清楚附件中所给数据的意义。对于附件2来说，此时的“显示油量容积”是不准确的，这是由于此时变位后导致高度的“畸变”，此时高度和体积的关系对应的是<span
+class="math inline">\(\alpha,\beta\)</span>均为零时的体积，我们可以利用此数据与数值积分的结果进行校验，来选取合适的积分步长<span
+class="math inline">\(dx\)</span></p>
+<p>​
+并且由于附件2中没有给初始油量的体积，所以仅从附件2是无法知晓储油罐内当时的准确体积的，所以试图用<span
+class="math inline">\(h-V\)</span>来进行最小二乘的解法都是不正确的。应该从附件2中提取<span
+class="math inline">\(\varDelta h-\varDelta
+V\)</span>的关系进行最小二乘，接下来的问题就是如何选取合适的数据进行最小二乘，实际上这个的计算速度不是很快，处理时需要进一步考虑选取哪些数据点对进行最小二乘，以及对用matlab的计算代码进行加速处理。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[Error]</span>=<span class="title">Lsq_oil</span><span class="params">(alpha,beta,V_cur,H)</span></span></span><br><span class="line"></span><br><span class="line">alpha=alpha*<span class="built_in">pi</span>/<span class="number">180</span>;</span><br><span class="line"><span class="built_in">beta</span>=<span class="built_in">beta</span>*<span class="built_in">pi</span>/<span class="number">180</span>;</span><br><span class="line"></span><br><span class="line">dx=<span class="number">0.005</span>;</span><br><span class="line">R=<span class="number">1.625</span>;</span><br><span class="line"></span><br><span class="line">n=<span class="built_in">length</span>(H);</span><br><span class="line">H=(<span class="number">1</span>-<span class="built_in">cos</span>(<span class="built_in">beta</span>))*R+<span class="built_in">cos</span>(<span class="built_in">beta</span>).*H;</span><br><span class="line"></span><br><span class="line">V=<span class="built_in">zeros</span>(n,<span class="number">1</span>);</span><br><span class="line">delta_V=<span class="built_in">zeros</span>(n<span class="number">-1</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    h=H(<span class="built_in">i</span>);</span><br><span class="line">    V_l=<span class="number">0</span>;</span><br><span class="line">    V_m=<span class="number">0</span>;</span><br><span class="line">    V_b=<span class="number">0</span>;</span><br><span class="line">    S_front_pre=<span class="number">0</span>;</span><br><span class="line">    S_stable_pre=<span class="number">0</span>;</span><br><span class="line">    S_behind_pre=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> x=<span class="number">-3</span>:dx:<span class="number">-2</span></span><br><span class="line">        f=@(y) <span class="number">2</span>*<span class="built_in">sqrt</span>(<span class="number">2</span>*R*(x+<span class="number">3</span>)-(x+<span class="number">3</span>).^<span class="number">2</span>-y.^<span class="number">2</span>);</span><br><span class="line">        S_front_cur=<span class="built_in">real</span>(integral(@(y)f(y),-<span class="built_in">sqrt</span>(<span class="number">2</span>*R*(x+<span class="number">3</span>)-(x+<span class="number">3</span>).^<span class="number">2</span>),h-x*<span class="built_in">tan</span>(alpha)<span class="number">-1.5</span>));</span><br><span class="line">        S_consider=(S_front_cur+S_front_pre)/<span class="number">2</span>;</span><br><span class="line">        S_front_pre=S_front_cur;</span><br><span class="line">        V_l=V_l+S_consider*dx;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> x=<span class="number">-2</span>:dx:<span class="number">6</span></span><br><span class="line">        g=@(y) <span class="number">2</span>*<span class="built_in">sqrt</span>(<span class="number">1.5</span>*<span class="number">1.5</span>-y.^<span class="number">2</span>);</span><br><span class="line">        S_stable_cur=<span class="built_in">real</span>(integral(@(y)g(y),<span class="number">-1.5</span>,h-x*<span class="built_in">tan</span>(alpha)<span class="number">-1.5</span>));</span><br><span class="line">        S_consider=(S_stable_cur+S_stable_pre)/<span class="number">2</span>;</span><br><span class="line">        S_stable_pre=S_stable_cur;</span><br><span class="line">        V_m=V_m+S_consider*dx;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> x=<span class="number">6</span>:dx:<span class="number">7</span></span><br><span class="line">        z=@(y) <span class="number">2</span>*<span class="built_in">sqrt</span>(<span class="number">2</span>*R*(<span class="number">7</span>-x)-(<span class="number">7</span>-x).^<span class="number">2</span>-y.^<span class="number">2</span>);</span><br><span class="line">        S_behind_cur=<span class="built_in">real</span>(integral(@(y)z(y),-<span class="built_in">sqrt</span>(<span class="number">2</span>*R*(<span class="number">7</span>-x)-(<span class="number">7</span>-x).^<span class="number">2</span>),h-x*<span class="built_in">tan</span>(alpha)<span class="number">-1.5</span>));</span><br><span class="line">        S_consider=(S_behind_cur+S_behind_pre)/<span class="number">2</span>;</span><br><span class="line">        S_behind_pre=S_behind_cur;</span><br><span class="line">        V_b=V_b+S_consider*dx;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    V(<span class="built_in">i</span>)=V_l+V_m+V_b;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">i</span>~=<span class="number">1</span></span><br><span class="line">        delta_V(<span class="built_in">i</span>)=V(<span class="built_in">i</span><span class="number">-1</span>)-V(<span class="built_in">i</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">V=V*<span class="number">1000</span>;</span><br><span class="line">delta_V=delta_V*<span class="number">1000</span>;</span><br><span class="line">Error=sum(V_cur-delta_V(<span class="number">2</span>:n)).^<span class="number">2</span>/(n<span class="number">-1</span>);</span><br></pre></td></tr></table></figure>
-
-<p>​	由于这个问题是我与我的一个队友这三天利用临近比赛每晚一到两小时左右进行处理的，上述代码哪怕用matlab都有很大的加速空间，但由于这里只是作为一个数值积分的例子就先不管了，如果用这个直接进行遍历搜索，且数据点对选取附件2中第一次加油前的所有数据，粗略计算出的$\alpha&#x3D;2.6°$，$\beta&#x3D;0°$，这个结果与评阅标准中的“$\alpha&#x3D;2°$左右，对$\beta$不敏感。”仍然有一定差距，但对于用6个小时计算出的结果，已经可以接受了。</p>
-<p>​	这里值得一提的是，对于数值积分来说，任务已经完成了。但是对于该问题，实际上选取合适的数据点对是重要的，如果选取的很多，拟合的效果可能过头，并且计算的时间会显著变长。合理的处理方法实际上在高中的物理课上就学过：选取间隔长的数据。即对数据进行稀疏化，效果会变好一些，且得到的参数将会更稳定。</p>
-<p>​	实际上我愧对我两个队友，因为无条件的做A题是我的想法，功利的来讲，去广撒网的，浅尝辄止的学一些C题要用的评价类，预测类，调包等等，画点华而不实的图，从功利的角度上看这是上策。但是我当时心里想：“如果都这么水，和咸鱼有什么区别。”，心一横就敲定A了，他俩也没啥意见。结果到临头我甚至有点怂，“如果推进的时候遇到一些我没遇到的问题怎么办？如果解方程解出来发散了而我又不清楚步长怎么选怎么办？”等等，我希望我一个假期学到的数值方法和数学工具，应付明天的A题够用。</p>
-<p>​	确实数学建模在一些大佬眼里，处于鄙视链最低端。因为做这个无非就是想混个加分什么的，和同级加分的比赛比技术含量还是最低的，或许在他们眼里我一个月学那些内容他们两天就上手了，或许他们根本不屑于用matlab这种傻瓜式的软件来写这个的代码。我根本达不到他们的高度，差的太多了，我毕竟不是他们啊，我是我啊。“世间只有一种英雄主义，那就是看清生活的真相之后依然热爱生活。”，至少我回看我发的第一篇博客的时候，回想起当时PDE都不会列的我，还是有一些收获的，这就够了。</p>
-<p>​	<img src="/images/integral_7.jpg"></p>
+<p>​
+由于这个问题是我与我的一个队友这三天利用临近比赛每晚一到两小时左右进行处理的，上述代码哪怕用matlab都有很大的加速空间，但由于这里只是作为一个数值积分的例子就先不管了，如果用这个直接进行遍历搜索，且数据点对选取附件2中第一次加油前的所有数据，粗略计算出的<span
+class="math inline">\(\alpha=2.6°\)</span>，<span
+class="math inline">\(\beta=0°\)</span>，这个结果与评阅标准中的“<span
+class="math inline">\(\alpha=2°\)</span>左右，对<span
+class="math inline">\(\beta\)</span>不敏感。”仍然有一定差距，但对于用6个小时计算出的结果，已经可以接受了。</p>
+<p>​
+这里值得一提的是，对于数值积分来说，任务已经完成了。但是对于该问题，实际上选取合适的数据点对是重要的，如果选取的很多，拟合的效果可能过头，并且计算的时间会显著变长。合理的处理方法实际上在高中的物理课上就学过：选取间隔长的数据。即对数据进行稀疏化，效果会变好一些，且得到的参数将会更稳定。</p>
+<p>​
+实际上我愧对我两个队友，因为无条件的做A题是我的想法，功利的来讲，去广撒网的，浅尝辄止的学一些C题要用的评价类，预测类，调包等等，画点华而不实的图，从功利的角度上看这是上策。但是我当时心里想：“如果都这么水，和咸鱼有什么区别。”，心一横就敲定A了，他俩也没啥意见。结果到临头我甚至有点怂，“如果推进的时候遇到一些我没遇到的问题怎么办？如果解方程解出来发散了而我又不清楚步长怎么选怎么办？”等等，我希望我一个假期学到的数值方法和数学工具，应付明天的A题够用。</p>
+<p>​
+确实数学建模在一些大佬眼里，处于鄙视链最低端。因为做这个无非就是想混个加分什么的，和同级加分的比赛比技术含量还是最低的，或许在他们眼里我一个月学那些内容他们两天就上手了，或许他们根本不屑于用matlab这种傻瓜式的软件来写这个的代码。我根本达不到他们的高度，差的太多了，我毕竟不是他们啊，我是我啊。“世间只有一种英雄主义，那就是看清生活的真相之后依然热爱生活。”，至少我回看我发的第一篇博客的时候，回想起当时PDE都不会列的我，还是有一些收获的，这就够了。</p>
+<p>​ <img src="/images/integral_7.jpg" /></p>
 
     </div>
 

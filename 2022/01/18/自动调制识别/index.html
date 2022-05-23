@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	深度学习进行调制分类源于2016年O’Shea的工作，经过一个学期的尝试，我收获很多。最后试着投了篇IJCAI，这个工作涉及到了许多方面的知识以及相当多的细节，本文对此作一些整理。">
+    <meta name="description" content="​ 深度学习进行调制分类源于2016年O&#39;Shea的工作，经过一个学期的尝试，我收获很多。最后试着投了篇IJCAI，这个工作涉及到了许多方面的知识以及相当多的细节，本文对此作一些整理。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自动调制识别">
 <meta property="og:url" content="http://example.com/2022/01/18/%E8%87%AA%E5%8A%A8%E8%B0%83%E5%88%B6%E8%AF%86%E5%88%AB/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	深度学习进行调制分类源于2016年O’Shea的工作，经过一个学期的尝试，我收获很多。最后试着投了篇IJCAI，这个工作涉及到了许多方面的知识以及相当多的细节，本文对此作一些整理。">
+<meta property="og:description" content="​ 深度学习进行调制分类源于2016年O&#39;Shea的工作，经过一个学期的尝试，我收获很多。最后试着投了篇IJCAI，这个工作涉及到了许多方面的知识以及相当多的细节，本文对此作一些整理。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/AMR1.jpg">
 <meta property="og:image" content="http://example.com/images/AMR2.jpg">
@@ -55,7 +55,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -233,86 +237,218 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	深度学习进行调制分类源于2016年O’Shea的工作，经过一个学期的尝试，我收获很多。最后试着投了篇IJCAI，这个工作涉及到了许多方面的知识以及相当多的细节，本文对此作一些整理。</p>
+        <p>​
+深度学习进行调制分类源于2016年O'Shea的工作，经过一个学期的尝试，我收获很多。最后试着投了篇IJCAI，这个工作涉及到了许多方面的知识以及相当多的细节，本文对此作一些整理。</p>
 <span id="more"></span>
-
-<p>​	我们所用的数据集同样是2016年O’Shea所提出的开源数据集RML2016.10.a，可以在deepsig网站上下载到。</p>
+<p>​
+我们所用的数据集同样是2016年O'Shea所提出的开源数据集RML2016.10.a，可以在deepsig网站上下载到。</p>
 <table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>属性</th>
 <th>具体信息</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>数据格式</td>
 <td>IQ信号（2×128）</td>
 </tr>
-<tr>
+<tr class="even">
 <td>样本总量</td>
 <td>220000</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>调制方式</td>
 <td>8个数字调制：8PSK,BPSK,CPFSK,GFSK,PAM4,16QAM,64QAM,QPSK;3个模拟调制：AM-DSB,AM-SSB,WBFM</td>
 </tr>
-<tr>
+<tr class="even">
 <td>信噪比范围</td>
 <td>-20dB~18dB,间隔为2dB</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>采样率</td>
 <td>200kHz</td>
 </tr>
-<tr>
+<tr class="even">
 <td>延迟设置</td>
 <td>[0.0,0.9,1.7]</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>噪声</td>
 <td>加性高斯白噪声（AWGN）</td>
 </tr>
-<tr>
+<tr class="even">
 <td>信道环境</td>
 <td>加性高斯白噪声，选择性衰落，中心频率偏移，采样率偏移</td>
 </tr>
-</tbody></table>
-<pre><code> 从人工智能的角度上看，上述的一些名词我们其实并不是要了解，我们需要了解的是这个数据集的意义，我们现在一步一步来，当我们拿到.pkl的数据集后，我们要利用python的pickle包来打开并读取它：
-</code></pre>
+</tbody>
+</table>
+<pre><code>从人工智能的角度上看，上述的一些名词我们其实并不是要了解，我们需要了解的是这个数据集的意义，我们现在一步一步来，当我们拿到.pkl的数据集后，我们要利用python的pickle包来打开并读取它：</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">classes = &#123;<span class="string">b&#x27;QAM16&#x27;</span>: <span class="number">0</span>, <span class="string">b&#x27;QAM64&#x27;</span>: <span class="number">1</span>, <span class="string">b&#x27;8PSK&#x27;</span>: <span class="number">2</span>, <span class="string">b&#x27;WBFM&#x27;</span>: <span class="number">3</span>, <span class="string">b&#x27;BPSK&#x27;</span>: <span class="number">4</span>,</span><br><span class="line">           <span class="string">b&#x27;CPFSK&#x27;</span>: <span class="number">5</span>, <span class="string">b&#x27;AM-DSB&#x27;</span>: <span class="number">6</span>, <span class="string">b&#x27;GFSK&#x27;</span>: <span class="number">7</span>, <span class="string">b&#x27;PAM4&#x27;</span>: <span class="number">8</span>, <span class="string">b&#x27;QPSK&#x27;</span>: <span class="number">9</span>, <span class="string">b&#x27;AM-SSB&#x27;</span>: <span class="number">10</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">LoadDataset</span>(<span class="params">fp</span>):</span><br><span class="line">    <span class="keyword">global</span> snrs, mods, lbl  <span class="comment"># 定义一些后面会用到的全局变量</span></span><br><span class="line">    <span class="type">Set</span> = pickle.load(<span class="built_in">open</span>(fp, <span class="string">&#x27;rb&#x27;</span>), encoding=<span class="string">&#x27;bytes&#x27;</span>)</span><br><span class="line">    <span class="comment">#  Set是一个字典，每一个调制方式下的信噪比有1000条数据</span></span><br><span class="line">    snrs, mods = <span class="built_in">map</span>(<span class="keyword">lambda</span> j: <span class="built_in">sorted</span>(<span class="built_in">list</span>(<span class="built_in">set</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> x: x[j], <span class="type">Set</span>.keys())))), [<span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    这个由各种数据结构，lambda表达式，map形成的一行代码做了很多工作，下面为了更好的理解给出一些函数样例：</span></span><br><span class="line"><span class="string">    lambda是匿名函数，python对匿名函数提供了一定的支持。matlab也有类似的功能：</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt;f = lambda x : x * x</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt;f</span></span><br><span class="line"><span class="string">    &lt;function&lt;lambda&gt; at 0x101c6ef28&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt;f(5)</span></span><br><span class="line"><span class="string">    25</span></span><br><span class="line"><span class="string">    lambda函数的好处是不用担心函数名冲突</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    map函数会对指定序列应用给定的映射进行作用：</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt;map(lambda x, y: x + y, [1, 3, 5, 7, 9], [2, 4, 6, 8, 10])</span></span><br><span class="line"><span class="string">    [3, 7, 11, 15, 19]</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    map(lambda x: x[j], Xd.keys())#Xd.key()取出key,x[key]再返回</span></span><br><span class="line"><span class="string">    Xd.keys()取出Xd中的键keys,形为(&#x27;8PSK&#x27;,-10),</span></span><br><span class="line"><span class="string">    故snrs值为:sorted(list(set(map(lambda x: x[1], Xd.keys())))),</span></span><br><span class="line"><span class="string">    mods值为:sorted(list(set(map(lambda x: x[0], Xd.keys()))))</span></span><br><span class="line"><span class="string">    所以就得到了一个长为11的列表mods和长为20的列表snrs</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    X = [] <span class="comment"># 数据</span></span><br><span class="line">    Y = [] <span class="comment"># 标签</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> mod <span class="keyword">in</span> mods:</span><br><span class="line">        <span class="keyword">for</span> snr <span class="keyword">in</span> snrs:</span><br><span class="line">            X.append(<span class="type">Set</span>[(mod, snr)]) <span class="comment"># 索引一个特定的调制方式在一个信噪比下的数据，用append方法将它连接</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="type">Set</span>[(mod, snr)].shape[<span class="number">0</span>]):</span><br><span class="line">                Y.append(mod) <span class="comment">#for循环利用shape方法得到长度，之后将标签打上去。</span></span><br><span class="line">    X = np.vstack(X)</span><br><span class="line">    <span class="comment"># numpy库的vstack是个常用的方法，numpy中完成拼接的方法有vstack,hstack,concatenate，详细资料可见文档，这里强调的是：</span></span><br><span class="line">    <span class="comment"># 我们经常使用vstack来把以np.array为元素的列表沿着列表list叠成一个array</span></span><br><span class="line">    Y = [classes[i] <span class="keyword">for</span> i <span class="keyword">in</span> Y] <span class="comment"># 利用一个表达式和classes字典，将BPSK变成整形数字标签</span></span><br><span class="line">    Y = np.array(Y, dtype=np.int64) <span class="comment"># （人为转换一下格式总是好的）</span></span><br><span class="line">    Y = torch.from_numpy(Y)</span><br><span class="line">    X = torch.from_numpy(X.astype(np.float32)) <span class="comment"># 利用torch.from_numpy把array变为tensor以便pytorch框架处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> X, Y</span><br></pre></td></tr></table></figure>
-
-<p>​	这个打开数据集的函数实际上不具有普遍性，因为不同数据集的打开方式显然不会一样，但是大体思路都是一样的，总结一下：</p>
-<p>​	①shape是个好方法，因为torch和numpy里都支持它，可以print出变量的维数大小信息。</p>
-<p>​	②要利用各种拼接方法来实现自己的目的，以及可以用强制转换为set来删去重复元素。</p>
-<p>​	③map函数是个好东西，要记得用。</p>
-<p>​	为了对数据集有一个整体感知，可视化非常关键，但是由于matplotlib以及pycharm中的sci-view都不是很好用，所以我期望将数据集转成mat进而利用matlab进行可视化。可以导入scipy.io，利用其中的savemat函数来实现：</p>
+<p>​
+这个打开数据集的函数实际上不具有普遍性，因为不同数据集的打开方式显然不会一样，但是大体思路都是一样的，总结一下：</p>
+<p>​
+①shape是个好方法，因为torch和numpy里都支持它，可以print出变量的维数大小信息。</p>
+<p>​
+②要利用各种拼接方法来实现自己的目的，以及可以用强制转换为set来删去重复元素。</p>
+<p>​ ③map函数是个好东西，要记得用。</p>
+<p>​
+为了对数据集有一个整体感知，可视化非常关键，但是由于matplotlib以及pycharm中的sci-view都不是很好用，所以我期望将数据集转成mat进而利用matlab进行可视化。可以导入scipy.io，利用其中的savemat函数来实现：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scipy.io.savemat(<span class="string">&#x27;name.mat&#x27;</span>, &#123;<span class="string">&#x27;DataA&#x27;</span>: Signal&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>​	上述代码可以将python中名为Signal的变量以DataA的名字转化成文件name.mat，这里值得注意的是，这个转后的mat的格式是matlab的早期版本，如果想应用scipy.io中的loadmat来导入一些比较高版本的matlab储存的文件，可能不兼容，详情参见hdf5。</p>
-<p><img src="/images/AMR1.jpg"></p>
-<p>​	画出这张图的方法并不显然，可以参考下面这段代码：</p>
+<p>​
+上述代码可以将python中名为Signal的变量以DataA的名字转化成文件name.mat，这里值得注意的是，这个转后的mat的格式是matlab的早期版本，如果想应用scipy.io中的loadmat来导入一些比较高版本的matlab储存的文件，可能不兼容，详情参见hdf5。</p>
+<p><img src="/images/AMR1.jpg" /></p>
+<p>​ 画出这张图的方法并不显然，可以参考下面这段代码：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line">load(<span class="string">&#x27;ClassesFrompy.mat&#x27;</span>)</span><br><span class="line">load(<span class="string">&#x27;SignalFrompy.mat&#x27;</span>)</span><br><span class="line">load(<span class="string">&#x27;SNRindexFrompy.mat&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:<span class="number">11</span> <span class="comment">%循环mods</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">4</span> <span class="comment">%循环snrs</span></span><br><span class="line">        i_sign = (<span class="built_in">j</span><span class="number">-1</span>)*<span class="number">20000</span>+<span class="number">6000</span>+<span class="number">2000</span>*<span class="built_in">i</span>;</span><br><span class="line">        <span class="built_in">figure</span>(<span class="number">1</span>)</span><br><span class="line">        subplot(<span class="number">4</span>,<span class="number">11</span>,<span class="built_in">j</span>+<span class="number">11</span>*(<span class="built_in">i</span><span class="number">-1</span>))</span><br><span class="line">        <span class="comment">% 运用循环和subplot画指定位置的图，实际上j+11*(i-1)可以换成一个给定好的映射f(x)</span></span><br><span class="line">        <span class="built_in">plot</span>(<span class="built_in">squeeze</span>(X(i_sign,<span class="number">1</span>,:)))</span><br><span class="line">        <span class="built_in">hold</span> on</span><br><span class="line">        <span class="built_in">plot</span>(<span class="built_in">squeeze</span>(X(i_sign,<span class="number">2</span>,:)))</span><br><span class="line">        set(gca,<span class="string">&#x27;xTick&#x27;</span>,[])</span><br><span class="line">        set(gca,<span class="string">&#x27;yTick&#x27;</span>,[]) <span class="comment">% &#x27;xTick&#x27;,&#x27;yTick&#x27;可以改变x,y轴刻度，用[]实际上就是去掉数字</span></span><br><span class="line">        title(&#123;[y(i_sign,:)];[<span class="string">&#x27;SNR:&#x27;</span>,num2str(lbl(i_sign)),<span class="string">&#x27;dB&#x27;</span>]&#125;); <span class="comment">% 注意这个title的实现</span></span><br><span class="line">        set(gca, <span class="string">&#x27;fontsize&#x27;</span>, <span class="number">8</span>) <span class="comment">% fontsize是大小,set(gca,xxx,xxx)可以理解为更改当前图窗</span></span><br><span class="line">        <span class="built_in">hold</span> on</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	要识别的其实就是给定一个上面一个子图中的数据，然后对这个数据进行识别。从图中可以看出每个子图之间差异很大，这里我简单解释一下要处理的任务是个什么意思：在无线电传播时，低频的信号为基带信号，高频的信号为载波信号。低频的信号方便传输信息，但是长距离传播会损失，高频的信号损失会少一些，但是很难用来传递信息。所以两者一结合，就可以进行长距离传输了，这个过程叫调制。这个结合，实际上就是利用基带信号去作用载波信号的幅度，相位，频率等量，比如当基带信号为1的时候，相位不变，基带信号为0的时候，相位反转180度。这里还涉及码元码率码宽等概念，就不展开了，详细的内容是通信原理的知识了。</p>
-<p>​	所以总的来说，就是某种调制，使得信号产生了某个特征，但是这个特征会由于各种各样的干扰，样子并不完全一致，以及对一段信号截取的不同，也会产生十分复杂的情况。</p>
-<p>​	现在我并不打算直接空降一堆什么天花乱坠的内容，那样没有意义。为了更好的理解，我们要先从多层感知机下手，实际上在我实践的时候，那些理论知识并没有用，但是在归纳的过程中，这些知识很有必要。</p>
-<p>​	这里先对一些心知肚明的问题予以略过，比如万能逼近定理，为什么要将网络设计层的连接方式，以及XOR问题等等。</p>
-<p><img src="/images/AMR2.jpg"></p>
-<p>​	我们知道这里每一个箭头都表示着$y&#x3D;wx+b$，并且层与层之间会使用一个激活函数，这里为了经典起见我们选取sigmoid作推导，我个人认为这个部分值得整理，虽然如果不进行了解，只将什么“反向传播”，“学习”挂在嘴边，或者只有一个模糊的概念，是不合适的。虽然这个部分的推导被人写了无数遍，但是，他们写的都太高估我的智商了qwq，起码我第一次见那些符号是很头大的，毕竟我只是个普通人。</p>
-<p>​	最开始，我们考虑输入$x_1,x_2$，这个很简单，他们输入到了第一层，但是后面的全连接层，有着许多的权重和偏置，为了说明他们谁是谁，可能我们会直接记作$w_{i,j}^{k},b_{i,j}^{k}$，在这里取$k$为箭头指向的层数，$i,j$是上一层和这一层的神经元编号，这个的表达就很清晰，比如$w_{1,3}^{2}$就是第一层的第一个神经元与第二层的第三个神经元的权重。定义这样的一个全连接网络，那么对于这个输入，我们可以得出：(后面在不会引发混淆的情况下就直接省略角标里的逗号了)<br>$$<br>z_{1}^{1}&#x3D;w_{11}^{1}x_1+b_{11}^{1}+w_{21}^{1}x_2+b_{21}^{1}<br>\<br>z_{2}^{1}&#x3D;w_{12}^{1}x_1+b_{12}^{1}+w_{22}^{1}x_2+b_{22}^{1}<br>\<br>z_{3}^{1}&#x3D;w_{13}^{1}x_1+b_{13}^{1}+w_{23}^{1}x_2+b_{23}^{1}<br>$$<br>​	那么自然这个构造可以写成矩阵的形式$Z^{\left( l \right)}&#x3D;W^{\left( l \right)}Z^{\left( l-1 \right)}+b^{\left( l \right)}$，不得不说加上这样的$(l)$显得高端了不少，这个$l$实际上就是层数，我们这里规定$l&#x3D;1,2,..,$，当$l&#x3D;0$的时候就是输入的元素形成的矩阵。在上面那个式子中：<br>$$<br>Z^{\left( 1 \right)}&#x3D;\left( \begin{array}{c}<br>    z_{1}^{1}\<br>    z_{2}^{1}\<br>    z_{3}^{1}\<br>\end{array} \right) ,W^{\left( 1 \right)}&#x3D;\left( \begin{array}{c}<br>    w_{11}^{1},,w_{21}^{1}\<br>    w_{12}^{1},,w_{22}^{1}\<br>    w_{13}^{1},,w_{23}^{1}\<br>\end{array} \right) ,Z^{\left( 0 \right)}&#x3D;\left( x_1,,x_2 \right) ,b^{\left( 1 \right)}&#x3D;\left( \begin{array}{c}<br>    b_{11}^{1},,b_{21}^{1}\<br>    b_{12}^{1},,b_{22}^{1}\<br>    b_{13}^{1},,b_{23}^{1}\<br>\end{array} \right)<br>$$<br>​	当$Z^{(1)}$作为下一层的输入时，也有类似的矩阵和相同的运算形式，当然在输入之前，$Z^{(1)}$的所有元素进行了一次sigmoid运算，这样一层一层的算，就是前向传播。</p>
-<p>​	至于算完以后跟损失函数的比较并且优化，这个过程就是反向传播，我们这里选择均方误差作为损失函数为例，因为它比较简单并且好理解，“最小二乘嘛”，就这个意思。我们现在取真实数据为$y_1,y_2$，输出为$o_1,o_2$。那么误差就是：<br>$$<br>E&#x3D;\left( y_1-o_1 \right) ^2+\left( y_2-o_2 \right) ^2<br>$$<br>​	我们是希望通过调整那么多个$w,b$来使得$E$降低，这里一个朴素的想法就是：梯度下降。我们一点点看，至少我们现在想知道，输出层的权重们对误差的“敏感程度”（导数）。我们试着求一下，记住链式法则：<br>$$<br>\frac{\partial E}{\partial w_{11}^{3}}&#x3D;-2\left( y_1-o_1 \right) \frac{\partial o_1}{\partial w_{11}^{3}}<br>$$<br>​	根据上面前向传播的结果，我们知道：<br>$$<br>o_1&#x3D;sigmoid\left( w_{11}^{3}z_{1}^{3}+w_{21}^{3}z_{2}^{3}+w_{31}^{3}z_{3}^{3}+b_{11}^{3}+b_{21}^{3}+b_{31}^{3} \right)<br>\<br>&#x3D;sigmoid\left( \sum_{j&#x3D;1}^3{\left( w_{j1}^{3}z_{j}^{3}+b_{j1}^{3} \right)} \right)<br>$$<br>​	由于sigmoid的性质，它的导函数为$f(x)(1-f(x))$，所以上面误差关于$w_{1,1}^{3}$的偏导可以写为：<br>$$<br>\frac{\partial E}{\partial w_{11}^{3}}&#x3D;-2\left( y_1-o_1 \right) o_1\left( 1-o_1 \right) z_{1}^{3}<br>$$<br>​	这个式子的意义是：这一层的输出与上一层输入的各种权重之间的偏导数可以简单的计算出来，即使许多层嵌套在一起后这个函数非常的复杂。和上面一样，这个偏导的计算也可以归纳成矩阵形式，我们来看一下：<br>$$<br>\frac{\partial E}{\partial w_{11}^{3}}&#x3D;-2\left( y_1-o_1 \right) o_1\left( 1-o_1 \right) z_{1}^{3},\frac{\partial E}{\partial w_{12}^{3}}&#x3D;-2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right) z_{1}^{3}<br>\<br>\frac{\partial E}{\partial w_{21}^{3}}&#x3D;-2\left( y_1-o_1 \right) o_1\left( 1-o_1 \right) z_{2}^{3},\frac{\partial E}{\partial w_{22}^{3}}&#x3D;-2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right) z_{2}^{3}<br>\<br>\frac{\partial E}{\partial w_{31}^{3}}&#x3D;-2\left( y_1-o_1 \right) o_1\left( 1-o_1 \right) z_{3}^{3},\frac{\partial E}{\partial w_{32}^{3}}&#x3D;-2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right) z_{3}^{3}<br>$$<br>​	注意角标的变化，这将有助于我们理解：<br>$$<br>\frac{\partial E}{\partial w_{i,j}^{3}}&#x3D;\frac{\partial E}{\partial o_j}Z_{\left( 3 \right)}^{T}<br>\<br>\frac{\partial E}{\partial w_{i,j}^{3}}&#x3D;\left( \begin{array}{c}<br>    \frac{\partial E}{\partial w_{11}^{3}},,\frac{\partial E}{\partial w_{12}^{3}}\<br>    \frac{\partial E}{\partial w_{21}^{3}},,\frac{\partial E}{\partial w_{22}^{3}}\<br>    \frac{\partial E}{\partial w_{31}^{3}},,\frac{\partial E}{\partial w_{32}^{3}}\<br>\end{array} \right) ,\frac{\partial E}{\partial o_j}&#x3D;\left( \begin{array}{c}<br>    -2\left( y_1-o_1 \right) o_1\left( 1-o_1 \right)\<br>    -2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right)\<br>\end{array} \right) ,Z_{\left( 3 \right)}^{T}&#x3D;\left( z_{1}^{3},,z_{2}^{3},,z_{3}^{3} \right)<br>$$<br>​	接下来我们看关于偏置的偏导数，其实与上面的过程不同的地方在于，微分sigmoid内部的$b_{i,j}^{k}$时不会由链式法则产生类似$z_{i}^{k}$的常数，或者说常数是1。这样式子就方便了不少：<br>$$<br>\frac{\partial E}{\partial b_{i,j}^{3}}&#x3D;-2\left( y_j-o_j \right) o_j\left( 1-o_j \right)<br>$$<br>​	现在我们对输出结果与上一层的权重与偏置关系给出了圆满的解释，则任意一层的权重或偏置关于误差的偏导也可以得出，其实就是复合函数求偏导的做法，“分线相加连线相乘”。如果你读到这个的时候还没有学到，其实可以感性的理解一下：如果一个函数由若干个互不相关的函数线性相加而成，那么它关于构成它的函数项的导数也各自无关，如果这些互不相关的函数还与一个共同的自变量挂钩，那么这个函数的导数值自然就是各函数项的导数值相加。</p>
-<p>​	上面讨论的结果可以拓展到更一般的情况，实际上可以理解为，通过一系列运算将误差均摊在各个神经元上。之后通过给定一个步长$\alpha$，完成对参数的更新，这个的原理我们都很清楚。很多资料里会写成许多非常高端，加粗，各种符号的叠加来表达上面的这个过程，这种方式自有其存在的意义。但是这里只是简单记录一下，利用一些更直白的说法来使其更易于接受，实际上在实际操作中想得到好的结果远比上面的这个步骤要复杂。</p>
-<p>​	下面是一个用python实现的反向传播样例：</p>
+<p>​
+要识别的其实就是给定一个上面一个子图中的数据，然后对这个数据进行识别。从图中可以看出每个子图之间差异很大，这里我简单解释一下要处理的任务是个什么意思：在无线电传播时，低频的信号为基带信号，高频的信号为载波信号。低频的信号方便传输信息，但是长距离传播会损失，高频的信号损失会少一些，但是很难用来传递信息。所以两者一结合，就可以进行长距离传输了，这个过程叫调制。这个结合，实际上就是利用基带信号去作用载波信号的幅度，相位，频率等量，比如当基带信号为1的时候，相位不变，基带信号为0的时候，相位反转180度。这里还涉及码元码率码宽等概念，就不展开了，详细的内容是通信原理的知识了。</p>
+<p>​
+所以总的来说，就是某种调制，使得信号产生了某个特征，但是这个特征会由于各种各样的干扰，样子并不完全一致，以及对一段信号截取的不同，也会产生十分复杂的情况。</p>
+<p>​
+现在我并不打算直接空降一堆什么天花乱坠的内容，那样没有意义。为了更好的理解，我们要先从多层感知机下手，实际上在我实践的时候，那些理论知识并没有用，但是在归纳的过程中，这些知识很有必要。</p>
+<p>​
+这里先对一些心知肚明的问题予以略过，比如万能逼近定理，为什么要将网络设计层的连接方式，以及XOR问题等等。</p>
+<p><img src="/images/AMR2.jpg" /></p>
+<p>​ 我们知道这里每一个箭头都表示着<span
+class="math inline">\(y=wx+b\)</span>，并且层与层之间会使用一个激活函数，这里为了经典起见我们选取sigmoid作推导，我个人认为这个部分值得整理，虽然如果不进行了解，只将什么“反向传播”，“学习”挂在嘴边，或者只有一个模糊的概念，是不合适的。虽然这个部分的推导被人写了无数遍，但是，他们写的都太高估我的智商了qwq，起码我第一次见那些符号是很头大的，毕竟我只是个普通人。</p>
+<p>​ 最开始，我们考虑输入<span
+class="math inline">\(x_1,x_2\)</span>，这个很简单，他们输入到了第一层，但是后面的全连接层，有着许多的权重和偏置，为了说明他们谁是谁，可能我们会直接记作<span
+class="math inline">\(w_{i,j}^{k},b_{i,j}^{k}\)</span>，在这里取<span
+class="math inline">\(k\)</span>为箭头指向的层数，<span
+class="math inline">\(i,j\)</span>是上一层和这一层的神经元编号，这个的表达就很清晰，比如<span
+class="math inline">\(w_{1,3}^{2}\)</span>就是第一层的第一个神经元与第二层的第三个神经元的权重。定义这样的一个全连接网络，那么对于这个输入，我们可以得出：(后面在不会引发混淆的情况下就直接省略角标里的逗号了)
+<span class="math display">\[
+z_{1}^{1}=w_{11}^{1}x_1+b_{11}^{1}+w_{21}^{1}x_2+b_{21}^{1}
+\\
+z_{2}^{1}=w_{12}^{1}x_1+b_{12}^{1}+w_{22}^{1}x_2+b_{22}^{1}
+\\
+z_{3}^{1}=w_{13}^{1}x_1+b_{13}^{1}+w_{23}^{1}x_2+b_{23}^{1}
+\]</span> ​ 那么自然这个构造可以写成矩阵的形式<span
+class="math inline">\(Z^{\left( l \right)}=W^{\left( l \right)}Z^{\left(
+l-1 \right)}+b^{\left( l \right)}\)</span>，不得不说加上这样的<span
+class="math inline">\((l)\)</span>显得高端了不少，这个<span
+class="math inline">\(l\)</span>实际上就是层数，我们这里规定<span
+class="math inline">\(l=1,2,..,\)</span>，当<span
+class="math inline">\(l=0\)</span>的时候就是输入的元素形成的矩阵。在上面那个式子中：
+<span class="math display">\[
+Z^{\left( 1 \right)}=\left( \begin{array}{c}
+    z_{1}^{1}\\
+    z_{2}^{1}\\
+    z_{3}^{1}\\
+\end{array} \right) ,W^{\left( 1 \right)}=\left( \begin{array}{c}
+    w_{11}^{1}\,\,w_{21}^{1}\\
+    w_{12}^{1}\,\,w_{22}^{1}\\
+    w_{13}^{1}\,\,w_{23}^{1}\\
+\end{array} \right) ,Z^{\left( 0 \right)}=\left( x_1\,\,x_2 \right)
+,b^{\left( 1 \right)}=\left( \begin{array}{c}
+    b_{11}^{1}\,\,b_{21}^{1}\\
+    b_{12}^{1}\,\,b_{22}^{1}\\
+    b_{13}^{1}\,\,b_{23}^{1}\\
+\end{array} \right)
+\]</span> ​ 当<span
+class="math inline">\(Z^{(1)}\)</span>作为下一层的输入时，也有类似的矩阵和相同的运算形式，当然在输入之前，<span
+class="math inline">\(Z^{(1)}\)</span>的所有元素进行了一次sigmoid运算，这样一层一层的算，就是前向传播。</p>
+<p>​
+至于算完以后跟损失函数的比较并且优化，这个过程就是反向传播，我们这里选择均方误差作为损失函数为例，因为它比较简单并且好理解，“最小二乘嘛”，就这个意思。我们现在取真实数据为<span
+class="math inline">\(y_1,y_2\)</span>，输出为<span
+class="math inline">\(o_1,o_2\)</span>。那么误差就是： <span
+class="math display">\[
+E=\left( y_1-o_1 \right) ^2+\left( y_2-o_2 \right) ^2
+\]</span> ​ 我们是希望通过调整那么多个<span
+class="math inline">\(w,b\)</span>来使得<span
+class="math inline">\(E\)</span>降低，这里一个朴素的想法就是：梯度下降。我们一点点看，至少我们现在想知道，输出层的权重们对误差的“敏感程度”（导数）。我们试着求一下，记住链式法则：
+<span class="math display">\[
+\frac{\partial E}{\partial w_{11}^{3}}=-2\left( y_1-o_1 \right)
+\frac{\partial o_1}{\partial w_{11}^{3}}
+\]</span> ​ 根据上面前向传播的结果，我们知道： <span
+class="math display">\[
+o_1=sigmoid\left(
+w_{11}^{3}z_{1}^{3}+w_{21}^{3}z_{2}^{3}+w_{31}^{3}z_{3}^{3}+b_{11}^{3}+b_{21}^{3}+b_{31}^{3}
+\right)
+\\
+=sigmoid\left( \sum_{j=1}^3{\left( w_{j1}^{3}z_{j}^{3}+b_{j1}^{3}
+\right)} \right)
+\]</span> ​ 由于sigmoid的性质，它的导函数为<span
+class="math inline">\(f(x)(1-f(x))\)</span>，所以上面误差关于<span
+class="math inline">\(w_{1,1}^{3}\)</span>的偏导可以写为： <span
+class="math display">\[
+\frac{\partial E}{\partial w_{11}^{3}}=-2\left( y_1-o_1 \right)
+o_1\left( 1-o_1 \right) z_{1}^{3}
+\]</span> ​
+这个式子的意义是：这一层的输出与上一层输入的各种权重之间的偏导数可以简单的计算出来，即使许多层嵌套在一起后这个函数非常的复杂。和上面一样，这个偏导的计算也可以归纳成矩阵形式，我们来看一下：
+<span class="math display">\[
+\frac{\partial E}{\partial w_{11}^{3}}=-2\left( y_1-o_1 \right)
+o_1\left( 1-o_1 \right) z_{1}^{3},\frac{\partial E}{\partial
+w_{12}^{3}}=-2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right) z_{1}^{3}
+\\
+\frac{\partial E}{\partial w_{21}^{3}}=-2\left( y_1-o_1 \right)
+o_1\left( 1-o_1 \right) z_{2}^{3},\frac{\partial E}{\partial
+w_{22}^{3}}=-2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right) z_{2}^{3}
+\\
+\frac{\partial E}{\partial w_{31}^{3}}=-2\left( y_1-o_1 \right)
+o_1\left( 1-o_1 \right) z_{3}^{3},\frac{\partial E}{\partial
+w_{32}^{3}}=-2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right) z_{3}^{3}
+\]</span> ​ 注意角标的变化，这将有助于我们理解： <span
+class="math display">\[
+\frac{\partial E}{\partial w_{i,j}^{3}}=\frac{\partial E}{\partial
+o_j}Z_{\left( 3 \right)}^{T}
+\\
+\frac{\partial E}{\partial w_{i,j}^{3}}=\left( \begin{array}{c}
+    \frac{\partial E}{\partial w_{11}^{3}}\,\,\frac{\partial E}{\partial
+w_{12}^{3}}\\
+    \frac{\partial E}{\partial w_{21}^{3}}\,\,\frac{\partial E}{\partial
+w_{22}^{3}}\\
+    \frac{\partial E}{\partial w_{31}^{3}}\,\,\frac{\partial E}{\partial
+w_{32}^{3}}\\
+\end{array} \right) ,\frac{\partial E}{\partial o_j}=\left(
+\begin{array}{c}
+    -2\left( y_1-o_1 \right) o_1\left( 1-o_1 \right)\\
+    -2\left( y_2-o_2 \right) o_2\left( 1-o_2 \right)\\
+\end{array} \right) ,Z_{\left( 3 \right)}^{T}=\left(
+z_{1}^{3}\,\,z_{2}^{3}\,\,z_{3}^{3} \right)
+\]</span> ​
+接下来我们看关于偏置的偏导数，其实与上面的过程不同的地方在于，微分sigmoid内部的<span
+class="math inline">\(b_{i,j}^{k}\)</span>时不会由链式法则产生类似<span
+class="math inline">\(z_{i}^{k}\)</span>的常数，或者说常数是1。这样式子就方便了不少：
+<span class="math display">\[
+\frac{\partial E}{\partial b_{i,j}^{3}}=-2\left( y_j-o_j \right)
+o_j\left( 1-o_j \right)
+\]</span> ​
+现在我们对输出结果与上一层的权重与偏置关系给出了圆满的解释，则任意一层的权重或偏置关于误差的偏导也可以得出，其实就是复合函数求偏导的做法，“分线相加连线相乘”。如果你读到这个的时候还没有学到，其实可以感性的理解一下：如果一个函数由若干个互不相关的函数线性相加而成，那么它关于构成它的函数项的导数也各自无关，如果这些互不相关的函数还与一个共同的自变量挂钩，那么这个函数的导数值自然就是各函数项的导数值相加。</p>
+<p>​
+上面讨论的结果可以拓展到更一般的情况，实际上可以理解为，通过一系列运算将误差均摊在各个神经元上。之后通过给定一个步长<span
+class="math inline">\(\alpha\)</span>，完成对参数的更新，这个的原理我们都很清楚。很多资料里会写成许多非常高端，加粗，各种符号的叠加来表达上面的这个过程，这种方式自有其存在的意义。但是这里只是简单记录一下，利用一些更直白的说法来使其更易于接受，实际上在实际操作中想得到好的结果远比上面的这个步骤要复杂。</p>
+<p>​ 下面是一个用python实现的反向传播样例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># import torch.nn.functional</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Sigmoid</span>(<span class="params">x, deriv=<span class="literal">False</span></span>):</span><br><span class="line">    <span class="keyword">if</span> deriv:</span><br><span class="line">        <span class="keyword">return</span> x * (<span class="number">1</span> - x)  <span class="comment"># 反向传播用到的导数</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line">X = np.array([[<span class="number">0.35</span>], [<span class="number">0.9</span>]])  <span class="comment"># input</span></span><br><span class="line">y = np.array([[<span class="number">0.5</span>]])  <span class="comment"># output</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	我们要做的是利用一个两层，且每一层有两个神经元的小网络，在不加偏置的情况下，从X映射到Y。</span></span><br><span class="line"><span class="string">	W0和W1是初始化时的权重。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">W0 = np.array([[<span class="number">0.1</span>, <span class="number">0.8</span>], [<span class="number">0.4</span>, <span class="number">0.6</span>]])</span><br><span class="line">W1 = np.array([[<span class="number">0.3</span>, <span class="number">0.9</span>]])</span><br><span class="line">ERROR = np.zeros(<span class="number">100</span>)</span><br><span class="line"><span class="comment"># W1_box = np.zeros((100, 2))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    z0 = X</span><br><span class="line">    z1 = Sigmoid(np.dot(W0, z0))</span><br><span class="line">    z2 = Sigmoid(np.dot(W1, z1))</span><br><span class="line">    z2_error = y - z2</span><br><span class="line">    Error = <span class="number">1</span> / <span class="number">2.0</span> * (y - z2) ** <span class="number">2</span></span><br><span class="line">    ERROR[j] = Error</span><br><span class="line">    z2_delta = z2_error * Sigmoid(z2, deriv=<span class="literal">True</span>)  <span class="comment"># BackPropagation</span></span><br><span class="line">    z1_error = z2_delta * W1</span><br><span class="line">    z1_delta = z1_error * Sigmoid(z1, deriv=<span class="literal">True</span>)</span><br><span class="line">    W1 += z2_delta * z1.T</span><br><span class="line">    <span class="comment"># W1_box[j] = W1</span></span><br><span class="line">    W0 += z1_delta * z0.T</span><br><span class="line"></span><br><span class="line">plt.plot(ERROR)</span><br><span class="line"><span class="comment"># ax = plt.axes(projection=&#x27;3d&#x27;)</span></span><br><span class="line"><span class="comment"># ax.plot3D(W1_box[:, 0], W1_box[:, 1], ERROR)</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p>​	当我们将上面的推导写成代码，就会发现其实是很有对称性的。</p>
-<p>​	第一次看的时候可能这里有些写法还不是很好理解，但是一定要仔细思考，当你看这一段代码每一句都很熟练的时候，你就能够好的理解反向传播了。我这里指出其中的一点：</p>
-<p>​	代码中的z2_error是我们前面推导中的$\frac{\partial E}{\partial o}$，这很自然；之后的z2_delta就是$\frac{\partial E}{\partial o}\frac{\partial o}{\partial w}$，前面我们写到了$\frac{\partial E}{\partial w}&#x3D;\frac{\partial E}{\partial o}Z^T$，所以我们看到了W1 +&#x3D; z2_delta * z1.T，W0 +&#x3D; z1_delta * z0.T， W1，W0以这样的方式更新（这里是加号的原因是因为我直接将均方误差求导产生的那个负号吸收进去了）。实际上如果在+&#x3D;右边的式子上加一个常数$\alpha$，这样可以控制每一步的步长，这个常数被称为学习率。</p>
-<p>​	至于z1_delta是如何求解的，其实非常的对称，既然z2_delta &#x3D; z2_error * Sigmoid’，那么z1_delta也有类似的关系，但是我们缺少z1_error。也就是非输出层的误差，我们在上面的推导里没有直接写到，这个可能没有那么直接，但是当反复理解前面所说的，你会意识到z1_error为什么是z2_delta * W1的。（如果将输出层看作一个中间函数，那么根据链式法则就会多乘两项，其中一项是sigmoid的导数，另一项是输出层线性运算的导数，后者就是权重W1.）</p>
-<p>​	以及也能看出为什么要用这样的层式结构来模拟网络，因为这样编程起来非常的简便。直观上，前向传播就是多次进行“该层代表的值矩阵乘一个权重矩阵然后用激活函数作用变成下一层的值矩阵”，反向传播就是用“该层的梯度矩阵乘该层的值矩阵（的转置）得到上一层的梯度矩阵”。这样自然就会带来梯度弥散和梯度爆炸等问题，但是这个我们后面再谈。</p>
-<p>​	在上面那个例子中我们忽略了偏置，是因为根据我们推导的结果，每一层与每一层之间偏置的偏导数，实际上都是一样的，与是哪个神经元到哪个神经元无关。</p>
-<p>​	我们现在只是介绍了反向传播算法的核心思想，实际上这只是很小的一部分。而且实际上，我们很少会在应用上用到刚才的内容，因为许多深度学习框架都封装了反向传播，例如pytorch里的自动梯度机制，但是透彻的理解这些内容仍然很有必要。以及，如果不是为了水文章的时候，要写许多高大上的公式，我甚至觉得更通俗易懂的公式表示和与例子相结合更易于日常学习。</p>
-<p>​	</p>
+<p>​ 当我们将上面的推导写成代码，就会发现其实是很有对称性的。</p>
+<p>​
+第一次看的时候可能这里有些写法还不是很好理解，但是一定要仔细思考，当你看这一段代码每一句都很熟练的时候，你就能够好的理解反向传播了。我这里指出其中的一点：</p>
+<p>​ 代码中的z2_error是我们前面推导中的<span
+class="math inline">\(\frac{\partial E}{\partial
+o}\)</span>，这很自然；之后的z2_delta就是<span
+class="math inline">\(\frac{\partial E}{\partial o}\frac{\partial
+o}{\partial w}\)</span>，前面我们写到了<span
+class="math inline">\(\frac{\partial E}{\partial w}=\frac{\partial
+E}{\partial o}Z^T\)</span>，所以我们看到了W1 += z2_delta * z1.T，W0 +=
+z1_delta * z0.T，
+W1，W0以这样的方式更新（这里是加号的原因是因为我直接将均方误差求导产生的那个负号吸收进去了）。实际上如果在+=右边的式子上加一个常数<span
+class="math inline">\(\alpha\)</span>，这样可以控制每一步的步长，这个常数被称为学习率。</p>
+<p>​ 至于z1_delta是如何求解的，其实非常的对称，既然z2_delta = z2_error *
+Sigmoid'，那么z1_delta也有类似的关系，但是我们缺少z1_error。也就是非输出层的误差，我们在上面的推导里没有直接写到，这个可能没有那么直接，但是当反复理解前面所说的，你会意识到z1_error为什么是z2_delta
+*
+W1的。（如果将输出层看作一个中间函数，那么根据链式法则就会多乘两项，其中一项是sigmoid的导数，另一项是输出层线性运算的导数，后者就是权重W1.）</p>
+<p>​
+以及也能看出为什么要用这样的层式结构来模拟网络，因为这样编程起来非常的简便。直观上，前向传播就是多次进行“该层代表的值矩阵乘一个权重矩阵然后用激活函数作用变成下一层的值矩阵”，反向传播就是用“该层的梯度矩阵乘该层的值矩阵（的转置）得到上一层的梯度矩阵”。这样自然就会带来梯度弥散和梯度爆炸等问题，但是这个我们后面再谈。</p>
+<p>​
+在上面那个例子中我们忽略了偏置，是因为根据我们推导的结果，每一层与每一层之间偏置的偏导数，实际上都是一样的，与是哪个神经元到哪个神经元无关。</p>
+<p>​
+我们现在只是介绍了反向传播算法的核心思想，实际上这只是很小的一部分。而且实际上，我们很少会在应用上用到刚才的内容，因为许多深度学习框架都封装了反向传播，例如pytorch里的自动梯度机制，但是透彻的理解这些内容仍然很有必要。以及，如果不是为了水文章的时候，要写许多高大上的公式，我甚至觉得更通俗易懂的公式表示和与例子相结合更易于日常学习。</p>
+<p>​</p>
 
     </div>
 

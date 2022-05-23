@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	偏微分方程很大程度上扩充了我们描述自然世界的语言，本系列陆续对在数学建模中会用到的偏微分方程知识作一些简单的说明。">
+    <meta name="description" content="​ 偏微分方程很大程度上扩充了我们描述自然世界的语言，本系列陆续对在数学建模中会用到的偏微分方程知识作一些简单的说明。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="偏微分方程">
 <meta property="og:url" content="http://example.com/2022/05/24/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	偏微分方程很大程度上扩充了我们描述自然世界的语言，本系列陆续对在数学建模中会用到的偏微分方程知识作一些简单的说明。">
+<meta property="og:description" content="​ 偏微分方程很大程度上扩充了我们描述自然世界的语言，本系列陆续对在数学建模中会用到的偏微分方程知识作一些简单的说明。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/PCBprocess.jpg">
 <meta property="article:published_time" content="2022-05-23T16:30:09.741Z">
@@ -55,7 +55,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -113,7 +117,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A4%AD%E5%9C%86%E5%9E%8B%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">椭圆型方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%9B%E7%89%A9%E7%BA%BF%E5%9E%8B%E6%96%B9%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">抛物线型方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%9B%B2%E7%BA%BF%E5%9E%8B%E6%96%B9%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">双曲线型方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6-x2F-%E5%88%9D%E5%A7%8B%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">边界条件&#x2F;初始条件</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A4%AD%E5%9C%86%E5%9E%8B%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">椭圆型方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%9B%E7%89%A9%E7%BA%BF%E5%9E%8B%E6%96%B9%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">抛物线型方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%9B%B2%E7%BA%BF%E5%9E%8B%E6%96%B9%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">双曲线型方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6%E5%88%9D%E5%A7%8B%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">边界条件&#x2F;初始条件</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -234,28 +238,74 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	偏微分方程很大程度上扩充了我们描述自然世界的语言，本系列陆续对在数学建模中会用到的偏微分方程知识作一些简单的说明。</p>
+        <p>​
+偏微分方程很大程度上扩充了我们描述自然世界的语言，本系列陆续对在数学建模中会用到的偏微分方程知识作一些简单的说明。</p>
 <span id="more"></span>
-
-<p>​	下面我先介绍三种在三维情况下常见的偏微分方程来建立对这一体系初步的了解。</p>
-<p>​	实际上由实际意义出发的偏微分方程抽象成下面的式子可能有些跳跃，但他们的来源和推导其实是不难理解的，在这里我就先略去物理层面的推导，我们只需要把偏微分方程视作描述一种现象的语言即可。</p>
-<h3 id="椭圆型方程"><a href="#椭圆型方程" class="headerlink" title="椭圆型方程"></a>椭圆型方程</h3><p>​	我们这里只介绍椭圆型方程中常见的泊松(Poisson)方程，存在于反应扩散，电磁场问题中。</p>
-<p>​	在学高等数学的时候，我们曾经被要求算一些很无趣的练习题，例如：<br>$$<br>z&#x3D;\ln \sqrt{x^2+y^2},u&#x3D;\frac{1}{\sqrt{x^2+y^2+z^2}}<br>$$<br>​	我们被要求计算他们二阶偏导数的和，有时会发现他们的和居然是零（或者别的定常数），实际上给出的这些函数就是我们下面要说的偏微分方程的解。</p>
-<p>​	它的形式是：<br>$$<br>\frac{\partial ^2u}{\partial x^2}+\frac{\partial ^2u}{\partial y^2}+\frac{\partial ^2u}{\partial z^2}&#x3D;f\left( x,y,z \right)<br>$$</p>
-<p>​	当$f\left( x,y,z \right)&#x3D;0 $时，该方程被记作拉普拉斯(Laplace)方程，它的解称为调和函数，同时我们引入拉普拉斯算子来简记这个方程：$\nabla ^2$,顺带一提的是这个记号的意义实际上是对于二阶可微实函数梯度的散度。</p>
-<h3 id="抛物线型方程"><a href="#抛物线型方程" class="headerlink" title="抛物线型方程"></a>抛物线型方程</h3><p>​	这类方程是基于热传导建立的简单数学模型，是由能量守恒定律及傅里叶定律推出的。<br>$$<br>\frac{\partial u}{\partial t}&#x3D;a^2\left( \frac{\partial ^2u}{\partial x^2}+\frac{\partial ^2u}{\partial y^2}+\frac{\partial ^2u}{\partial z^2} \right)<br>$$</p>
-<h3 id="双曲线型方程"><a href="#双曲线型方程" class="headerlink" title="双曲线型方程"></a>双曲线型方程</h3><p>​	大学物理里见过的波动方程是很常用的双曲线型方程<br>$$<br>\frac{\partial ^2u}{\partial t^2}&#x3D;a^2\left( \frac{\partial ^2u}{\partial x^2}+\frac{\partial ^2u}{\partial y^2}+\frac{\partial ^2u}{\partial z^2} \right)<br>$$<br>​	以及对流方程<br>$$<br>\frac{\partial u}{\partial t}&#x3D;C\left( \frac{\partial u}{\partial x}+\frac{\partial u}{\partial y}+\frac{\partial u}{\partial z} \right)<br>$$<br>​	上面介绍的只是这些方程的简单形式，实际上在很多情况下，这些方程会有更多的参数，比如当考虑到各向异性时，扩散系数需要由三个不同的参数来表示，等等，值得一提的是，实际上扩散和对流现象两者是密不可分的，但合并后的对流-扩散方程已经远远超出了数学建模的难度，这里就从略了。</p>
-<h3 id="边界条件-x2F-初始条件"><a href="#边界条件-x2F-初始条件" class="headerlink" title="边界条件&#x2F;初始条件"></a>边界条件&#x2F;初始条件</h3><p>​	就像求解一阶常系数线性微分方程，我们需要一个初值一样。在这里我们求解偏微分方程也需要一些条件，第一就是初始条件，如初始时温度场的分布函数。这是我们很容易理解的。第二就是我们不太熟悉的边界条件，但它其实有鲜明的意义。</p>
-<p>​	考虑一个在恒温场的铁片的温度分布，它的表面就是一个边界，而这边界的温度与外界的恒温场有关，不止服从于热传导方程。这就是边界条件。例如：</p>
-<p><img src="/images/PCBprocess.jpg"></p>
-<p>​	在上面这个烘制电路板的背景下，我们考虑热空气的对称性，将其视作满足一维热传导方程。此时的机理建模即为：<br>$$<br>\left{ \begin{array}{c}<br>    \frac{\partial T}{\partial t}&#x3D;\alpha \frac{\partial ^2T}{\partial y^2}\<br>    \frac{\partial T}{\partial y}|_{y&#x3D;|\frac{d}{2}|}&#x3D;h\left( T_e-T_s \right)\<br>\end{array} \right.<br>$$<br>​	第二个方程即为这个情景下的边界条件，它实际上要求了热空气和电路板表面服从牛顿冷却定律。</p>
+<p>​
+下面我先介绍三种在三维情况下常见的偏微分方程来建立对这一体系初步的了解。</p>
+<p>​
+实际上由实际意义出发的偏微分方程抽象成下面的式子可能有些跳跃，但他们的来源和推导其实是不难理解的，在这里我就先略去物理层面的推导，我们只需要把偏微分方程视作描述一种现象的语言即可。</p>
+<h3 id="椭圆型方程">椭圆型方程</h3>
+<p>​
+我们这里只介绍椭圆型方程中常见的泊松(Poisson)方程，存在于反应扩散，电磁场问题中。</p>
+<p>​ 在学高等数学的时候，我们曾经被要求算一些很无趣的练习题，例如： <span
+class="math display">\[
+z=\ln \sqrt{x^2+y^2},u=\frac{1}{\sqrt{x^2+y^2+z^2}}
+\]</span> ​
+我们被要求计算他们二阶偏导数的和，有时会发现他们的和居然是零（或者别的定常数），实际上给出的这些函数就是我们下面要说的偏微分方程的解。</p>
+<p>​ 它的形式是： <span class="math display">\[
+\frac{\partial ^2u}{\partial x^2}+\frac{\partial ^2u}{\partial
+y^2}+\frac{\partial ^2u}{\partial z^2}=f\left( x,y,z \right)
+\]</span></p>
+<p>​ 当$f( x,y,z )=0 <span
+class="math inline">\(时，该方程被记作拉普拉斯(Laplace)方程，它的解称为调和函数，同时我们引入拉普拉斯算子来简记这个方程：\)</span>^2$,顺带一提的是这个记号的意义实际上是对于二阶可微实函数梯度的散度。</p>
+<h3 id="抛物线型方程">抛物线型方程</h3>
+<p>​
+这类方程是基于热传导建立的简单数学模型，是由能量守恒定律及傅里叶定律推出的。
+<span class="math display">\[
+\frac{\partial u}{\partial t}=a^2\left( \frac{\partial ^2u}{\partial
+x^2}+\frac{\partial ^2u}{\partial y^2}+\frac{\partial ^2u}{\partial z^2}
+\right)
+\]</span></p>
+<h3 id="双曲线型方程">双曲线型方程</h3>
+<p>​ 大学物理里见过的波动方程是很常用的双曲线型方程 <span
+class="math display">\[
+\frac{\partial ^2u}{\partial t^2}=a^2\left( \frac{\partial ^2u}{\partial
+x^2}+\frac{\partial ^2u}{\partial y^2}+\frac{\partial ^2u}{\partial z^2}
+\right)
+\]</span> ​ 以及对流方程 <span class="math display">\[
+\frac{\partial u}{\partial t}=C\left( \frac{\partial u}{\partial
+x}+\frac{\partial u}{\partial y}+\frac{\partial u}{\partial z} \right)
+\]</span> ​
+上面介绍的只是这些方程的简单形式，实际上在很多情况下，这些方程会有更多的参数，比如当考虑到各向异性时，扩散系数需要由三个不同的参数来表示，等等，值得一提的是，实际上扩散和对流现象两者是密不可分的，但合并后的对流-扩散方程已经远远超出了数学建模的难度，这里就从略了。</p>
+<h3 id="边界条件初始条件">边界条件/初始条件</h3>
+<p>​
+就像求解一阶常系数线性微分方程，我们需要一个初值一样。在这里我们求解偏微分方程也需要一些条件，第一就是初始条件，如初始时温度场的分布函数。这是我们很容易理解的。第二就是我们不太熟悉的边界条件，但它其实有鲜明的意义。</p>
+<p>​
+考虑一个在恒温场的铁片的温度分布，它的表面就是一个边界，而这边界的温度与外界的恒温场有关，不止服从于热传导方程。这就是边界条件。例如：</p>
+<p><img src="/images/PCBprocess.jpg" /></p>
+<p>​
+在上面这个烘制电路板的背景下，我们考虑热空气的对称性，将其视作满足一维热传导方程。此时的机理建模即为：
+<span class="math display">\[
+\left\{ \begin{array}{c}
+    \frac{\partial T}{\partial t}=\alpha \frac{\partial ^2T}{\partial
+y^2}\\
+    \frac{\partial T}{\partial y}|_{y=|\frac{d}{2}|}=h\left( T_e-T_s
+\right)\\
+\end{array} \right.
+\]</span> ​
+第二个方程即为这个情景下的边界条件，它实际上要求了热空气和电路板表面服从牛顿冷却定律。</p>
 <p>（即左边代表单位时间内交换的热量与温差成正比）</p>
-<p>​	一般而言，边界条件分为三种，</p>
-<p>​	第一种为直接给出未知函数在边界的数值，称为第一类边界条件或狄利克雷(Dirichlet)条件。</p>
-<p>​	第二种为给出未知函数在边界外法线的方向导数，称为第二类边界条件或诺伊曼(Neumann)条件。</p>
-<p>​	第三种为前两种的组合。</p>
-<p>​	但是实际上并不是任何时候都需要有边界条件，比如如果真实的边界足够遥远，那么我们在计算的时候也无需考虑边界条件，这是因具体问题而定的。</p>
-<p>​	现在我们已经了解了简单的偏微分方程的类型，以及边界条件和初始条件，下一篇将介绍如何求解一个偏微分方程。</p>
+<p>​ 一般而言，边界条件分为三种，</p>
+<p>​
+第一种为直接给出未知函数在边界的数值，称为第一类边界条件或狄利克雷(Dirichlet)条件。</p>
+<p>​
+第二种为给出未知函数在边界外法线的方向导数，称为第二类边界条件或诺伊曼(Neumann)条件。</p>
+<p>​ 第三种为前两种的组合。</p>
+<p>​
+但是实际上并不是任何时候都需要有边界条件，比如如果真实的边界足够遥远，那么我们在计算的时候也无需考虑边界条件，这是因具体问题而定的。</p>
+<p>​
+现在我们已经了解了简单的偏微分方程的类型，以及边界条件和初始条件，下一篇将介绍如何求解一个偏微分方程。</p>
 
     </div>
 

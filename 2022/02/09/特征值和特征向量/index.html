@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	在大一学年的时候，我有一门按照张禾瑞先生写的高等代数讲授的代数课。可是我当时没有太学明白，当时也没有试着将应用与之相结合，现在把它补回来也为时不晚。">
+    <meta name="description" content="​ 在大一学年的时候，我有一门按照张禾瑞先生写的高等代数讲授的代数课。可是我当时没有太学明白，当时也没有试着将应用与之相结合，现在把它补回来也为时不晚。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="特征值和特征向量">
 <meta property="og:url" content="http://example.com/2022/02/09/%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	在大一学年的时候，我有一门按照张禾瑞先生写的高等代数讲授的代数课。可是我当时没有太学明白，当时也没有试着将应用与之相结合，现在把它补回来也为时不晚。">
+<meta property="og:description" content="​ 在大一学年的时候，我有一门按照张禾瑞先生写的高等代数讲授的代数课。可是我当时没有太学明白，当时也没有试着将应用与之相结合，现在把它补回来也为时不晚。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/Eig1.png">
 <meta property="article:published_time" content="2022-02-09T05:52:34.000Z">
@@ -54,7 +54,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -232,14 +236,30 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	在大一学年的时候，我有一门按照张禾瑞先生写的高等代数讲授的代数课。可是我当时没有太学明白，当时也没有试着将应用与之相结合，现在把它补回来也为时不晚。</p>
+        <p>​
+在大一学年的时候，我有一门按照张禾瑞先生写的高等代数讲授的代数课。可是我当时没有太学明白，当时也没有试着将应用与之相结合，现在把它补回来也为时不晚。</p>
 <span id="more"></span>
-
-<p>​	说到底，当时的我没能够认识到矩阵理论的重要。不然我在之前暑假翻开数值分析的时候，就不会略去最后那一章。尤其在代数课上学到特征值和特征向量时，我感到非常的不解，但现在回过头发现，其实不难。</p>
-<p>​	一个矩阵必然对应着一个线性映射，这里的一个题外话：在我当时大一的时候，书上是这么写的：</p>
-<p><img src="/images/Eig1.png"></p>
-<p>​	如果当时以“拉伸，旋转，剪切”来佐为例子，会形象的多。</p>
-<p>​	那么特征值实际上就是，如果对某个向量$\mathrm{\vec{v}}$做线性变换，而特别的是，这个线性变换相当于给$\mathrm{\vec{v}}$乘上了常数$\lambda$的标量。想象一个二维向量，如果以某种特别的方式拉伸它，那么它相当于长度变化了$ \lambda$倍；但是如果一个线性变换是旋转，那么就不可能让旋转某个角度后的向量满足上述关系。也就是说此时的实常数$\lambda$不存在，它是个复数。，如果我们要求解出$\mathrm{\vec{v}},\lambda$​，直接计算即可：<br>$$<br>A\mathrm{\vec{v}}&#x3D;\lambda \mathrm{\vec{v}}<br>\<br>\left( A-\lambda I \right) \mathrm{\vec{v}}&#x3D;0<br>$$<br>​	由$Cramer$法则，直接求出使得$\mathrm{det}(A-\lambda I)&#x3D;0$的$\lambda$即可。</p>
+<p>​
+说到底，当时的我没能够认识到矩阵理论的重要。不然我在之前暑假翻开数值分析的时候，就不会略去最后那一章。尤其在代数课上学到特征值和特征向量时，我感到非常的不解，但现在回过头发现，其实不难。</p>
+<p>​
+一个矩阵必然对应着一个线性映射，这里的一个题外话：在我当时大一的时候，书上是这么写的：</p>
+<p><img src="/images/Eig1.png" /></p>
+<p>​ 如果当时以“拉伸，旋转，剪切”来佐为例子，会形象的多。</p>
+<p>​ 那么特征值实际上就是，如果对某个向量<span
+class="math inline">\(\mathrm{\vec{v}}\)</span>做线性变换，而特别的是，这个线性变换相当于给<span
+class="math inline">\(\mathrm{\vec{v}}\)</span>乘上了常数<span
+class="math inline">\(\lambda\)</span>的标量。想象一个二维向量，如果以某种特别的方式拉伸它，那么它相当于长度变化了$
+<span
+class="math inline">\(倍；但是如果一个线性变换是旋转，那么就不可能让旋转某个角度后的向量满足上述关系。也就是说此时的实常数\)</span><span
+class="math inline">\(不存在，它是个复数。，如果我们要求解出\)</span>,$​，直接计算即可：
+<span class="math display">\[
+A\mathrm{\vec{v}}=\lambda \mathrm{\vec{v}}
+\\
+\left( A-\lambda I \right) \mathrm{\vec{v}}=0
+\]</span> ​ 由<span
+class="math inline">\(Cramer\)</span>法则，直接求出使得<span
+class="math inline">\(\mathrm{det}(A-\lambda I)=0\)</span>的<span
+class="math inline">\(\lambda\)</span>即可。</p>
 
     </div>
 

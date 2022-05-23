@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。">
+    <meta name="description" content="​ 考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="复变函数">
 <meta property="og:url" content="http://example.com/2021/12/20/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。">
+<meta property="og:description" content="​ 考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2021/12/20/E8lxKWZqIBh6Lez.png">
 <meta property="og:image" content="https://s2.loli.net/2021/12/22/CUBfR4nqwNDaWZl.png">
@@ -59,7 +59,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -237,60 +241,250 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。</p>
+        <p>​
+考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。</p>
 <span id="more"></span>
-
-<p>​	复数的前置知识高中都学过了，这里补充并强调下面几点，我们经常习惯把复数看成一个二维向量，实际上可以证明，复数域$\mathbf{C}$作为实数域$\mathbf{R}$上的维数为2的向量空间。</p>
-<img src="https://s2.loli.net/2021/12/20/E8lxKWZqIBh6Lez.png" alt="image-20211220162721916" style="zoom: 80%;" />
-
-<p>​	在上面那个例子中，计算的是红色复数和蓝色复数的乘积，实际上就是模长乘积，辐角相加，如果是复数作除法，那模长就是两模长作除法，这个可以通过计算结果直观的看到，而如果由复变函数中的欧拉公式：<br>$$<br>z_1&#x3D;r_1e^{i\theta _1},z_2&#x3D;r_2e^{i\theta _2}<br>\<br>z_1z_2&#x3D;r_1r_2e^{i\left( \theta _1+\theta _2 \right)}<br>\<br>\frac{z_1}{z_2}&#x3D;\frac{r_1}{r_2}e^{i\left( \theta _1-\theta _2 \right)}<br>$$<br>​	则就十分显然了，基于此定义了复数的幂与根，当我们取$r&#x3D;1$，计算$z&#x3D;cos\theta+isin\theta$的$n$次方，容易写出：<br>$$<br>z_n&#x3D;z^n&#x3D;\left( \cos \theta +i\sin \theta \right) ^n&#x3D;e^{in\theta}&#x3D;\cos n\theta +i\sin n\theta<br>\<br>\left( \cos \theta +i\sin \theta \right) ^n&#x3D;\cos n\theta +i\sin n\theta<br>$$<br>​	上式为棣莫弗公式。</p>
-<p>​	下面我们定义要讨论的复变函数，实际上就是一个新的映射：将复数$x+iy$的集合$G$按照一个法则，有一个<strong>或多个</strong>复数$u+iv$与其对应，那么就记复数$w$是复数$z$的函数，简称复变函数，记作$w&#x3D;f(z)$。</p>
-<p>​	在后面的讨论中，如果无特殊说明，定义$G$是一个平面区域（复平面），讨论的函数为单值函数。</p>
-<p>​	下面我们要讨论复变函数的连续性和极限，粗浅的来讲，这里与二元函数别无二致，例如如果在$z_0$连续，那么是以任何方式趋近于$z_0$，都有一个相同的极限；在$z_0$可导，也是一样的道理。在复变函数理论中真正关注的是解析函数，在$z_0$解析说的是在$z_0$及其邻域内处处可导，如果在区域$D$内每一点都解析，则记$f(z)$是$D$内的一个解析函数，如果$f(z)$在$z_0$不解析，那么$z_0$称为奇点，这个概念在后面要经常用到。</p>
-<p>​	通过上面解析的定义可以知道，在某一区域内处处可导和处处解析是等价的，但是在某一点的解析和可导不是等价的。</p>
-<p>​	下面我们讨论$f(z)&#x3D;z^2,g(z)&#x3D;x+2yi,h(z)&#x3D;|z|^2,q(z)&#x3D;1&#x2F;z$的解析性来加深理解：</p>
-<p>​	这里我们浅显的来讲，复变函数有两种表示方法:$w&#x3D;f(z),w&#x3D;u+vi$,其中$u,v$是两个实函数。一般情况下，写成$f(z)$形式的……求导时可以直接看成一元函数，直接套用之前的求导法则即可。而后一种形式往往都不可导。<br>$$<br>f’\left( z \right) &#x3D;2z<br>$$<br>​	所以$f(z)$处处可导，则也在复平面上处处解析。<br>$$<br>\underset{\varDelta z\rightarrow 0}{\lim}\frac{g\left( z+\varDelta z \right) -g\left( z \right)}{\varDelta z}&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\frac{\left( x+\varDelta x \right) +2\left( y+\varDelta y \right) i-x-2yi}{\varDelta x+\varDelta yi}<br>\<br>&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\frac{\varDelta x+2\varDelta yi}{\varDelta x+\varDelta yi}<br>$$<br>​	不难发现，$g(z)$处处不可导，所以在复平面上处处不解析。<br>$$<br>\underset{\varDelta z\rightarrow 0}{\lim}\frac{h\left( z+\varDelta z \right) -h\left( z \right)}{\varDelta z}&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\frac{|z+\varDelta z|^2-|z|^2}{\varDelta z}&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\bar{z}+\overline{\varDelta z}+z\frac{\overline{\varDelta z}}{\varDelta z}<br>$$<br>​	可见$h(z)$只有在$z&#x3D;0$点处可导，而在其他点均不可导，所以在复平面内处处不解析。</p>
-<p>​	对于$q(z)$,$q’\left( z \right) &#x3D;-1&#x2F;z^2$，所以在除$z&#x3D;0$外的复平面内，函数$w&#x3D;1&#x2F;z$处处解析，而$z&#x3D;0$是它的奇点。</p>
-<p>​	实际上，对于直接写成$w&#x3D;f(z)$的复变函数，我们较为熟悉利用求导法则判断他们的解析和可导，但对$f(z)&#x3D;u(x,y)+iv(x,y)$这样的复变函数，根据上面的例子我们往往只能列出极限表达式，然后进行判断，实际上关于这种形式下的解析有一个充要条件，即满足柯西-黎曼方程：<br>$$<br>\frac{\partial u}{\partial x}&#x3D;\frac{\partial v}{\partial y},\frac{\partial u}{\partial y}&#x3D;-\frac{\partial v}{\partial x}<br>$$<br>​	严格来讲，即$u(x,y),v(x,y)$在$(x,y)$可微，且满足上面的柯西-黎曼方程，则就在定义域$D$内成立，反过来也成立。当然上面两种形式的复变函数是可以互相转换的，这里不管那么多了，最后要指出：</p>
-<p>​	对于满足柯西黎曼方程($C-R$方程)的复变函数$f(z)&#x3D;u(x,y)+iv(x,y)$在点$z&#x3D;x+iy$处的导数公式为：<br>$$<br>f’\left( z \right) &#x3D;\frac{\partial u}{\partial x}+i\frac{\partial v}{\partial x}&#x3D;\frac{1}{i}\frac{\partial u}{\partial y}+\frac{\partial u}{\partial y}<br>$$<br>​	下面将一些初等函数推广到复变函数中，并给出一些相同点和不同点。这里我们就直接给出了，关于初等函数推广到复变函数的结果，一定要分清，否则在后面会引起混淆。</p>
-<p>​	<strong>指数函数：</strong><br>$$<br>\exp z&#x3D;e^x\left( \cos y+isiny \right)<br>$$<br>​	这个定义实际上就要求了$\exp z$的模长为$e^x$，辐角为$Arg(\exp z)&#x3D;y+2k\pi$，这个定义保证了我们希望的三点，一在整个复平面内处处解析，二是导函数等于原函数，三是当虚部为0时，退化为$e^x$。</p>
-<p>​	实际上……如果不这么指出来你也大概会写出这个表达式，因为：<br>$$<br>e^z&#x3D;e^{x+iy}&#x3D;e^xe^{iy}&#x3D;e^x\left( \cos y+i\sin y \right)<br>$$<br>​	而那些美好的性质不过是$e$的巧夺天工。由于$e^{iy}$的引入，$\exp z$有实变函数时不具有的周期性。</p>
-<p>​	最后要指出一点，这里的$e^z$没有幂的意义。</p>
-<p>​	<strong>对数函数：</strong></p>
-<p>​	和实变函数的时候一样，我们通过对$e^z$取反，来得到对数函数。<br>$$<br>e^w&#x3D;z<br>\<br>w&#x3D;u+iv,z&#x3D;re^{i\theta}<br>\<br>e^{u+iv}&#x3D;re^{i\theta}<br>\<br>u&#x3D;\ln r,v&#x3D;\theta<br>$$<br>​	但是注意到$\theta$其实是多值的，它具有周期性。所以我们需要的对数函数$w$即为：<br>$$<br>w&#x3D;\ln |z|+iArgz<br>$$<br>​	记作$Lnz$,它是一个多值函数，但是如果规定上式中的$Argz$取主值$argz$，那么$Lnz$就变成了一个单值函数，记作$lnz$，称为$Lnz$​的主值。<br>$$<br>\ln z&#x3D;\ln |z|+i\mathrm{arg}z<br>$$<br>​	这其实也和我们直观写出的想法是一样的，因为：<br>$$<br>\ln \left( x+yi \right) &#x3D;\ln \left( re^{i\theta} \right) &#x3D;\ln r+i\theta<br>$$<br>​	对数函数保持了在实变下相加和相减的性质，但乘积和商没有保持，后面在介绍复变函数中的幂函数时会说明原因。但是与$e^z$不同，此时定义的$Lnz$并不能在复平面上处处解析，对于其主值的$ln|z|$而言，它在除原点以外的其他点都是连续的。而$argz$在原点与负实轴上都不连续（当$x&lt;0$时，从$y$的不同方向逼近0辐角的左右极限分别为$\pi,-\pi$，所以不连续。）</p>
-<p>​	总上，今后我们使用$Lnz$时，指的都是去除原点和负半轴的某一单值分支。</p>
-<p>​	<strong>幂函数：</strong></p>
-<p>​	下面我们定义幂函数$a^b$通过$e^{bLna}$，所以这就导致了上面我们说的，对数函数乘积和商的性质未必会保持，由于$Lna$是多值的，所以$a^b$也将会是多值的。</p>
-<p>​	当$b$为整数时，我们将$e^{bLna}$展开，发现：<br>$$<br>e^{bLna}&#x3D;e^{b\ln |a|+ib\left( \mathrm{arg}a+2k\pi \right)}&#x3D;e^{b\left( \ln |a|+i\mathrm{arg}a \right) +2kb\pi i}&#x3D;e^{b\ln a}<br>$$<br>​	因为$2kb\pi i$实际上是旋转了整数圈，所以此时$a^b$是个单值函数。</p>
-<p>​	当$b$是个不可约分数$p&#x2F;q$时，这里$q&gt;0$，上面的$2kb\pi i$作为一个旋转，其中的$b&#x3D;p&#x2F;q$，则就将会有$p$个值。</p>
-<p>​	当$b$是相对一般的情况时，$a^b$有无穷多的值。</p>
-<p>​	换句话说，上面的论述更有意义的一点在于，当$b$取$n,1&#x2F;n$时，其中$n$为正整数，此时$a^b$的意义与$a$的$n$次幂及$a$的$n$次根是一样的。更一般的，根据此我们可以正式给出$z^n$,$z^{1&#x2F;n}$。</p>
-<p>​	$z^n$在复平面内是单值解析函数，$z^{1&#x2F;n}&#x3D;\sqrt[n]{z}$在除去原点和复实轴上是解析函数。这里就不再赘述了，本质上都是因为引入复数后，多出辐角这一概念。</p>
-<p>​	<strong>三角函数：</strong></p>
-<p>​	三角函数可以由欧拉公式通过指数函数来给出：<br>$$<br>\sin z&#x3D;\frac{e^{iz}-e^{-iz}}{2i},\cos z&#x3D;\frac{e^{iz}+e^{-iz}}{2}<br>$$<br>​	它们仍保有周期性，以及保持着平方和公式，和差化积公式等三角函数的性质，但<strong>有界性不再保证</strong>。当$z$取纯虚数时，结构恰好蜕变成了双曲函数，这并不是重点。</p>
-<p>​	反三角函数和反双曲函数见课本，此处从略。</p>
-<p>​	上面点缀的那些内容，意义在于，我们要认识到复变函数和实变函数的不同，不能模模糊糊的把复变函数简单的理解成把$e^x$变成$e^z$等，这样不便于后面的理解。</p>
-<p>​	下面我们来研究在复变函数，也就是复数的映射中的一些现象。</p>
-<p>​	自然，对于一元函数，我们所说的映射，将一组数单值的映射给了另一组数，可以绘制成一个图像，但当我们用一组复数映射给另一个复数时，由于表示一个复数就需要一个平面了，这样往往会有一些奇妙的几何性质。</p>
-<p>​	下图中红色线段表示过某点的切线，就是在复平面上符合我们直接理解的切线。而蓝色线段表示$(x,y)$与原点的连线，我们知道，这实际上是模长。我们即将看到它带来的神奇的性质，对于$f(z)&#x3D;1&#x2F;z$可能看起来不是很方便，我们先选取一个更为简单的$f(z)&#x3D;2z$。</p>
-<img src="https://s2.loli.net/2021/12/22/CUBfR4nqwNDaWZl.png" alt="image-20211222163335728" style="zoom:80%;" />
-
-<p>​		蓝色线段是有两条的，但是它俩重叠了，我们发现映射后蓝色线段的长度恰好是原来的两倍，而红色线段的斜率没有变化，下面我们将映射改为稍微复杂的$f(z)&#x3D;(1+i)z$。</p>
-<img src="https://s2.loli.net/2021/12/22/xhozjDmIRkGUMiQ.png" alt="image-20211222163821839" style="zoom:80%;" />
-
-<p>​	此时我们发现，红色线段的夹角为$45°$，而蓝色线段的长度变为了原来的$\sqrt 2$倍。这与$1+i$的系数和辐角吻合。下面我们考虑映射$f(z)&#x3D;1&#x2F;z$。</p>
-<img src="https://s2.loli.net/2021/12/22/kHLDigw4t3lXceu.png" alt="image-20211222164213409" style="zoom:80%;" />
-
-<p>​	蓝色线段变成了原来的一半，而角度顺时针旋转了90度。如果我们计算$f’\left( z \right) &#x3D;-1&#x2F;z^2$，将$z&#x3D;1+i$代入，会发现结果为$0.5i$，模长正好为0.5,辐角为90度。而上面那个例子$f(z)&#x3D;2z,f(z)&#x3D;(1+i)z$求导后，也符合这个规律。</p>
-<p>​	这里我引入这个结论比较生硬，因为确实不想铺垫那么多了，所以我们就能得到一个结论：对于一个复平面内的有向连续曲线，对它作用一个复变函数，切线转动角为$\mathrm{Arg}f’\left( z_0 \right) $，模长以系数$f’\left( z_0 \right)$伸缩。当然这些是建立在$f’\left( z_0 \right) \ne 0$的条件上。</p>
-<p>​	而更神奇的是，实际上上面那个结论并不局限于“切线”，“切线”只是引入时的一个例子，实际上它是指通过$z_0$的任何曲线，都会有相同的转动角和伸缩率，这被记作保角性和伸缩率的不变性。</p>
-<p>​	这样就进一步引出了共形映射的概念，书上清晰的给出了相关内容，这里不再赘述，书上最后给了一个例子，我现在将这个例子作出来来便于理解：</p>
-<img src="https://s2.loli.net/2021/12/22/sNQKaxZYzh4P27l.png" alt="image-20211222172057306" style="zoom:80%;" />
-
-<p>​	直观上，共形映射将一个三角形，旋转缩放成了另一个相似的三角形。同理，如果作用的是一个圆，它可以进一步缩放，旋转这个圆。</p>
-<img src="https://s2.loli.net/2021/12/22/ESFTLOfYi92GjkD.png" alt="image-20211222172339013" style="zoom:80%;" />
-
-<p>​	后面我们将进一步挖掘，不同形式的映射起到的作用，例如上图中的$f(z)&#x3D;1&#x2F;z$，它将上半平面的圆周映到了下半圆周，等等这一系列性质。如果不是为了考试，这将是非常有趣的内容。</p>
+<p>​
+复数的前置知识高中都学过了，这里补充并强调下面几点，我们经常习惯把复数看成一个二维向量，实际上可以证明，复数域<span
+class="math inline">\(\mathbf{C}\)</span>作为实数域<span
+class="math inline">\(\mathbf{R}\)</span>上的维数为2的向量空间。</p>
+<p><img src="https://s2.loli.net/2021/12/20/E8lxKWZqIBh6Lez.png" alt="image-20211220162721916" style="zoom: 80%;" /></p>
+<p>​
+在上面那个例子中，计算的是红色复数和蓝色复数的乘积，实际上就是模长乘积，辐角相加，如果是复数作除法，那模长就是两模长作除法，这个可以通过计算结果直观的看到，而如果由复变函数中的欧拉公式：
+<span class="math display">\[
+z_1=r_1e^{i\theta _1},z_2=r_2e^{i\theta _2}
+\\
+z_1z_2=r_1r_2e^{i\left( \theta _1+\theta _2 \right)}
+\\
+\frac{z_1}{z_2}=\frac{r_1}{r_2}e^{i\left( \theta _1-\theta _2 \right)}
+\]</span> ​ 则就十分显然了，基于此定义了复数的幂与根，当我们取<span
+class="math inline">\(r=1\)</span>，计算<span
+class="math inline">\(z=cos\theta+isin\theta\)</span>的<span
+class="math inline">\(n\)</span>次方，容易写出： <span
+class="math display">\[
+z_n=z^n=\left( \cos \theta +i\sin \theta \right) ^n=e^{in\theta}=\cos
+n\theta +i\sin n\theta
+\\
+\left( \cos \theta +i\sin \theta \right) ^n=\cos n\theta +i\sin n\theta
+\]</span> ​ 上式为棣莫弗公式。</p>
+<p>​ 下面我们定义要讨论的复变函数，实际上就是一个新的映射：将复数<span
+class="math inline">\(x+iy\)</span>的集合<span
+class="math inline">\(G\)</span>按照一个法则，有一个<strong>或多个</strong>复数<span
+class="math inline">\(u+iv\)</span>与其对应，那么就记复数<span
+class="math inline">\(w\)</span>是复数<span
+class="math inline">\(z\)</span>的函数，简称复变函数，记作<span
+class="math inline">\(w=f(z)\)</span>。</p>
+<p>​ 在后面的讨论中，如果无特殊说明，定义<span
+class="math inline">\(G\)</span>是一个平面区域（复平面），讨论的函数为单值函数。</p>
+<p>​
+下面我们要讨论复变函数的连续性和极限，粗浅的来讲，这里与二元函数别无二致，例如如果在<span
+class="math inline">\(z_0\)</span>连续，那么是以任何方式趋近于<span
+class="math inline">\(z_0\)</span>，都有一个相同的极限；在<span
+class="math inline">\(z_0\)</span>可导，也是一样的道理。在复变函数理论中真正关注的是解析函数，在<span
+class="math inline">\(z_0\)</span>解析说的是在<span
+class="math inline">\(z_0\)</span>及其邻域内处处可导，如果在区域<span
+class="math inline">\(D\)</span>内每一点都解析，则记<span
+class="math inline">\(f(z)\)</span>是<span
+class="math inline">\(D\)</span>内的一个解析函数，如果<span
+class="math inline">\(f(z)\)</span>在<span
+class="math inline">\(z_0\)</span>不解析，那么<span
+class="math inline">\(z_0\)</span>称为奇点，这个概念在后面要经常用到。</p>
+<p>​
+通过上面解析的定义可以知道，在某一区域内处处可导和处处解析是等价的，但是在某一点的解析和可导不是等价的。</p>
+<p>​ 下面我们讨论<span
+class="math inline">\(f(z)=z^2,g(z)=x+2yi,h(z)=|z|^2,q(z)=1/z\)</span>的解析性来加深理解：</p>
+<p>​ 这里我们浅显的来讲，复变函数有两种表示方法:<span
+class="math inline">\(w=f(z),w=u+vi\)</span>,其中<span
+class="math inline">\(u,v\)</span>是两个实函数。一般情况下，写成<span
+class="math inline">\(f(z)\)</span>形式的……求导时可以直接看成一元函数，直接套用之前的求导法则即可。而后一种形式往往都不可导。
+<span class="math display">\[
+f&#39;\left( z \right) =2z
+\]</span> ​ 所以<span
+class="math inline">\(f(z)\)</span>处处可导，则也在复平面上处处解析。
+<span class="math display">\[
+\underset{\varDelta z\rightarrow 0}{\lim}\frac{g\left( z+\varDelta z
+\right) -g\left( z \right)}{\varDelta z}=\underset{\varDelta
+z\rightarrow 0}{\lim}\frac{\left( x+\varDelta x \right) +2\left(
+y+\varDelta y \right) i-x-2yi}{\varDelta x+\varDelta yi}
+\\
+=\underset{\varDelta z\rightarrow 0}{\lim}\frac{\varDelta x+2\varDelta
+yi}{\varDelta x+\varDelta yi}
+\]</span> ​ 不难发现，<span
+class="math inline">\(g(z)\)</span>处处不可导，所以在复平面上处处不解析。
+<span class="math display">\[
+\underset{\varDelta z\rightarrow 0}{\lim}\frac{h\left( z+\varDelta z
+\right) -h\left( z \right)}{\varDelta z}=\underset{\varDelta
+z\rightarrow 0}{\lim}\frac{|z+\varDelta z|^2-|z|^2}{\varDelta
+z}=\underset{\varDelta z\rightarrow 0}{\lim}\bar{z}+\overline{\varDelta
+z}+z\frac{\overline{\varDelta z}}{\varDelta z}
+\]</span> ​ 可见<span class="math inline">\(h(z)\)</span>只有在<span
+class="math inline">\(z=0\)</span>点处可导，而在其他点均不可导，所以在复平面内处处不解析。</p>
+<p>​ 对于<span class="math inline">\(q(z)\)</span>,<span
+class="math inline">\(q&#39;\left( z \right)
+=-1/z^2\)</span>，所以在除<span
+class="math inline">\(z=0\)</span>外的复平面内，函数<span
+class="math inline">\(w=1/z\)</span>处处解析，而<span
+class="math inline">\(z=0\)</span>是它的奇点。</p>
+<p>​ 实际上，对于直接写成<span
+class="math inline">\(w=f(z)\)</span>的复变函数，我们较为熟悉利用求导法则判断他们的解析和可导，但对<span
+class="math inline">\(f(z)=u(x,y)+iv(x,y)\)</span>这样的复变函数，根据上面的例子我们往往只能列出极限表达式，然后进行判断，实际上关于这种形式下的解析有一个充要条件，即满足柯西-黎曼方程：
+<span class="math display">\[
+\frac{\partial u}{\partial x}=\frac{\partial v}{\partial
+y},\frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}
+\]</span> ​ 严格来讲，即<span
+class="math inline">\(u(x,y),v(x,y)\)</span>在<span
+class="math inline">\((x,y)\)</span>可微，且满足上面的柯西-黎曼方程，则就在定义域<span
+class="math inline">\(D\)</span>内成立，反过来也成立。当然上面两种形式的复变函数是可以互相转换的，这里不管那么多了，最后要指出：</p>
+<p>​ 对于满足柯西黎曼方程(<span
+class="math inline">\(C-R\)</span>方程)的复变函数<span
+class="math inline">\(f(z)=u(x,y)+iv(x,y)\)</span>在点<span
+class="math inline">\(z=x+iy\)</span>处的导数公式为： <span
+class="math display">\[
+f&#39;\left( z \right) =\frac{\partial u}{\partial x}+i\frac{\partial
+v}{\partial x}=\frac{1}{i}\frac{\partial u}{\partial y}+\frac{\partial
+u}{\partial y}
+\]</span> ​
+下面将一些初等函数推广到复变函数中，并给出一些相同点和不同点。这里我们就直接给出了，关于初等函数推广到复变函数的结果，一定要分清，否则在后面会引起混淆。</p>
+<p>​ <strong>指数函数：</strong> <span class="math display">\[
+\exp z=e^x\left( \cos y+isiny \right)
+\]</span> ​ 这个定义实际上就要求了<span class="math inline">\(\exp
+z\)</span>的模长为<span class="math inline">\(e^x\)</span>，辐角为<span
+class="math inline">\(Arg(\exp
+z)=y+2k\pi\)</span>，这个定义保证了我们希望的三点，一在整个复平面内处处解析，二是导函数等于原函数，三是当虚部为0时，退化为<span
+class="math inline">\(e^x\)</span>。</p>
+<p>​ 实际上……如果不这么指出来你也大概会写出这个表达式，因为： <span
+class="math display">\[
+e^z=e^{x+iy}=e^xe^{iy}=e^x\left( \cos y+i\sin y \right)
+\]</span> ​ 而那些美好的性质不过是<span
+class="math inline">\(e\)</span>的巧夺天工。由于<span
+class="math inline">\(e^{iy}\)</span>的引入，<span
+class="math inline">\(\exp z\)</span>有实变函数时不具有的周期性。</p>
+<p>​ 最后要指出一点，这里的<span
+class="math inline">\(e^z\)</span>没有幂的意义。</p>
+<p>​ <strong>对数函数：</strong></p>
+<p>​ 和实变函数的时候一样，我们通过对<span
+class="math inline">\(e^z\)</span>取反，来得到对数函数。 <span
+class="math display">\[
+e^w=z
+\\
+w=u+iv,z=re^{i\theta}
+\\
+e^{u+iv}=re^{i\theta}
+\\
+u=\ln r,v=\theta
+\]</span> ​ 但是注意到<span
+class="math inline">\(\theta\)</span>其实是多值的，它具有周期性。所以我们需要的对数函数<span
+class="math inline">\(w\)</span>即为： <span class="math display">\[
+w=\ln |z|+iArgz
+\]</span> ​ 记作<span
+class="math inline">\(Lnz\)</span>,它是一个多值函数，但是如果规定上式中的<span
+class="math inline">\(Argz\)</span>取主值<span
+class="math inline">\(argz\)</span>，那么<span
+class="math inline">\(Lnz\)</span>就变成了一个单值函数，记作<span
+class="math inline">\(lnz\)</span>，称为<span
+class="math inline">\(Lnz\)</span>​的主值。 <span class="math display">\[
+\ln z=\ln |z|+i\mathrm{arg}z
+\]</span> ​ 这其实也和我们直观写出的想法是一样的，因为： <span
+class="math display">\[
+\ln \left( x+yi \right) =\ln \left( re^{i\theta} \right) =\ln r+i\theta
+\]</span> ​
+对数函数保持了在实变下相加和相减的性质，但乘积和商没有保持，后面在介绍复变函数中的幂函数时会说明原因。但是与<span
+class="math inline">\(e^z\)</span>不同，此时定义的<span
+class="math inline">\(Lnz\)</span>并不能在复平面上处处解析，对于其主值的<span
+class="math inline">\(ln|z|\)</span>而言，它在除原点以外的其他点都是连续的。而<span
+class="math inline">\(argz\)</span>在原点与负实轴上都不连续（当<span
+class="math inline">\(x&lt;0\)</span>时，从<span
+class="math inline">\(y\)</span>的不同方向逼近0辐角的左右极限分别为<span
+class="math inline">\(\pi,-\pi\)</span>，所以不连续。）</p>
+<p>​ 总上，今后我们使用<span
+class="math inline">\(Lnz\)</span>时，指的都是去除原点和负半轴的某一单值分支。</p>
+<p>​ <strong>幂函数：</strong></p>
+<p>​ 下面我们定义幂函数<span class="math inline">\(a^b\)</span>通过<span
+class="math inline">\(e^{bLna}\)</span>，所以这就导致了上面我们说的，对数函数乘积和商的性质未必会保持，由于<span
+class="math inline">\(Lna\)</span>是多值的，所以<span
+class="math inline">\(a^b\)</span>也将会是多值的。</p>
+<p>​ 当<span class="math inline">\(b\)</span>为整数时，我们将<span
+class="math inline">\(e^{bLna}\)</span>展开，发现： <span
+class="math display">\[
+e^{bLna}=e^{b\ln |a|+ib\left( \mathrm{arg}a+2k\pi \right)}=e^{b\left(
+\ln |a|+i\mathrm{arg}a \right) +2kb\pi i}=e^{b\ln a}
+\]</span> ​ 因为<span class="math inline">\(2kb\pi
+i\)</span>实际上是旋转了整数圈，所以此时<span
+class="math inline">\(a^b\)</span>是个单值函数。</p>
+<p>​ 当<span class="math inline">\(b\)</span>是个不可约分数<span
+class="math inline">\(p/q\)</span>时，这里<span
+class="math inline">\(q&gt;0\)</span>，上面的<span
+class="math inline">\(2kb\pi i\)</span>作为一个旋转，其中的<span
+class="math inline">\(b=p/q\)</span>，则就将会有<span
+class="math inline">\(p\)</span>个值。</p>
+<p>​ 当<span class="math inline">\(b\)</span>是相对一般的情况时，<span
+class="math inline">\(a^b\)</span>有无穷多的值。</p>
+<p>​ 换句话说，上面的论述更有意义的一点在于，当<span
+class="math inline">\(b\)</span>取<span
+class="math inline">\(n,1/n\)</span>时，其中<span
+class="math inline">\(n\)</span>为正整数，此时<span
+class="math inline">\(a^b\)</span>的意义与<span
+class="math inline">\(a\)</span>的<span
+class="math inline">\(n\)</span>次幂及<span
+class="math inline">\(a\)</span>的<span
+class="math inline">\(n\)</span>次根是一样的。更一般的，根据此我们可以正式给出<span
+class="math inline">\(z^n\)</span>,<span
+class="math inline">\(z^{1/n}\)</span>。</p>
+<p>​ <span
+class="math inline">\(z^n\)</span>在复平面内是单值解析函数，<span
+class="math inline">\(z^{1/n}=\sqrt[n]{z}\)</span>在除去原点和复实轴上是解析函数。这里就不再赘述了，本质上都是因为引入复数后，多出辐角这一概念。</p>
+<p>​ <strong>三角函数：</strong></p>
+<p>​ 三角函数可以由欧拉公式通过指数函数来给出： <span
+class="math display">\[
+\sin z=\frac{e^{iz}-e^{-iz}}{2i},\cos z=\frac{e^{iz}+e^{-iz}}{2}
+\]</span> ​
+它们仍保有周期性，以及保持着平方和公式，和差化积公式等三角函数的性质，但<strong>有界性不再保证</strong>。当<span
+class="math inline">\(z\)</span>取纯虚数时，结构恰好蜕变成了双曲函数，这并不是重点。</p>
+<p>​ 反三角函数和反双曲函数见课本，此处从略。</p>
+<p>​
+上面点缀的那些内容，意义在于，我们要认识到复变函数和实变函数的不同，不能模模糊糊的把复变函数简单的理解成把<span
+class="math inline">\(e^x\)</span>变成<span
+class="math inline">\(e^z\)</span>等，这样不便于后面的理解。</p>
+<p>​ 下面我们来研究在复变函数，也就是复数的映射中的一些现象。</p>
+<p>​
+自然，对于一元函数，我们所说的映射，将一组数单值的映射给了另一组数，可以绘制成一个图像，但当我们用一组复数映射给另一个复数时，由于表示一个复数就需要一个平面了，这样往往会有一些奇妙的几何性质。</p>
+<p>​
+下图中红色线段表示过某点的切线，就是在复平面上符合我们直接理解的切线。而蓝色线段表示<span
+class="math inline">\((x,y)\)</span>与原点的连线，我们知道，这实际上是模长。我们即将看到它带来的神奇的性质，对于<span
+class="math inline">\(f(z)=1/z\)</span>可能看起来不是很方便，我们先选取一个更为简单的<span
+class="math inline">\(f(z)=2z\)</span>。</p>
+<p><img src="https://s2.loli.net/2021/12/22/CUBfR4nqwNDaWZl.png" alt="image-20211222163335728" style="zoom:80%;" /></p>
+<p>​
+蓝色线段是有两条的，但是它俩重叠了，我们发现映射后蓝色线段的长度恰好是原来的两倍，而红色线段的斜率没有变化，下面我们将映射改为稍微复杂的<span
+class="math inline">\(f(z)=(1+i)z\)</span>。</p>
+<p><img src="https://s2.loli.net/2021/12/22/xhozjDmIRkGUMiQ.png" alt="image-20211222163821839" style="zoom:80%;" /></p>
+<p>​ 此时我们发现，红色线段的夹角为<span
+class="math inline">\(45°\)</span>，而蓝色线段的长度变为了原来的<span
+class="math inline">\(\sqrt 2\)</span>倍。这与<span
+class="math inline">\(1+i\)</span>的系数和辐角吻合。下面我们考虑映射<span
+class="math inline">\(f(z)=1/z\)</span>。</p>
+<p><img src="https://s2.loli.net/2021/12/22/kHLDigw4t3lXceu.png" alt="image-20211222164213409" style="zoom:80%;" /></p>
+<p>​ 蓝色线段变成了原来的一半，而角度顺时针旋转了90度。如果我们计算<span
+class="math inline">\(f&#39;\left( z \right) =-1/z^2\)</span>，将<span
+class="math inline">\(z=1+i\)</span>代入，会发现结果为<span
+class="math inline">\(0.5i\)</span>，模长正好为0.5,辐角为90度。而上面那个例子<span
+class="math inline">\(f(z)=2z,f(z)=(1+i)z\)</span>求导后，也符合这个规律。</p>
+<p>​
+这里我引入这个结论比较生硬，因为确实不想铺垫那么多了，所以我们就能得到一个结论：对于一个复平面内的有向连续曲线，对它作用一个复变函数，切线转动角为$f'(
+z_0 ) <span class="math inline">\(，模长以系数\)</span>f'( z_0 )<span
+class="math inline">\(伸缩。当然这些是建立在\)</span>f'( z_0 )
+$的条件上。</p>
+<p>​
+而更神奇的是，实际上上面那个结论并不局限于“切线”，“切线”只是引入时的一个例子，实际上它是指通过<span
+class="math inline">\(z_0\)</span>的任何曲线，都会有相同的转动角和伸缩率，这被记作保角性和伸缩率的不变性。</p>
+<p>​
+这样就进一步引出了共形映射的概念，书上清晰的给出了相关内容，这里不再赘述，书上最后给了一个例子，我现在将这个例子作出来来便于理解：</p>
+<p><img src="https://s2.loli.net/2021/12/22/sNQKaxZYzh4P27l.png" alt="image-20211222172057306" style="zoom:80%;" /></p>
+<p>​
+直观上，共形映射将一个三角形，旋转缩放成了另一个相似的三角形。同理，如果作用的是一个圆，它可以进一步缩放，旋转这个圆。</p>
+<p><img src="https://s2.loli.net/2021/12/22/ESFTLOfYi92GjkD.png" alt="image-20211222172339013" style="zoom:80%;" /></p>
+<p>​ 后面我们将进一步挖掘，不同形式的映射起到的作用，例如上图中的<span
+class="math inline">\(f(z)=1/z\)</span>，它将上半平面的圆周映到了下半圆周，等等这一系列性质。如果不是为了考试，这将是非常有趣的内容。</p>
 
     </div>
 

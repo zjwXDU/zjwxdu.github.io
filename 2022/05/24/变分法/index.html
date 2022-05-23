@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	折磨，简直是折磨，最初，我看见那个什么火星探测器着陆控制方案，我还想着这个好做，跟2014A嫦娥落月差不多，后来发现，是我想的太好了……">
+    <meta name="description" content="​ 折磨，简直是折磨，最初，我看见那个什么火星探测器着陆控制方案，我还想着这个好做，跟2014A嫦娥落月差不多，后来发现，是我想的太好了……">
 <meta property="og:type" content="article">
 <meta property="og:title" content="变分法">
 <meta property="og:url" content="http://example.com/2022/05/24/%E5%8F%98%E5%88%86%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	折磨，简直是折磨，最初，我看见那个什么火星探测器着陆控制方案，我还想着这个好做，跟2014A嫦娥落月差不多，后来发现，是我想的太好了……">
+<meta property="og:description" content="​ 折磨，简直是折磨，最初，我看见那个什么火星探测器着陆控制方案，我还想着这个好做，跟2014A嫦娥落月差不多，后来发现，是我想的太好了……">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/Mars_1.jpg">
 <meta property="article:published_time" content="2022-05-23T16:30:09.883Z">
@@ -55,7 +55,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -233,23 +237,134 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	折磨，简直是折磨，最初，我看见那个什么火星探测器着陆控制方案，我还想着这个好做，跟2014A嫦娥落月差不多，后来发现，是我想的太好了……</p>
+        <p>​
+折磨，简直是折磨，最初，我看见那个什么火星探测器着陆控制方案，我还想着这个好做，跟2014A嫦娥落月差不多，后来发现，是我想的太好了……</p>
 <span id="more"></span>
-
-<p>​	题目要求给出燃料最优控制策略，这个就和以往的建立模型暴力反演参数求一个使得误差平方和函数最小值一组解不同了，因为它是要求我求出在给定区间的所有连续实函数中，使得某些指标最优的那个。（连续是因为考虑这个物理过程，就不管那些比较奇异的情况先。）</p>
-<p>​	直观理解起来就是，“以函数为自变量的函数”。</p>
-<p><img src="/images/Mars_1.jpg"></p>
-<p>​	（其实上次交完太阳影子定位那一次以后，就想写变分法来着，但是想着以后也基本用不到，就给鸽了，结果第二天……）</p>
-<p>​	下面介绍一些最简单的变分法基础知识：</p>
-<p>​	倘若我们要求解一个泛函极值问题，这里就以最速降线为例，首先要明确，我们知道最速降线问题肯定是有解的，另一方面我不想加入太多的数学上的证明，那么我们说$F(x)$这个函数就是最优的那个函数，则所有的函数都可以表达成：<br>$$<br>\bar{F}&#x3D;F\left( x \right) +\epsilon \eta \left( x \right)<br>$$<br>​	这里$\epsilon$是任意常数，$\eta \left( x \right)$是任意函数。但是实际上$\eta \left( x \right)$还会有一些其他条件，例如对于最速降线问题，$\eta \left( x \right)$在起点和终点必为零。并且这里$\eta \left( x \right)$还需要具备良好的性质——一阶，二阶可导。</p>
-<p>​	这样上述式子表达的意义有如下几点：</p>
-<p>​	①最优函数的存在的。</p>
-<p>​	②这样构造的$\bar{F}$显然不能代表全体的函数，但是数学上可以证明，最优的那个函数确实是在如上定义的$\bar{F}$中的；另一方面由实际应用上的性质，一些奇怪的函数也不可能成为一些物理问题的解。</p>
-<p>​	③$F(x)$是我们设想的最优函数，那么$\epsilon \eta \left( x \right) $的意义实际上是一个对$F(x)$的扰动，在这个扰动中，$\eta \left( x \right)$可能是各种函数，比如$sin(x),e^x$等等，这些都是无所谓的，只要它满足边值条件且一二阶导数连续，就可以，而这里的$\epsilon$作为一个常数，只要它趋于0，无论$\eta \left( x \right)$如何选取，就像一个控制因子一样，只要趋近于0，得到的函数$F$就是最优的。</p>
-<p>​	在最速降线中，遇到的是这样的一个问题：<br>$$<br>T\left( y \right) &#x3D;\int_{x_1}^{x_2}{\sqrt{\frac{1+\left( y’ \right) ^2}{2gy}}}dx<br>$$<br>​	在这里$y$就可以看成从$\bar y$中选取的一个函数，那么根据上文，这里的任何一个$y$都可以写成最优的$y(x)$加上一个扰动，在这里$y(x),\eta \left( x \right)$是一个被确定的函数，那么原泛函积分后的结果自然会是一个关于$\epsilon$​的函数。<br>$$<br>I\left( \varepsilon \right) &#x3D;\int_{x_1}^{x_2}{F\left( x,y+\epsilon \eta ,y’+\varepsilon \eta ‘ \right)}dx<br>$$<br>​	并且要注意到，如果$\epsilon$等于零，那么扰动就会消失，且积分结果就变为我们想要的最短时间，$I(0)$即为$I$的极值，即：<br>$$<br>\left. \frac{dI}{d\epsilon} \right|<em>{\varepsilon &#x3D;0}&#x3D;\frac{d\left( \int</em>{x_1}^{x_2}{F\left( x,y+\epsilon \eta ,y’+\varepsilon \eta ‘ \right)}dx \right)}{d\epsilon}<br>\<br>&#x3D;\int_{x_1}^{x_2}{\frac{\partial F}{\partial \varepsilon}}dx(含参变量积分的求导)<br>$$<br>​	于是我们继而研究$\frac{\partial F}{\partial \varepsilon}$，为了下面计算的方便，我们将$y+\epsilon \eta$记作$u$,$y’+\varepsilon \eta$记作$v$。由多元函数求偏微分的方法，得：<br>$$<br>\frac{\partial F}{\partial \varepsilon}&#x3D;\frac{\partial F}{\partial x}\frac{\partial x}{\partial \varepsilon}+\frac{\partial F}{\partial u}\frac{\partial u}{\partial \varepsilon}+\frac{\partial F}{\partial v}\frac{\partial v}{\partial \varepsilon}<br>\<br>&#x3D;\frac{\partial F}{\partial u}\eta +\frac{\partial F}{\partial v}\eta ‘<br>$$<br>​	而注意到，此时$\epsilon$趋近于0，那么$u,v$实际上都收敛于$y,y’$，则上面的方程：<br>$$<br>\left. \frac{dI}{d\epsilon} \right|<em>{\varepsilon &#x3D;0}&#x3D;\int</em>{x_1}^{x_2}{\left( \frac{\partial F}{\partial u}\eta +\frac{\partial F}{\partial v}\eta ‘ \right)}dx<br>\<br>&#x3D;\int_{x_1}^{x_2}{\left( \frac{\partial F}{\partial y}\eta +\frac{\partial F}{\partial y’}\frac{d\eta}{dx} \right)}dx<br>$$<br>​	再应用分部积分求解积分中的后一项，会发现一个有用的事实：由于$\eta(x)$满足边值条件，则分部积分出来的前一项为零。<br>$$<br>\int_{x_1}^{x_2}{\frac{\partial F}{\partial y’}\frac{d\eta}{dx}}dx&#x3D;\left. \frac{\partial F}{\partial y’}\eta \right|<em>{x_1}^{x_2}-\int</em>{x_1}^{x_2}{\eta \frac{d\left( \frac{\partial F}{\partial y’} \right)}{dx}dx}<br>$$<br>​	将这个结论反带回去，会发现原式中的$\eta$被提取了出来：<br>$$<br>\left. \frac{dI}{d\epsilon} \right|<em>{\varepsilon &#x3D;0}&#x3D;\int</em>{x_1}^{x_2}{\left( \frac{\partial F}{\partial y}-\frac{d\left( \frac{\partial F}{\partial y’} \right)}{dx} \right)}\eta dx<br>$$<br>​	此时，方程的左端是零，而又因为内积为零的向量必互相正交，且$\eta$是任意选取的，则说明<br>$$<br>\frac{\partial F}{\partial y}-\frac{d}{dx}\left( \frac{\partial F}{\partial y’} \right)&#x3D;0<br>$$<br>​	恒成立，这个式子就是变分法中的欧拉方程。这个方程的意义在于，如果我们确实在处理形如$T\left( y \right) &#x3D;\int_{x_1}^{x_2}{F\left( x,y ,y’  \right)}dx$的问题，那么如果$y$是最优的，则上面的方程恒等式必须要被满足。</p>
-<p>​	通过等价变形，可以得到欧拉方程的第二种表达形式：<br>$$<br>\frac{\partial F}{\partial x}-\frac{d}{dx}\left( F-y’\frac{\partial F}{\partial y’} \right) &#x3D;0<br>$$<br>​	这个形式在$\frac{\partial F}{\partial x}&#x3D;0$时非常有用，因为此时可以直接导出$F-y’\frac{\partial F}{\partial y’}&#x3D;C$，这样就将一个在泛函空间里的优化问题转化成了熟悉的微分方程问题。</p>
-<p>​	现在我们给出变分在数学上的严格说法，即变分为$\delta y$，$\bar{y}&#x3D;y\left( x \right) +\delta y$。与我们熟悉的微分类似，只是先前是对$x$进行扰动，而现在是对$y$这个函数进行扰动。变分的运算法则与导数有许多平行的规律，诸如一些可交换性等等，这里不赘述。</p>
-<p>​	虽然变分法仍然有相当多的内容，但是为了后面学会最优控制中的哈密顿函数法，这个程度就已经够用了。</p>
+<p>​
+题目要求给出燃料最优控制策略，这个就和以往的建立模型暴力反演参数求一个使得误差平方和函数最小值一组解不同了，因为它是要求我求出在给定区间的所有连续实函数中，使得某些指标最优的那个。（连续是因为考虑这个物理过程，就不管那些比较奇异的情况先。）</p>
+<p>​ 直观理解起来就是，“以函数为自变量的函数”。</p>
+<p><img src="/images/Mars_1.jpg" /></p>
+<p>​
+（其实上次交完太阳影子定位那一次以后，就想写变分法来着，但是想着以后也基本用不到，就给鸽了，结果第二天……）</p>
+<p>​ 下面介绍一些最简单的变分法基础知识：</p>
+<p>​
+倘若我们要求解一个泛函极值问题，这里就以最速降线为例，首先要明确，我们知道最速降线问题肯定是有解的，另一方面我不想加入太多的数学上的证明，那么我们说<span
+class="math inline">\(F(x)\)</span>这个函数就是最优的那个函数，则所有的函数都可以表达成：
+<span class="math display">\[
+\bar{F}=F\left( x \right) +\epsilon \eta \left( x \right)
+\]</span> ​ 这里<span
+class="math inline">\(\epsilon\)</span>是任意常数，<span
+class="math inline">\(\eta \left( x
+\right)\)</span>是任意函数。但是实际上<span class="math inline">\(\eta
+\left( x \right)\)</span>还会有一些其他条件，例如对于最速降线问题，<span
+class="math inline">\(\eta \left( x
+\right)\)</span>在起点和终点必为零。并且这里<span
+class="math inline">\(\eta \left( x
+\right)\)</span>还需要具备良好的性质——一阶，二阶可导。</p>
+<p>​ 这样上述式子表达的意义有如下几点：</p>
+<p>​ ①最优函数的存在的。</p>
+<p>​ ②这样构造的<span
+class="math inline">\(\bar{F}\)</span>显然不能代表全体的函数，但是数学上可以证明，最优的那个函数确实是在如上定义的<span
+class="math inline">\(\bar{F}\)</span>中的；另一方面由实际应用上的性质，一些奇怪的函数也不可能成为一些物理问题的解。</p>
+<p>​ ③<span
+class="math inline">\(F(x)\)</span>是我们设想的最优函数，那么$( x )
+<span class="math inline">\(的意义实际上是一个对\)</span>F(x)<span
+class="math inline">\(的扰动，在这个扰动中，\)</span>( x )<span
+class="math inline">\(可能是各种函数，比如\)</span>sin(x),e^x<span
+class="math inline">\(等等，这些都是无所谓的，只要它满足边值条件且一二阶导数连续，就可以，而这里的\)</span><span
+class="math inline">\(作为一个常数，只要它趋于0，无论\)</span>( x )<span
+class="math inline">\(如何选取，就像一个控制因子一样，只要趋近于0，得到的函数\)</span>F$就是最优的。</p>
+<p>​ 在最速降线中，遇到的是这样的一个问题： <span class="math display">\[
+T\left( y \right) =\int_{x_1}^{x_2}{\sqrt{\frac{1+\left( y&#39; \right)
+^2}{2gy}}}dx
+\]</span> ​ 在这里<span class="math inline">\(y\)</span>就可以看成从<span
+class="math inline">\(\bar
+y\)</span>中选取的一个函数，那么根据上文，这里的任何一个<span
+class="math inline">\(y\)</span>都可以写成最优的<span
+class="math inline">\(y(x)\)</span>加上一个扰动，在这里<span
+class="math inline">\(y(x),\eta \left( x
+\right)\)</span>是一个被确定的函数，那么原泛函积分后的结果自然会是一个关于<span
+class="math inline">\(\epsilon\)</span>​的函数。 <span
+class="math display">\[
+I\left( \varepsilon \right) =\int_{x_1}^{x_2}{F\left( x,y+\epsilon \eta
+,y&#39;+\varepsilon \eta &#39; \right)}dx
+\]</span> ​ 并且要注意到，如果<span
+class="math inline">\(\epsilon\)</span>等于零，那么扰动就会消失，且积分结果就变为我们想要的最短时间，<span
+class="math inline">\(I(0)\)</span>即为<span
+class="math inline">\(I\)</span>的极值，即： <span
+class="math display">\[
+\left. \frac{dI}{d\epsilon} \right|_{\varepsilon =0}=\frac{d\left(
+\int_{x_1}^{x_2}{F\left( x,y+\epsilon \eta ,y&#39;+\varepsilon \eta
+&#39; \right)}dx \right)}{d\epsilon}
+\\
+=\int_{x_1}^{x_2}{\frac{\partial F}{\partial
+\varepsilon}}dx(含参变量积分的求导)
+\]</span> ​ 于是我们继而研究<span class="math inline">\(\frac{\partial
+F}{\partial \varepsilon}\)</span>，为了下面计算的方便，我们将<span
+class="math inline">\(y+\epsilon \eta\)</span>记作<span
+class="math inline">\(u\)</span>,<span
+class="math inline">\(y&#39;+\varepsilon \eta\)</span>记作<span
+class="math inline">\(v\)</span>。由多元函数求偏微分的方法，得： <span
+class="math display">\[
+\frac{\partial F}{\partial \varepsilon}=\frac{\partial F}{\partial
+x}\frac{\partial x}{\partial \varepsilon}+\frac{\partial F}{\partial
+u}\frac{\partial u}{\partial \varepsilon}+\frac{\partial F}{\partial
+v}\frac{\partial v}{\partial \varepsilon}
+\\
+=\frac{\partial F}{\partial u}\eta +\frac{\partial F}{\partial v}\eta
+&#39;
+\]</span> ​ 而注意到，此时<span
+class="math inline">\(\epsilon\)</span>趋近于0，那么<span
+class="math inline">\(u,v\)</span>实际上都收敛于<span
+class="math inline">\(y,y&#39;\)</span>，则上面的方程： <span
+class="math display">\[
+\left. \frac{dI}{d\epsilon} \right|_{\varepsilon
+=0}=\int_{x_1}^{x_2}{\left( \frac{\partial F}{\partial u}\eta
++\frac{\partial F}{\partial v}\eta &#39; \right)}dx
+\\
+=\int_{x_1}^{x_2}{\left( \frac{\partial F}{\partial y}\eta
++\frac{\partial F}{\partial y&#39;}\frac{d\eta}{dx} \right)}dx
+\]</span> ​
+再应用分部积分求解积分中的后一项，会发现一个有用的事实：由于<span
+class="math inline">\(\eta(x)\)</span>满足边值条件，则分部积分出来的前一项为零。
+<span class="math display">\[
+\int_{x_1}^{x_2}{\frac{\partial F}{\partial
+y&#39;}\frac{d\eta}{dx}}dx=\left. \frac{\partial F}{\partial y&#39;}\eta
+\right|_{x_1}^{x_2}-\int_{x_1}^{x_2}{\eta \frac{d\left( \frac{\partial
+F}{\partial y&#39;} \right)}{dx}dx}
+\]</span> ​ 将这个结论反带回去，会发现原式中的<span
+class="math inline">\(\eta\)</span>被提取了出来： <span
+class="math display">\[
+\left. \frac{dI}{d\epsilon} \right|_{\varepsilon
+=0}=\int_{x_1}^{x_2}{\left( \frac{\partial F}{\partial y}-\frac{d\left(
+\frac{\partial F}{\partial y&#39;} \right)}{dx} \right)}\eta dx
+\]</span> ​
+此时，方程的左端是零，而又因为内积为零的向量必互相正交，且<span
+class="math inline">\(\eta\)</span>是任意选取的，则说明 <span
+class="math display">\[
+\frac{\partial F}{\partial y}-\frac{d}{dx}\left( \frac{\partial
+F}{\partial y&#39;} \right)=0
+\]</span> ​
+恒成立，这个式子就是变分法中的欧拉方程。这个方程的意义在于，如果我们确实在处理形如<span
+class="math inline">\(T\left( y \right) =\int_{x_1}^{x_2}{F\left( x,y
+,y&#39; \right)}dx\)</span>的问题，那么如果<span
+class="math inline">\(y\)</span>是最优的，则上面的方程恒等式必须要被满足。</p>
+<p>​ 通过等价变形，可以得到欧拉方程的第二种表达形式： <span
+class="math display">\[
+\frac{\partial F}{\partial x}-\frac{d}{dx}\left( F-y&#39;\frac{\partial
+F}{\partial y&#39;} \right) =0
+\]</span> ​ 这个形式在<span class="math inline">\(\frac{\partial
+F}{\partial x}=0\)</span>时非常有用，因为此时可以直接导出<span
+class="math inline">\(F-y&#39;\frac{\partial F}{\partial
+y&#39;}=C\)</span>，这样就将一个在泛函空间里的优化问题转化成了熟悉的微分方程问题。</p>
+<p>​ 现在我们给出变分在数学上的严格说法，即变分为<span
+class="math inline">\(\delta y\)</span>，<span
+class="math inline">\(\bar{y}=y\left( x \right) +\delta
+y\)</span>。与我们熟悉的微分类似，只是先前是对<span
+class="math inline">\(x\)</span>进行扰动，而现在是对<span
+class="math inline">\(y\)</span>这个函数进行扰动。变分的运算法则与导数有许多平行的规律，诸如一些可交换性等等，这里不赘述。</p>
+<p>​
+虽然变分法仍然有相当多的内容，但是为了后面学会最优控制中的哈密顿函数法，这个程度就已经够用了。</p>
 
     </div>
 

@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	课也选完了，明早就要跑路了，最后写个关于启发式算法的实际运用，来&lt;\假期&gt;">
+    <meta name="description" content="​ 课也选完了，明早就要跑路了，最后写个关于启发式算法的实际运用，来&lt;&gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="启发式算法OVA">
 <meta property="og:url" content="http://example.com/2021/08/29/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95OVA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	课也选完了，明早就要跑路了，最后写个关于启发式算法的实际运用，来&lt;\假期&gt;">
+<meta property="og:description" content="​ 课也选完了，明早就要跑路了，最后写个关于启发式算法的实际运用，来&lt;&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/GAova_1.jpg">
 <meta property="og:image" content="http://example.com/images/GAova_2.jpg">
@@ -57,7 +57,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -235,83 +239,115 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	课也选完了，明早就要跑路了，最后写个关于启发式算法的实际运用，来&lt;\假期&gt;</p>
+        <p>​
+课也选完了，明早就要跑路了，最后写个关于启发式算法的实际运用，来&lt;&gt;</p>
 <span id="more"></span>
-
-<p>​	要解决的问题选自CUMCM2020A第三小问，求解一组温度设置，使得炉温曲线从超过217°C到峰值所覆盖的面积最小。由于具体问题要求说起来比较长了，这里略去。首先建立温度场函数，即预热区，恒温区，回流区，冷却区，且其中小温区1<del>5的温度保持一致，小温区8</del>9的温度保持一致，小温区10~11的温度保持一致，同时要考虑炉前区域和炉后区域的温度（室温为25°C）。考虑一维热传导方程：<br>$$<br>\frac{\partial u\left( x,t \right)}{\partial t}&#x3D;k^2\frac{\partial ^2u\left( x,t \right)}{\partial x^2}<br>$$<br>​	由于依题目要求，回焊炉启动后炉间温度快速平衡，那么温度函数关于$t$的一阶偏导为0，则关于$x$​炉间温度分布呈线性关系，对于炉前区域和炉后区域，认为从炉头到炉前末端，从炉后前端到炉尾，温度为线性变化。编写一维温度场函数（利用阶跃函数heaviside避免if语句，但是这两种做法哪个更快我还没有试过）：</p>
+<p>​
+要解决的问题选自CUMCM2020A第三小问，求解一组温度设置，使得炉温曲线从超过217°C到峰值所覆盖的面积最小。由于具体问题要求说起来比较长了，这里略去。首先建立温度场函数，即预热区，恒温区，回流区，冷却区，且其中小温区1<sub>5的温度保持一致，小温区8</sub>9的温度保持一致，小温区10~11的温度保持一致，同时要考虑炉前区域和炉后区域的温度（室温为25°C）。考虑一维热传导方程：
+<span class="math display">\[
+\frac{\partial u\left( x,t \right)}{\partial t}=k^2\frac{\partial
+^2u\left( x,t \right)}{\partial x^2}
+\]</span> ​
+由于依题目要求，回焊炉启动后炉间温度快速平衡，那么温度函数关于<span
+class="math inline">\(t\)</span>的一阶偏导为0，则关于<span
+class="math inline">\(x\)</span>​炉间温度分布呈线性关系，对于炉前区域和炉后区域，认为从炉头到炉前末端，从炉后前端到炉尾，温度为线性变化。编写一维温度场函数（利用阶跃函数heaviside避免if语句，但是这两种做法哪个更快我还没有试过）：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">T</span>=<span class="title">TEMP</span><span class="params">(x)</span></span></span><br><span class="line"><span class="keyword">global</span> T1 T2 T3 T4</span><br><span class="line">T=<span class="built_in">ceil</span>(heaviside(x)-heaviside(x<span class="number">-25</span>))*((((T1<span class="number">-25</span>)/<span class="number">25</span>)*(x)+<span class="number">25</span>))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-25</span>)-heaviside(x<span class="number">-197.5</span>))*T1+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-197.5</span>)-heaviside(x<span class="number">-202.5</span>))*((((T2-T1)/<span class="number">5</span>)*(x<span class="number">-197.5</span>)+T1))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-202.5</span>)-heaviside(x<span class="number">-233</span>))*T2+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-233</span>)-heaviside(x<span class="number">-238</span>))*((((T3-T2)/<span class="number">5</span>)*(x<span class="number">-233</span>)+T2))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-238</span>)-heaviside(x<span class="number">-268.5</span>))*T3+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-268.5</span>)-heaviside(x<span class="number">-273.5</span>))*((((T4-T3)/<span class="number">5</span>)*(x<span class="number">-268.5</span>)+T3))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-273.5</span>)-heaviside(x<span class="number">-339.5</span>))*T4+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-339.5</span>)-heaviside(x<span class="number">-344.5</span>))*((((<span class="number">25</span>-T4)/<span class="number">5</span>)*(x<span class="number">-339.5</span>)+T4))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-344.5</span>)-heaviside(x<span class="number">-435.5</span>))*<span class="number">25</span>;</span><br></pre></td></tr></table></figure>
-
-<p>​	当给出一组温度$T$时，温度场函数的图像如图所示：</p>
-<p><img src="/images/GAova_1.jpg"></p>
-<p>​	该问题可以归结为一维的热传导问题，边界条件由牛顿冷却定律给出：<br>$$<br>\left{ \begin{array}{c}<br>    \frac{\partial T}{\partial t}&#x3D;\alpha \frac{\partial ^2T}{\partial y^2}\<br>    \frac{\partial T}{\partial y}\mid_{y&#x3D;|\frac{d}{2}|}^{}&#x3D;h\left( T_{env}\left( x \right) -T_{surf} \right)\<br>\end{array} \right.<br>$$<br>​	其中参数$\alpha$代表热扩散率，这个物理量与温度有关，不同的温度段热扩散率可能有差异，这里按照上述分布的五个温度分区定义五个热扩散率$\alpha_1,\alpha_2,..\alpha_5$。由有限差分法，迭代格式可以写作：<br>$$<br>U^{n+1}&#x3D;A^{-1}BU^n<br>$$<br>​	编程求解得到炉温曲线和电路板温度随时间的变化的图像：</p>
-<p><img src="/images/GAova_2.jpg"></p>
-<p><img src="/images/GAova_3.jpg"></p>
-<p>​	迭代计算温度T的函数CurveCal.m过于冗长，这里略去。</p>
-<p>​	此时还要考虑制程界限，即题目表格的限制条件：</p>
+<p>​ 当给出一组温度<span
+class="math inline">\(T\)</span>时，温度场函数的图像如图所示：</p>
+<p><img src="/images/GAova_1.jpg" /></p>
+<p>​ 该问题可以归结为一维的热传导问题，边界条件由牛顿冷却定律给出： <span
+class="math display">\[
+\left\{ \begin{array}{c}
+    \frac{\partial T}{\partial t}=\alpha \frac{\partial ^2T}{\partial
+y^2}\\
+    \frac{\partial T}{\partial y}\mid_{y=|\frac{d}{2}|}^{}=h\left(
+T_{env}\left( x \right) -T_{surf} \right)\\
+\end{array} \right.
+\]</span> ​ 其中参数<span
+class="math inline">\(\alpha\)</span>代表热扩散率，这个物理量与温度有关，不同的温度段热扩散率可能有差异，这里按照上述分布的五个温度分区定义五个热扩散率<span
+class="math inline">\(\alpha_1,\alpha_2,..\alpha_5\)</span>。由有限差分法，迭代格式可以写作：
+<span class="math display">\[
+U^{n+1}=A^{-1}BU^n
+\]</span> ​ 编程求解得到炉温曲线和电路板温度随时间的变化的图像：</p>
+<p><img src="/images/GAova_2.jpg" /></p>
+<p><img src="/images/GAova_3.jpg" /></p>
+<p>​ 迭代计算温度T的函数CurveCal.m过于冗长，这里略去。</p>
+<p>​ 此时还要考虑制程界限，即题目表格的限制条件：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>界限名称</th>
 <th>最低值</th>
 <th>最高值</th>
 <th>单位</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>温度上升斜率</td>
 <td>0</td>
 <td>3</td>
-<td>°C&#x2F;s</td>
+<td>°C/s</td>
 </tr>
-<tr>
+<tr class="even">
 <td>温度下降斜率</td>
 <td>-3</td>
 <td>0</td>
-<td>°C&#x2F;s</td>
+<td>°C/s</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>温度上升时在150°C~190°C的时间</td>
 <td>60</td>
 <td>120</td>
 <td>s</td>
 </tr>
-<tr>
+<tr class="even">
 <td>温度大于217°C的时间</td>
 <td>40</td>
 <td>90</td>
 <td>s</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>峰值温度</td>
 <td>240</td>
 <td>250</td>
 <td>°C</td>
 </tr>
-</tbody></table>
-<p>​	</p>
+</tbody>
+</table>
+<p>​</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flag</span>=<span class="title">limit</span><span class="params">(T,dt)</span></span></span><br><span class="line">dT=T(<span class="number">2</span>:<span class="keyword">end</span>)-T(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>);</span><br><span class="line">k=[<span class="number">0</span> dT/dt];</span><br><span class="line">Heating_Limit=<span class="number">0</span>;</span><br><span class="line">Extrame_Limit=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="built_in">length</span>(T)</span><br><span class="line">    <span class="keyword">if</span> k(<span class="built_in">i</span>)&gt;<span class="number">0</span> &amp;&amp; T(<span class="built_in">i</span>)&gt;<span class="number">150</span> &amp;&amp; T(<span class="built_in">i</span>)&lt;<span class="number">190</span></span><br><span class="line">        Heating_Limit=Heating_Limit+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">elseif</span> T(<span class="built_in">i</span>)&gt;<span class="number">217</span></span><br><span class="line">        Extrame_Limit=Extrame_Limit+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">Heating_time=Heating_Limit*dt;</span><br><span class="line">Extrame_time=Extrame_Limit*dt;</span><br><span class="line"></span><br><span class="line">[Highest,Highest_index]=<span class="built_in">max</span>(T);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">max</span>(k)&gt;<span class="number">3</span> || <span class="built_in">min</span>(k)&lt;<span class="number">-3</span></span><br><span class="line">    flag=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">elseif</span> Highest&gt;<span class="number">250</span> || Highest&lt;<span class="number">240</span></span><br><span class="line">    flag=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">elseif</span> Heating_time&lt;<span class="number">60</span> || Heating_time&gt;<span class="number">120</span></span><br><span class="line">    flag=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">elseif</span> Extrame_time&lt;<span class="number">40</span> || Extrame_time&gt;<span class="number">90</span></span><br><span class="line">    flag=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    flag=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	完成上述铺垫就可以调用遗传算法工具箱求解该问题，（不到万不得已不要用遗传算法这种启发式算法，没必要，本题是解空间维度很高，且根据数学试验后，并没有十分显著的规律可以得出。<del>其实“充足的数值实验”可以证明此时最优的T4为265摄氏度左右</del>）</p>
+<p>​
+完成上述铺垫就可以调用遗传算法工具箱求解该问题，（不到万不得已不要用遗传算法这种启发式算法，没必要，本题是解空间维度很高，且根据数学试验后，并没有十分显著的规律可以得出。<del>其实“充足的数值实验”可以证明此时最优的T4为265摄氏度左右</del>）</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">clc</span><br><span class="line">dt=<span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line">tic;</span><br><span class="line">opt=gaoptimset(<span class="string">&#x27;Generations&#x27;</span>,<span class="number">800</span>,<span class="string">&#x27;MigrationFraction&#x27;</span>,<span class="number">0.3</span>);</span><br><span class="line">lb=[<span class="number">165</span> <span class="number">185</span> <span class="number">225</span> <span class="number">245</span> <span class="number">65</span>];</span><br><span class="line">ub=[<span class="number">185</span> <span class="number">205</span> <span class="number">245</span> <span class="number">265</span> <span class="number">100</span>];</span><br><span class="line">[x,fval]=ga(@fitness,<span class="number">5</span>,[],[],[],[],lb,ub,[],opt);</span><br><span class="line">toc;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">E</span>=<span class="title">fitness</span><span class="params">(x)</span></span></span><br><span class="line"><span class="keyword">global</span> T1</span><br><span class="line"><span class="keyword">global</span> T2</span><br><span class="line"><span class="keyword">global</span> T3</span><br><span class="line"><span class="keyword">global</span> T4</span><br><span class="line">T1=x(<span class="number">1</span>);</span><br><span class="line">T2=x(<span class="number">2</span>);</span><br><span class="line">T3=x(<span class="number">3</span>);</span><br><span class="line">T4=x(<span class="number">4</span>);</span><br><span class="line">v=x(<span class="number">5</span>);</span><br><span class="line">dt=<span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> T1&lt;<span class="number">165</span>||T1&gt;<span class="number">185</span>||T2&lt;<span class="number">185</span>||T2&gt;<span class="number">205</span>||T3&lt;<span class="number">225</span>||T3&gt;<span class="number">245</span>||T4&lt;<span class="number">245</span>||T4&gt;<span class="number">265</span>||v&lt;<span class="number">65</span>||v&gt;<span class="number">100</span></span><br><span class="line">    E=<span class="number">10000</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    T=CurveCal(v/<span class="number">60</span>,dt);</span><br><span class="line">    T_curve=T(<span class="number">76</span>,:);</span><br><span class="line">    flag=limit(T_curve,dt);</span><br><span class="line">    <span class="keyword">if</span> flag==<span class="number">0</span></span><br><span class="line">        E=<span class="number">10000</span>;</span><br><span class="line">        E</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        [~,index]=<span class="built_in">max</span>(T_curve);</span><br><span class="line">        above=<span class="built_in">find</span>(T_curve&gt;<span class="number">217</span>);</span><br><span class="line">        fit=T_curve(above(<span class="number">1</span>):index)<span class="number">-217</span>;</span><br><span class="line">        E=sum((fit(<span class="number">1</span>:<span class="keyword">end</span><span class="number">-1</span>)+fit(<span class="number">2</span>:<span class="keyword">end</span>))*dt/<span class="number">2</span>);</span><br><span class="line">        E</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	运行时间大约在十几分钟到一个小时不等。</p>
-<p>​	在这里用matlab的ga函数是因为短时间内编写这种群优化算法比较困难，下面用模拟退火来进行“验算”。</p>
+<p>​ 运行时间大约在十几分钟到一个小时不等。</p>
+<p>​
+在这里用matlab的ga函数是因为短时间内编写这种群优化算法比较困难，下面用模拟退火来进行“验算”。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[BestT1,BestT2,BestT3,BestT4,Bestv,trace,T_m]</span>=<span class="title">SAA</span><span class="params">()</span></span></span><br><span class="line">clear all</span><br><span class="line">clc</span><br><span class="line"><span class="keyword">global</span> T1 T2 T3 T4</span><br><span class="line">dt=<span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line">L=<span class="number">100</span>;</span><br><span class="line">K=<span class="number">0.98</span>;</span><br><span class="line">S=<span class="number">0.08</span>;</span><br><span class="line">T_m=<span class="number">5</span>;</span><br><span class="line">P=<span class="number">1</span>;</span><br><span class="line">trace=<span class="built_in">linspace</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">20000</span>);</span><br><span class="line"><span class="comment">%初始化</span></span><br><span class="line">f=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(f==<span class="number">1</span>)</span><br><span class="line">    Bestv=<span class="built_in">rand</span>*<span class="number">35</span>+<span class="number">65</span>;</span><br><span class="line">    BestT1=<span class="built_in">rand</span>*<span class="number">20</span>+<span class="number">165</span>;</span><br><span class="line">    BestT2=<span class="built_in">rand</span>*<span class="number">20</span>+<span class="number">185</span>;</span><br><span class="line">    BestT3=<span class="built_in">rand</span>*<span class="number">20</span>+<span class="number">225</span>;</span><br><span class="line">    BestT4=<span class="built_in">rand</span>*<span class="number">20</span>+<span class="number">245</span>;</span><br><span class="line">    T1=BestT1;</span><br><span class="line">    T2=BestT2;</span><br><span class="line">    T3=BestT3;</span><br><span class="line">    T4=BestT4;</span><br><span class="line">    T=CurveCal(Bestv/<span class="number">60</span>,dt);</span><br><span class="line">    T_curve_best=T(<span class="number">76</span>,:);</span><br><span class="line">    flag=limit(T_curve_best,dt);</span><br><span class="line">    <span class="keyword">if</span> flag==<span class="number">1</span></span><br><span class="line">        f=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (T_m&gt;<span class="number">0.001</span>) &amp;&amp; (P&lt;<span class="number">20000</span>)</span><br><span class="line">    T_m=K*T_m;</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:L</span><br><span class="line">        p=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> p==<span class="number">0</span></span><br><span class="line">            Nextv=Bestv+T_m*(<span class="built_in">rand</span>-<span class="built_in">rand</span>);</span><br><span class="line">            NextT1=BestT1+T_m*(<span class="built_in">rand</span>-<span class="built_in">rand</span>);</span><br><span class="line">            NextT2=BestT2+T_m*(<span class="built_in">rand</span>-<span class="built_in">rand</span>);</span><br><span class="line">            NextT3=BestT3+T_m*(<span class="built_in">rand</span>-<span class="built_in">rand</span>);</span><br><span class="line">            NextT4=BestT4+T_m*(<span class="built_in">rand</span>-<span class="built_in">rand</span>);</span><br><span class="line">            [Nextv,NextT1,NextT2,NextT3,NextT4]=Judge(Nextv,NextT1,NextT2,NextT3,NextT4);</span><br><span class="line">            T1=NextT1;</span><br><span class="line">            T2=NextT2;</span><br><span class="line">            T3=NextT3;</span><br><span class="line">            T4=NextT4;</span><br><span class="line">            T=CurveCal(Nextv/<span class="number">60</span>,dt);</span><br><span class="line">            T_curve_next=T(<span class="number">76</span>,:);</span><br><span class="line">            flag=limit(T_curve_next,dt);</span><br><span class="line">            <span class="keyword">if</span> flag==<span class="number">1</span></span><br><span class="line">                p=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        S_best=Cal_S(T_curve_best,dt);</span><br><span class="line">        S_next=Cal_S(T_curve_next,dt);</span><br><span class="line">        <span class="keyword">if</span> S_best&gt;S_next</span><br><span class="line">            Bestv=Nextv;</span><br><span class="line">            BestT1=NextT1;</span><br><span class="line">            BestT2=NextT2;</span><br><span class="line">            BestT3=NextT3;</span><br><span class="line">            BestT4=NextT4;</span><br><span class="line">            P=P+<span class="number">1</span>;</span><br><span class="line">            T_curve_best=T_curve_next;</span><br><span class="line">            S_best=S_next;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            change=-(S_next-S_best)/T_m;</span><br><span class="line">            p1=<span class="built_in">exp</span>(change);</span><br><span class="line">            <span class="keyword">if</span> p1&gt;<span class="built_in">rand</span></span><br><span class="line">                Bestv=Nextv;</span><br><span class="line">                BestT1=NextT1;</span><br><span class="line">                BestT2=NextT2;</span><br><span class="line">                BestT3=NextT3;</span><br><span class="line">                BestT4=NextT4;</span><br><span class="line">                P=P+<span class="number">1</span>;</span><br><span class="line">                T_curve_best=T_curve_next;</span><br><span class="line">                S_best=S_next;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        trace(P)=S_best;</span><br><span class="line">    S_best</span><br><span class="line">    T_m</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>​	运行后发现两种算法的结果为：</p>
+<p>​ 运行后发现两种算法的结果为：</p>
 <table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th></th>
-<th>$T_1$</th>
-<th>$T_2$</th>
-<th>$T_3$</th>
-<th>$T_4$</th>
-<th>$v$</th>
-<th>$S$</th>
+<th><span class="math inline">\(T_1\)</span></th>
+<th><span class="math inline">\(T_2\)</span></th>
+<th><span class="math inline">\(T_3\)</span></th>
+<th><span class="math inline">\(T_4\)</span></th>
+<th><span class="math inline">\(v\)</span></th>
+<th><span class="math inline">\(S\)</span></th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>GA</td>
 <td>178.8662</td>
 <td>200.0697</td>
@@ -320,7 +356,7 @@
 <td>91.1204</td>
 <td>490.4073</td>
 </tr>
-<tr>
+<tr class="even">
 <td>SAA</td>
 <td>181.4935</td>
 <td>199.7269</td>
@@ -329,12 +365,16 @@
 <td>90.9217</td>
 <td>490.6445</td>
 </tr>
-</tbody></table>
-<p>​	所以可以认为所求的最优解就在490附近。在求解解空间很高的优化问题时，一定要注意每个过程用到的子函数是否简洁，否则可能耗费更多的时间。</p>
-<p>​	当写完这个的时候，我已经到学校了，刚把阳台收拾完，返校那一路十分折磨，仿佛是对我假期摸鱼的报复。这学期，要做个人，从不翘课开始，好好学习，天天向上。</p>
-<p><img src="/images/GAova_4.jpg"></p>
-<p>​	后续：</p>
-<p>​	当我像往常一样部署时发现展开这篇博客全文后显示为404的问题，找了好久发现是大小写的问题，因为原本我打的是’ova’,后来上传上去想改成’OVA’,可是改好部署后就发生了404，原因是git默认忽视文件名大小写，所以即使大小写变更，git也检测不到，解决方案是从博客项目中的.deploy_git中，修改.git下的config,将ignorecase&#x3D;true改成ignorecase&#x3D;false。</p>
+</tbody>
+</table>
+<p>​
+所以可以认为所求的最优解就在490附近。在求解解空间很高的优化问题时，一定要注意每个过程用到的子函数是否简洁，否则可能耗费更多的时间。</p>
+<p>​
+当写完这个的时候，我已经到学校了，刚把阳台收拾完，返校那一路十分折磨，仿佛是对我假期摸鱼的报复。这学期，要做个人，从不翘课开始，好好学习，天天向上。</p>
+<p><img src="/images/GAova_4.jpg" /></p>
+<p>​ 后续：</p>
+<p>​
+当我像往常一样部署时发现展开这篇博客全文后显示为404的问题，找了好久发现是大小写的问题，因为原本我打的是'ova',后来上传上去想改成'OVA',可是改好部署后就发生了404，原因是git默认忽视文件名大小写，所以即使大小写变更，git也检测不到，解决方案是从博客项目中的.deploy_git中，修改.git下的config,将ignorecase=true改成ignorecase=false。</p>
 
     </div>
 

@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。">
+    <meta name="description" content="​ 最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="概率论4">
 <meta property="og:url" content="http://example.com/2022/02/27/%E6%A6%82%E7%8E%87%E8%AE%BA4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。">
+<meta property="og:description" content="​ 最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-27T03:07:18.000Z">
 <meta property="article:modified_time" content="2022-02-27T17:00:11.501Z">
@@ -52,7 +52,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -230,25 +234,206 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。</p>
+        <p>​
+最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。</p>
 <span id="more"></span>
-
-<p>​	首先要引入切比雪夫不等式，即$X$为一随机变量，如果$EX,DX$存在，则对于所有的$\varepsilon $​，都有：<br>$$<br>P\left( |X-EX|\geqslant \varepsilon \right) \leqslant \frac{DX}{\varepsilon ^2}<br>$$<br>​	这个式子可以帮助我们在不知道分布函数的情况下对概率进行估计，以及帮助理论证明。</p>
-<p>​	下面我们引入大数定律，大数定律其实就是随机变量序列的前若干项的算术平均值在某种情况下收敛到这些项的均值的算数平均值。我们重点介绍三个大数定律：</p>
-<p>​	<em>切比雪夫大数定律：</em></p>
-<p>​	随机变量序列$\left{ X_i \right} $相互独立，且具有相同的期望和方差，则：<br>$$<br>\underset{n\rightarrow \infty}{\lim}P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\mu |\geqslant \varepsilon \right) &#x3D;0<br>\<br>\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}\overset{P}{\longrightarrow}\mu ,n\rightarrow \infty<br>$$<br>​	直接应用切比雪夫不等式即可证明。实际上当期望相同，方差有上确界时，上式也成立。</p>
-<p>​	<em>马尔可夫大数定律：</em></p>
-<p>​	此时对互相独立的随机变量的期望没有要求（但是得存在），但要求$\underset{n\rightarrow \infty}{\lim}\frac{1}{n^2}D\left[ \sum_{i&#x3D;1}^n{X_i} \right] &#x3D;0$。此时满足：<br>$$<br>\underset{n\rightarrow \infty}{\lim}P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i}|\geqslant \varepsilon \right) &#x3D;0<br>\<br>\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}\overset{P}{\longrightarrow}\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i},n\rightarrow \infty<br>$$<br>​	这个看起来有些不直接，我们这里写下它的证明：<br>$$<br>P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i}|\geqslant \varepsilon \right) &#x3D;P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\sum_{i&#x3D;1}^n{\frac{1}{n}EX_i}|\geqslant \varepsilon \right)<br>\<br>&#x3D;\frac{D\left[ \frac{1}{n}\sum_{i&#x3D;1}^n{X_i} \right]}{\varepsilon ^2}&#x3D;\frac{\frac{1}{n^2}D\left[ \sum_{i&#x3D;1}^n{X_i} \right]}{\varepsilon ^2}\rightarrow 0<br>$$<br>​	<em>辛钦大数定律：</em></p>
-<p>​	辛钦大数定律回答了当方差不存在时的情况，此时要求$\left{ X_i \right} $独立同分布，具有有限的数学期望。<br>$$<br>\underset{n\rightarrow \infty}{\lim}P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\mu |\geqslant \varepsilon \right) &#x3D;0<br>\<br>\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}\overset{P}{\longrightarrow}\mu ,n\rightarrow \infty<br>$$<br>​	虽然性质和切比雪夫大数定律是一样的，但是此时的条件并不相同，我们要注意。</p>
-<p>​	实际上这三个大数定律就是在告诉我们，在满足各自条件下，随机变量序列前$n$项的算数平均很可能接近于$\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i}$。上面的$\overset{P}{\longrightarrow}$实际上叫依概率收敛，测度论中有更深入的讲解，这里我们只需一个浅显的认识：依概率收敛并不是随便一个随机变量序列都能满足的，在这里我们只用考虑$\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}$。比如最简单的抛硬币，它就不满足依概率收敛，哪怕一万次后，正面反面的概率还是那么多，不会有什么变化。</p>
-<p>​	以及<em>伯努利大数定律</em>告诉了我们频率和概率的关系，实际上这个关系我们早就知道了。即当试验次数很大时，可以用频率来替代概率。</p>
-<p>​	下面我们要介绍中心极限定理，这个定理十分的重要，从信息论上看，正态分布熵最大。正态分布为什么长这个样子，为什么里面带$e$，这些疑问将可以在中心极限定理看到。书上一共给出了三个中心极限定理，我们重点放在第一个，独立同分布情况下的，因为这个简单，并且更有一些应用意味。</p>
-<p>​	设$X_1,X_2,…,X_n$是相互独立且同分布的随机变量序列，期望为$\mu$，方差为$\sigma^2$。则随机变量$Y_n$的分布函数$F_n(x)$满足：<br>$$<br>Y_n&#x3D;\frac{\sum_{i&#x3D;1}^n{X_i}-E\left[ \sum_{i&#x3D;1}^n{X_i} \right]}{\sqrt{D\left[ \sum_{i&#x3D;1}^n{X_i} \right]}}&#x3D;\frac{\sum_{i&#x3D;1}^n{X_i}-n\mu}{\sqrt{n}\sigma}<br>\<br>\underset{n\rightarrow \infty}{\lim}F_n\left( x \right) &#x3D;\underset{n\rightarrow \infty}{\lim}\left( \frac{\sum_{i&#x3D;1}^n{X_i}-n\mu}{\sqrt{n}\sigma}\leqslant x \right) &#x3D;\int_{-\infty}^x{\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}\mathrm{d}t}&#x3D;\varPhi \left( x \right)<br>$$<br>​	本质上就是说许多独立的随机变量相加，我们利用之前学到的卷积公式，可知，对于$Z&#x3D;\sum_{i&#x3D;1}^n{X_i}$，概率密度函数可以写作：<br>$$<br>f_Z&#x3D;f_{X_1}\ast f_{X_2}\ast …\ast f_{X_n}<br>$$<br>​	卷积并不好处理，我们用傅里叶变换，我们先对随机变量$Y_n$进行标准化，写成$R_n$。这样我们计算的结果最后就可以用标准正态分布唯一表示：<br>$$<br>T_k&#x3D;X_k-\mu ,R_k&#x3D;\frac{T_k}{\sqrt{n}\sigma}<br>\<br>Y_n&#x3D;\sum{R_k}<br>\<br>f_R\left( x \right) &#x3D;\sqrt{n}\sigma f_T\left( \sqrt{n}\sigma x \right)<br>$$<br>​	至于$f_R(x)$的傅里叶变换：<br>$$<br>\mathcal{F} <em>R\left( k \right) &#x3D;\int</em>{-\infty}^{+\infty}{\sqrt{n}\sigma f_T\left( \sqrt{n}\sigma x \right) e^{ikx}\mathrm{d}x}&#x3D;\int_{-\infty}^{+\infty}{f_T\left( \sqrt{n}\sigma x \right) e^{\frac{ik\sqrt{n}\sigma x}{\sqrt{n}\sigma}}\mathrm{d}\left( \sqrt{n}\sigma x \right)}<br>\<br>&#x3D;\mathcal{F} <em>T\left( \frac{k}{\sqrt{n}\sigma} \right)<br>$$<br>​	对傅里叶变换后的表达式作泰勒展开，结合傅里叶变换的时域微分性质<br>$$<br>\mathcal{F} \left[ \left( ix \right) ^nf\left( x \right) \right] &#x3D;\mathcal{F} ^n\left( k \right)<br>\<br>\mathcal{F} <em>T\left( 0 \right) &#x3D;\int</em>{-\infty}^{+\infty}{f_T\left( x \right) \mathrm{d}x}&#x3D;1<br>\<br>\mathcal{F} ‘<em>T\left( 0 \right) &#x3D;\int</em>{-\infty}^{+\infty}{ixf_T\left( x \right) \mathrm{d}x}&#x3D;iE\left( X \right) &#x3D;0<br>\<br>\mathcal{F} ‘’<em>T\left( 0 \right) &#x3D;\int</em>{-\infty}^{+\infty}{\left( ix \right) ^2f_T\left( x \right) \mathrm{d}x}&#x3D;-D\left( X \right) &#x3D;-\sigma ^2<br>$$<br>​	所以对于我们想求的：<br>$$<br>\mathcal{F} <em>Y\left( k \right) &#x3D;\left[ \mathcal{F} <em>R\left( k \right) \right] ^n&#x3D;\left[ \mathcal{F} <em>T\left( \frac{k}{\sqrt{n}\sigma} \right) \right] ^n<br>\<br>&#x3D;\underset{n\rightarrow \infty}{\lim}\left[ 1-\frac{k^2}{2n}+o\left( \left( \frac{k}{\sqrt{n}\sigma} \right) ^2 \right) \right] ^n<br>\<br>&#x3D;\underset{n\rightarrow \infty}{\lim}\left{ \left[ 1-\frac{k^2}{2n}+o\left( \left( \frac{k}{\sqrt{n}\sigma} \right) ^2 \right) \right] ^{-\frac{2n}{k^2}} \right} ^{-\frac{k^2}{2}}&#x3D;e^{-\frac{k^2}{2}}<br>$$<br>​	结论此时已经得到了，因为高斯函数的傅里叶变换还是高斯函数，特别地，在标准正态分布下傅里叶变换前后不变。<br>$$<br>\mathcal{F} \left( k \right) &#x3D;\int</em>{-\infty}^{+\infty}{e^{-ax^2}e^{-ikx}\mathrm{d}x}&#x3D;e^{-\frac{k^2}{4a}}\int</em>{-\infty}^{+\infty}{e^{-\left( \sqrt{a}x+\frac{ik}{2\sqrt{a}} \right) ^2}\mathrm{d}x}<br>\<br>&#x3D;\frac{1}{\sqrt{a}}e^{-\frac{k^2}{4a}}\int</em>{-\infty}^{+\infty}{e^{-u^2}\mathrm{d}u}&#x3D;\sqrt{\frac{\pi}{a}}e^{-\frac{k^2}{4a}}<br>\<br>a&#x3D;\frac{1}{2},\mathcal{F} \left( k \right) &#x3D;\sqrt{2\pi}e^{-\frac{k^2}{2}}<br>\<br>\mathcal{F} \left( \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \right) &#x3D;e^{-\frac{k^2}{2}}<br>$$<br>​	这里我们就给出了独立同分布情况下的简单证明，这个证明并不容易。这个证明并不能帮助做对考试题，但是我们仍然有必要知道。这个形式下的定理全称为林德伯格-维勒中心极限定理。简单来说，就是当$n$充分大时，可以近似认为服从正态分布$N(n\mu,n\sigma^2)$，估值为：<br>$$<br>P\left( \sum</em>{i&#x3D;1}^n{X_i}\leqslant x \right) \approx \varPhi \left( \frac{x-n\mu}{\sqrt{n}\sigma} \right)<br>\<br>P\left( a&lt;\sum_{i&#x3D;1}^n{X_i}\leqslant b \right) \approx \varPhi \left( \frac{b-n\mu}{\sqrt{n}\sigma} \right) -\varPhi \left( \frac{a-n\mu}{\sqrt{n}\sigma} \right)<br>$$<br>​	进一步，李普亚诺夫中心极限定理给出了不是同分布时的情况，它指出的情况是当随机变量间相互独立时，当李普亚诺夫条件得以满足时，我们可以将上文的$n\mu$替换成$\sum_{i&#x3D;1}^n{\mu <em>i}$，$\sqrt n \sigma$替换成$\sqrt{\sum</em>{i&#x3D;1}^n{\sigma _{i}^{2}}}$。</p>
-<p>​	棣莫弗-拉普拉斯中心极限定理对二项分布的近似计算有重要作用，实际上就是将最开始的中心极限定理里的$n\mu$换成$np$，$\sqrt n \sigma$换成$\sqrt {np(1-p)}$。</p>
-<p>​	中心极限定理的近似计算有着很好的功用，例如一批灯泡约有5%为残次品，从中抽取1000只灯泡进行检查，试求次品数不少于40的概率，以及次品数在40到60之间的概率。这个问题的精确解需要大量的计算，但用中心极限定理只需查标准正态分布表即可。</p>
-<p>​	由于$EX&#x3D;1000 \times 0.05&#x3D;50 DX &#x3D; 1000 \times 0.05 \times 0.95 &#x3D; 47.5$。<br>$$<br>P\left( X\geqslant 40 \right) &#x3D;P\left( 40\leqslant X\leqslant 1000 \right) \approx \varPhi \left( \frac{1000-50}{\sqrt{47.5}} \right) -\varPhi \left( \frac{40-50}{\sqrt{47.5}} \right)<br>\<br>&#x3D;1-\varPhi \left( -1.45 \right) &#x3D;0.9265<br>\<br>P\left( 40\leqslant X\leqslant 60 \right) \approx \varPhi \left( \frac{60-50}{\sqrt{47.5}} \right) -\varPhi \left( \frac{40-50}{\sqrt{47.5}} \right)<br>\<br>&#x3D;\varPhi \left( 1.45 \right) -\varPhi \left( -1.45 \right) &#x3D;2\varPhi \left( -1.45 \right) -1&#x3D;0.853<br>$$<br>​	一些难以准确计算的问题也可以由中心极限定理估计出，例如：</p>
-<p>​	货车最大载重量为5吨，每箱货物的平均重量为50千克，标准差为5千克。则估计最大能装多少箱，才能保证不超载的概率大于0.977。$\varPhi \left( 2 \right) &#x3D;0.977$。</p>
-<p>​	这个问题可以直接用中心极限定理作很好的估计：<br>$$<br>Y&#x3D;\sum_{i&#x3D;1}^n{X_i},EX_i&#x3D;50,DX_i&#x3D;5^2<br>\<br>P\left( Y\leqslant 5000 \right) &#x3D;\varPhi \left( \frac{5000-50n}{5\sqrt{n}} \right) &gt;\varPhi \left( 2 \right)<br>\<br>\frac{1000-10n}{\sqrt{n}}&gt;2\rightarrow n&lt;98.0199<br>$$<br>​	所以最多可装98箱。</p>
+<p>​ 首先要引入切比雪夫不等式，即<span
+class="math inline">\(X\)</span>为一随机变量，如果<span
+class="math inline">\(EX,DX\)</span>存在，则对于所有的$$​，都有： <span
+class="math display">\[
+P\left( |X-EX|\geqslant \varepsilon \right) \leqslant
+\frac{DX}{\varepsilon ^2}
+\]</span> ​
+这个式子可以帮助我们在不知道分布函数的情况下对概率进行估计，以及帮助理论证明。</p>
+<p>​
+下面我们引入大数定律，大数定律其实就是随机变量序列的前若干项的算术平均值在某种情况下收敛到这些项的均值的算数平均值。我们重点介绍三个大数定律：</p>
+<p>​ <em>切比雪夫大数定律：</em></p>
+<p>​ 随机变量序列${ X_i } $相互独立，且具有相同的期望和方差，则： <span
+class="math display">\[
+\underset{n\rightarrow \infty}{\lim}P\left(
+|\frac{1}{n}\sum_{i=1}^n{X_i}-\mu |\geqslant \varepsilon \right) =0
+\\
+\frac{1}{n}\sum_{i=1}^n{X_i}\overset{P}{\longrightarrow}\mu
+,n\rightarrow \infty
+\]</span> ​
+直接应用切比雪夫不等式即可证明。实际上当期望相同，方差有上确界时，上式也成立。</p>
+<p>​ <em>马尔可夫大数定律：</em></p>
+<p>​ 此时对互相独立的随机变量的期望没有要求（但是得存在），但要求<span
+class="math inline">\(\underset{n\rightarrow
+\infty}{\lim}\frac{1}{n^2}D\left[ \sum_{i=1}^n{X_i} \right]
+=0\)</span>。此时满足： <span class="math display">\[
+\underset{n\rightarrow \infty}{\lim}P\left(
+|\frac{1}{n}\sum_{i=1}^n{X_i}-\frac{1}{n}\sum_{i=1}^n{EX_i}|\geqslant
+\varepsilon \right) =0
+\\
+\frac{1}{n}\sum_{i=1}^n{X_i}\overset{P}{\longrightarrow}\frac{1}{n}\sum_{i=1}^n{EX_i},n\rightarrow
+\infty
+\]</span> ​ 这个看起来有些不直接，我们这里写下它的证明： <span
+class="math display">\[
+P\left(
+|\frac{1}{n}\sum_{i=1}^n{X_i}-\frac{1}{n}\sum_{i=1}^n{EX_i}|\geqslant
+\varepsilon \right) =P\left(
+|\frac{1}{n}\sum_{i=1}^n{X_i}-\sum_{i=1}^n{\frac{1}{n}EX_i}|\geqslant
+\varepsilon \right)
+\\
+=\frac{D\left[ \frac{1}{n}\sum_{i=1}^n{X_i} \right]}{\varepsilon
+^2}=\frac{\frac{1}{n^2}D\left[ \sum_{i=1}^n{X_i} \right]}{\varepsilon
+^2}\rightarrow 0
+\]</span> ​ <em>辛钦大数定律：</em></p>
+<p>​ 辛钦大数定律回答了当方差不存在时的情况，此时要求${ X_i }
+$独立同分布，具有有限的数学期望。 <span class="math display">\[
+\underset{n\rightarrow \infty}{\lim}P\left(
+|\frac{1}{n}\sum_{i=1}^n{X_i}-\mu |\geqslant \varepsilon \right) =0
+\\
+\frac{1}{n}\sum_{i=1}^n{X_i}\overset{P}{\longrightarrow}\mu
+,n\rightarrow \infty
+\]</span> ​
+虽然性质和切比雪夫大数定律是一样的，但是此时的条件并不相同，我们要注意。</p>
+<p>​
+实际上这三个大数定律就是在告诉我们，在满足各自条件下，随机变量序列前<span
+class="math inline">\(n\)</span>项的算数平均很可能接近于<span
+class="math inline">\(\frac{1}{n}\sum_{i=1}^n{EX_i}\)</span>。上面的<span
+class="math inline">\(\overset{P}{\longrightarrow}\)</span>实际上叫依概率收敛，测度论中有更深入的讲解，这里我们只需一个浅显的认识：依概率收敛并不是随便一个随机变量序列都能满足的，在这里我们只用考虑<span
+class="math inline">\(\frac{1}{n}\sum_{i=1}^n{X_i}\)</span>。比如最简单的抛硬币，它就不满足依概率收敛，哪怕一万次后，正面反面的概率还是那么多，不会有什么变化。</p>
+<p>​
+以及<em>伯努利大数定律</em>告诉了我们频率和概率的关系，实际上这个关系我们早就知道了。即当试验次数很大时，可以用频率来替代概率。</p>
+<p>​
+下面我们要介绍中心极限定理，这个定理十分的重要，从信息论上看，正态分布熵最大。正态分布为什么长这个样子，为什么里面带<span
+class="math inline">\(e\)</span>，这些疑问将可以在中心极限定理看到。书上一共给出了三个中心极限定理，我们重点放在第一个，独立同分布情况下的，因为这个简单，并且更有一些应用意味。</p>
+<p>​ 设<span
+class="math inline">\(X_1,X_2,...,X_n\)</span>是相互独立且同分布的随机变量序列，期望为<span
+class="math inline">\(\mu\)</span>，方差为<span
+class="math inline">\(\sigma^2\)</span>。则随机变量<span
+class="math inline">\(Y_n\)</span>的分布函数<span
+class="math inline">\(F_n(x)\)</span>满足： <span
+class="math display">\[
+Y_n=\frac{\sum_{i=1}^n{X_i}-E\left[ \sum_{i=1}^n{X_i}
+\right]}{\sqrt{D\left[ \sum_{i=1}^n{X_i}
+\right]}}=\frac{\sum_{i=1}^n{X_i}-n\mu}{\sqrt{n}\sigma}
+\\
+\underset{n\rightarrow \infty}{\lim}F_n\left( x \right)
+=\underset{n\rightarrow \infty}{\lim}\left(
+\frac{\sum_{i=1}^n{X_i}-n\mu}{\sqrt{n}\sigma}\leqslant x \right)
+=\int_{-\infty}^x{\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}\mathrm{d}t}=\varPhi
+\left( x \right)
+\]</span> ​
+本质上就是说许多独立的随机变量相加，我们利用之前学到的卷积公式，可知，对于<span
+class="math inline">\(Z=\sum_{i=1}^n{X_i}\)</span>，概率密度函数可以写作：
+<span class="math display">\[
+f_Z=f_{X_1}\ast f_{X_2}\ast ...\ast f_{X_n}
+\]</span> ​ 卷积并不好处理，我们用傅里叶变换，我们先对随机变量<span
+class="math inline">\(Y_n\)</span>进行标准化，写成<span
+class="math inline">\(R_n\)</span>。这样我们计算的结果最后就可以用标准正态分布唯一表示：
+<span class="math display">\[
+T_k=X_k-\mu ,R_k=\frac{T_k}{\sqrt{n}\sigma}
+\\
+Y_n=\sum{R_k}
+\\
+f_R\left( x \right) =\sqrt{n}\sigma f_T\left( \sqrt{n}\sigma x \right)
+\]</span> ​ 至于<span class="math inline">\(f_R(x)\)</span>的傅里叶变换：
+<span class="math display">\[
+\mathcal{F} _R\left( k \right) =\int_{-\infty}^{+\infty}{\sqrt{n}\sigma
+f_T\left( \sqrt{n}\sigma x \right)
+e^{ikx}\mathrm{d}x}=\int_{-\infty}^{+\infty}{f_T\left( \sqrt{n}\sigma x
+\right) e^{\frac{ik\sqrt{n}\sigma x}{\sqrt{n}\sigma}}\mathrm{d}\left(
+\sqrt{n}\sigma x \right)}
+\\
+=\mathcal{F} _T\left( \frac{k}{\sqrt{n}\sigma} \right)
+\]</span> ​
+对傅里叶变换后的表达式作泰勒展开，结合傅里叶变换的时域微分性质 <span
+class="math display">\[
+\mathcal{F} \left[ \left( ix \right) ^nf\left( x \right) \right]
+=\mathcal{F} ^n\left( k \right)
+\\
+\mathcal{F} _T\left( 0 \right) =\int_{-\infty}^{+\infty}{f_T\left( x
+\right) \mathrm{d}x}=1
+\\
+\mathcal{F} &#39;_T\left( 0 \right)
+=\int_{-\infty}^{+\infty}{ixf_T\left( x \right) \mathrm{d}x}=iE\left( X
+\right) =0
+\\
+\mathcal{F} &#39;&#39;_T\left( 0 \right)
+=\int_{-\infty}^{+\infty}{\left( ix \right) ^2f_T\left( x \right)
+\mathrm{d}x}=-D\left( X \right) =-\sigma ^2
+\]</span> ​ 所以对于我们想求的： <span class="math display">\[
+\mathcal{F} _Y\left( k \right) =\left[ \mathcal{F} _R\left( k \right)
+\right] ^n=\left[ \mathcal{F} _T\left( \frac{k}{\sqrt{n}\sigma} \right)
+\right] ^n
+\\
+=\underset{n\rightarrow \infty}{\lim}\left[ 1-\frac{k^2}{2n}+o\left(
+\left( \frac{k}{\sqrt{n}\sigma} \right) ^2 \right) \right] ^n
+\\
+=\underset{n\rightarrow \infty}{\lim}\left\{ \left[
+1-\frac{k^2}{2n}+o\left( \left( \frac{k}{\sqrt{n}\sigma} \right) ^2
+\right) \right] ^{-\frac{2n}{k^2}} \right\}
+^{-\frac{k^2}{2}}=e^{-\frac{k^2}{2}}
+\]</span> ​
+结论此时已经得到了，因为高斯函数的傅里叶变换还是高斯函数，特别地，在标准正态分布下傅里叶变换前后不变。
+<span class="math display">\[
+\mathcal{F} \left( k \right)
+=\int_{-\infty}^{+\infty}{e^{-ax^2}e^{-ikx}\mathrm{d}x}=e^{-\frac{k^2}{4a}}\int_{-\infty}^{+\infty}{e^{-\left(
+\sqrt{a}x+\frac{ik}{2\sqrt{a}} \right) ^2}\mathrm{d}x}
+\\
+=\frac{1}{\sqrt{a}}e^{-\frac{k^2}{4a}}\int_{-\infty}^{+\infty}{e^{-u^2}\mathrm{d}u}=\sqrt{\frac{\pi}{a}}e^{-\frac{k^2}{4a}}
+\\
+a=\frac{1}{2},\mathcal{F} \left( k \right)
+=\sqrt{2\pi}e^{-\frac{k^2}{2}}
+\\
+\mathcal{F} \left( \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \right)
+=e^{-\frac{k^2}{2}}
+\]</span> ​
+这里我们就给出了独立同分布情况下的简单证明，这个证明并不容易。这个证明并不能帮助做对考试题，但是我们仍然有必要知道。这个形式下的定理全称为林德伯格-维勒中心极限定理。简单来说，就是当<span
+class="math inline">\(n\)</span>充分大时，可以近似认为服从正态分布<span
+class="math inline">\(N(n\mu,n\sigma^2)\)</span>，估值为： <span
+class="math display">\[
+P\left( \sum_{i=1}^n{X_i}\leqslant x \right) \approx \varPhi \left(
+\frac{x-n\mu}{\sqrt{n}\sigma} \right)
+\\
+P\left( a&lt;\sum_{i=1}^n{X_i}\leqslant b \right) \approx \varPhi \left(
+\frac{b-n\mu}{\sqrt{n}\sigma} \right) -\varPhi \left(
+\frac{a-n\mu}{\sqrt{n}\sigma} \right)
+\]</span> ​
+进一步，李普亚诺夫中心极限定理给出了不是同分布时的情况，它指出的情况是当随机变量间相互独立时，当李普亚诺夫条件得以满足时，我们可以将上文的<span
+class="math inline">\(n\mu\)</span>替换成<span
+class="math inline">\(\sum_{i=1}^n{\mu _i}\)</span>，<span
+class="math inline">\(\sqrt n \sigma\)</span>替换成<span
+class="math inline">\(\sqrt{\sum_{i=1}^n{\sigma
+_{i}^{2}}}\)</span>。</p>
+<p>​
+棣莫弗-拉普拉斯中心极限定理对二项分布的近似计算有重要作用，实际上就是将最开始的中心极限定理里的<span
+class="math inline">\(n\mu\)</span>换成<span
+class="math inline">\(np\)</span>，<span class="math inline">\(\sqrt n
+\sigma\)</span>换成<span class="math inline">\(\sqrt
+{np(1-p)}\)</span>。</p>
+<p>​
+中心极限定理的近似计算有着很好的功用，例如一批灯泡约有5%为残次品，从中抽取1000只灯泡进行检查，试求次品数不少于40的概率，以及次品数在40到60之间的概率。这个问题的精确解需要大量的计算，但用中心极限定理只需查标准正态分布表即可。</p>
+<p>​ 由于<span class="math inline">\(EX=1000 \times 0.05=50 DX = 1000
+\times 0.05 \times 0.95 = 47.5\)</span>。 <span class="math display">\[
+P\left( X\geqslant 40 \right) =P\left( 40\leqslant X\leqslant 1000
+\right) \approx \varPhi \left( \frac{1000-50}{\sqrt{47.5}} \right)
+-\varPhi \left( \frac{40-50}{\sqrt{47.5}} \right)
+\\
+=1-\varPhi \left( -1.45 \right) =0.9265
+\\
+P\left( 40\leqslant X\leqslant 60 \right) \approx \varPhi \left(
+\frac{60-50}{\sqrt{47.5}} \right) -\varPhi \left(
+\frac{40-50}{\sqrt{47.5}} \right)
+\\
+=\varPhi \left( 1.45 \right) -\varPhi \left( -1.45 \right) =2\varPhi
+\left( -1.45 \right) -1=0.853
+\]</span> ​ 一些难以准确计算的问题也可以由中心极限定理估计出，例如：</p>
+<p>​
+货车最大载重量为5吨，每箱货物的平均重量为50千克，标准差为5千克。则估计最大能装多少箱，才能保证不超载的概率大于0.977。<span
+class="math inline">\(\varPhi \left( 2 \right) =0.977\)</span>。</p>
+<p>​ 这个问题可以直接用中心极限定理作很好的估计： <span
+class="math display">\[
+Y=\sum_{i=1}^n{X_i},EX_i=50,DX_i=5^2
+\\
+P\left( Y\leqslant 5000 \right) =\varPhi \left(
+\frac{5000-50n}{5\sqrt{n}} \right) &gt;\varPhi \left( 2 \right)
+\\
+\frac{1000-10n}{\sqrt{n}}&gt;2\rightarrow n&lt;98.0199
+\]</span> ​ 所以最多可装98箱。</p>
 
     </div>
 

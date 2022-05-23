@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​	在上一篇中我们认识到了许多抽样分布产生的定理，如果理解它们到位了，那么后面就不会很困难，下面主要是对参数的点估计和区间估计，我们将会看到，区间估计只是上一篇的分布定理的直接应用。">
+    <meta name="description" content="​ 在上一篇中我们认识到了许多抽样分布产生的定理，如果理解它们到位了，那么后面就不会很困难，下面主要是对参数的点估计和区间估计，我们将会看到，区间估计只是上一篇的分布定理的直接应用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数理统计2">
 <meta property="og:url" content="http://example.com/2021/12/14/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A12/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="​	在上一篇中我们认识到了许多抽样分布产生的定理，如果理解它们到位了，那么后面就不会很困难，下面主要是对参数的点估计和区间估计，我们将会看到，区间估计只是上一篇的分布定理的直接应用。">
+<meta property="og:description" content="​ 在上一篇中我们认识到了许多抽样分布产生的定理，如果理解它们到位了，那么后面就不会很困难，下面主要是对参数的点估计和区间估计，我们将会看到，区间估计只是上一篇的分布定理的直接应用。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-14T12:33:43.000Z">
 <meta property="article:modified_time" content="2022-03-03T04:07:01.509Z">
@@ -52,7 +52,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -230,40 +234,391 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​	在上一篇中我们认识到了许多抽样分布产生的定理，如果理解它们到位了，那么后面就不会很困难，下面主要是对参数的点估计和区间估计，我们将会看到，区间估计只是上一篇的分布定理的直接应用。</p>
+        <p>​
+在上一篇中我们认识到了许多抽样分布产生的定理，如果理解它们到位了，那么后面就不会很困难，下面主要是对参数的点估计和区间估计，我们将会看到，区间估计只是上一篇的分布定理的直接应用。</p>
 <span id="more"></span>
-
-<p>​	下面我们强化条件，设想我们得到了一系列数据，并且知道数据服从的分布，现在想根据数据统计出该分布的参数，自然我们要关心，如何求出参数，以及参数的区间范围，换句话说，估计出的参数的多少，与可信度的关系。</p>
-<p>​	由辛钦大数定律知，样本均值依概率收敛于总体均值，这就引出了矩估计法，这里我们没必要给出理论推导了，简而言之就是：“<strong>算期望（一阶矩），列等式；一阶矩不够，列高阶矩。</strong>”。</p>
-<p>​	(这里的算，指的是利用样本均值构造理论分布均值的表达式，然后列线性方程组。)</p>
-<p>​	举个例子：设总体$X\sim U\left( a,b \right) $，其中$a,b$为未知参数，$X_1,X_2,…,X_n$为来自总体$X_n$的一个样本，求$a,b$的矩估计量。</p>
-<p>​	显然有两个位置参数，而一阶矩显然为$(a+b)&#x2F;2$​，则：<br>$$<br>\frac{a+b}{2}&#x3D;\bar{X}<br>$$<br>​	还差一个方程，则就接着算高阶矩：<br>$$<br>EX^2&#x3D;DX+\left( EX \right) ^2&#x3D;\frac{\left( b-a \right) ^2}{12}+\left( \frac{a+b}{2} \right) ^2&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^n{X_{i}^{2}}<br>$$<br>​	联立解得：<br>$$<br>\hat{a}&#x3D;\bar{X}-\sqrt{\frac{3}{n}\sum_{i&#x3D;1}^n{\left( X_i-\bar{X} \right) ^2}},\hat{b}&#x3D;\bar{X}+\sqrt{\frac{3}{n}\sum_{i&#x3D;1}^n{\left( X_i-\bar{X} \right) ^2}}<br>$$<br>​	这里的尖代表估计量，一般考试不会超过二阶矩，连续的变量下也是一样的，写成积分就好。</p>
-<p>​	第二种方法是最大似然估计，这个的做法十分的固定，这里就略去了，但稍微指出的就是当似然函数单调时，取值的特殊情况，如果你不知道上面那句话是什么意思的话，指的就是下面这道作业题，列出这道题的原因不止是想说明上面的那个情况，还是因为这个题成分比较复杂。：</p>
-<p>​	设某种元件的使用寿命$X$的概率密度为<br>$$<br>f\left( x \right) &#x3D;\left{ \begin{array}{c}<br>    2e^{-2\left( x-\theta \right)},x\geqslant \theta\<br>    0,x&lt;\theta\<br>\end{array} \right. ,\theta &gt;0<br>$$<br>​	$\theta$为未知参数，$X_1,X_2,…,X_n$为来自总体$X$的一个样本，试求$\theta$的极大似然估计和$D\hat{\theta}$</p>
-<p>​	我们先按照极大似然估计的模板，依次写出：<br>$$<br>L\left( \theta \right) &#x3D;\prod_{i&#x3D;1}^n{2e^{-2\left( x_i-\theta \right)}}&#x3D;2^ne^{-2\left( \sum_{i&#x3D;1}^n{x_i}-n\theta \right)}<br>\<br>\ln L\left( \theta \right) &#x3D;n\ln 2-2\sum_{i&#x3D;1}^n{x_i}+2n\theta<br>\<br>\frac{\partial \ln L\theta}{\partial \theta}&#x3D;2n&gt;0<br>\<br>\hat{\theta}&#x3D;\min \left( x_1,x_2,…,x_n \right)<br>\<br>\hat{\theta}&#x3D;\min \left( X_1,X_2,…,X_n \right)<br>$$<br>​	你可能会觉得，对数似然函数单增，为了让对数似然函数尽可能的大，难道不应该尽可能的让$\theta$取大，然后迷迷糊糊写$max(X_1,X_2,…,X_n)$，这是不对的，要注意，我们是在给定样本的情况下计算的最大似然估计量，我们希望它尽可能大，但在许多概率密度函数中，比如本题的$f(x)$，一旦$\theta$超过某个$x_i$，这个$x_i$出现的概率就是0了，这就会引发矛盾，所以$\theta$只能在样本取得的情况下尽可能大，或者也可以直接记下来，似然函数单增，似然量取样本里最小的；似然函数单减，似然量取样本里最大的。</p>
-<p>​	之后要计算其方差，问题就被归结为了极大&#x2F;极小型随机变量密度的求解，有些同学可能忘了，所以在这里也要说明一下：</p>
-<p>​	我们利用分布函数法来求解这个问题：</p>
-<p>​	$X_i$独立同分布，它们的分布函数是：<br>$$<br>F\left( x \right) &#x3D;\int_{-\infty}^x{f\left( t \right) dt}&#x3D;\left{ \begin{array}{c}<br>    1-e^{-2\left( x-\theta \right)},x\geqslant \theta\<br>    0,x&lt;\theta\<br>\end{array} \right.<br>$$<br>​	所以$X_{max}$​的分布函数是它们的联合分布函数：<br>$$<br>F_{\min}\left( x \right) &#x3D;P\left( X_{\min}\leqslant x \right) &#x3D;1-P\left( X_1&gt;x,X_2&gt;x,…,X_n&gt;x \right) &#x3D;1-\left[ 1-F_X\left( x \right) \right] ^n<br>$$<br>​	概率密度函数直接求导即可：<br>$$<br>f_{\min}\left( x \right) &#x3D;n\left[ 1-F_X\left( x \right) \right] ^{n-1}&#x3D;\left{ \begin{array}{c}<br>    2ne^{-2n\left( x-\theta \right)},x&gt;\theta\<br>    0,x\leqslant \theta\<br>\end{array} \right.<br>$$<br>​	$f_{min}$即为$f_{\theta}$，（回忆前面计算出的似然估计量的结果）为了计算方差，我们下面直接按照定义来计算：<br>$$<br>D\hat{\theta}&#x3D;E\hat{\theta}^2-\left( E\hat{\theta} \right) ^2<br>\<br>&#x3D;\int_{-\infty}^{+\infty}{x^2f_{\theta}\left( x \right) \mathrm{d}x}-\left( \int_{-\infty}^{+\infty}{xf_{\theta}\left( x \right) \mathrm{d}x} \right) ^2<br>\<br>&#x3D;\int_{\theta}^{+\infty}{x^22ne^{-2n\left( x-\theta \right)}\mathrm{d}x}-\left( \int_{\theta}^{+\infty}{x2ne^{-2n\left( x-\theta \right)}\mathrm{d}x} \right) ^2<br>\<br>&#x3D;\theta ^2+\frac{\theta}{n}+\frac{1}{2n^2}-\left( \theta +\frac{1}{2n} \right) ^2<br>\<br>&#x3D;\frac{1}{4n^2}<br>$$<br>​	要注意，矩估计法和最大似然估计法求出的估计量可能不同，以及推广到用其他的一些估计方法，求出的参数也不一定相同，如上例，如果我们改用矩估计：<br>$$<br>EX&#x3D;\int_{\theta}^{+\infty}{2xe^{-\left( x-\theta \right)}\mathrm{d}x}&#x3D;\theta +\frac{1}{2}<br>\<br>\theta &#x3D;\bar{X}-\frac{1}{2}<br>$$<br>​	结果并不相同，所以我们要有判断估计量的标准，这里有三个要求：无偏性，有效性，相合性，重点是前两个。</p>
-<p>​	<strong>对于无偏性</strong>，无偏性指的就是，单纯的无偏，即理论上估计量的等号右端，精准的指向所估计的量，写成数学表达式即：<br>$$<br>E\bar{\theta}&#x3D;\theta<br>$$<br>​	例如高阶矩，无论什么时候都是对相关原点矩的无偏估计：<br>$$<br>EA_k&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^n{EX_{i}^{k}&#x3D;\mu <em>k}<br>$$<br>​	再如上面的例题中对$\theta$的估计：<br>$$<br>E\hat{\theta}&#x3D;\int</em>{\theta}^{+\infty}{x2ne^{-2n\left( x-\theta \right)}\mathrm{d}x}&#x3D;\theta +\frac{1}{2n}<br>$$<br>​	这就不是无偏估计。</p>
-<p>​	下面再用一个例子来加深理解，即样本方差的分母为什么是$n-1$：</p>
-<p>​	如果按照之前的想法，将方差的分母计成$n$，那么我们直接计算$E(S^2)$：<br>$$<br>E\left( S^2 \right) &#x3D;\frac{1}{n}\sum_{i&#x3D;1}^n{E\left( \left( X_i-\bar{X} \right) ^2 \right)}&#x3D;\sum_{i&#x3D;1}^n{E\left( \left( X_i-\mu +\mu -\bar{X} \right) ^2 \right)}<br>\<br>&#x3D;\frac{1}{n}E\left( \sum_{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}-2\sum_{i&#x3D;1}^n{\left( X_i-\mu \right) \left( \bar{X}-\mu \right) +n\left( \bar{X}-\mu \right)}^2 \right)<br>\<br>&#x3D;\frac{1}{n}E\left( \sum_{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}-2n\left( \bar{X}-\mu \right) ^2+n\left( \bar{X}-\mu \right) ^2 \right)<br>\<br>&#x3D;\frac{1}{n}E\left( \sum_{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}-n\left( \bar{X}-\mu \right) ^2 \right)<br>\<br>&#x3D;\frac{1}{n}\left( nDX-nD\bar{X} \right) &#x3D;\sigma ^2-\frac{\sigma ^2}{n}&#x3D;\frac{n-1}{n}\sigma ^2<br>$$<br>​	这个的计算与前一篇证明抽样定理（2）时的展开很类似，我们发现如果分母为$n$，此时的估计量不是无偏估计。</p>
-<p>​	但如果分母为$n-1$，则最后就变为了：<br>$$<br>\frac{n\sigma ^2}{n-1}-\frac{\sigma ^2}{n-1}&#x3D;\sigma ^2<br>$$<br>​	就变成了无偏估计，这就是分母是$n-1$的由来。</p>
-<p>​	<strong>对于有效性</strong>，有效性就是指，当有多个无偏估计时，哪个的方差小选哪个，考试不会考的很难。应该只会让计算一个方差。</p>
-<p>​	<strong>对于相合性（一致性）</strong>，相合性就是说要保证选取的估计量依概率收敛，即$n$取大的时候，它得收敛，一般就是利用切比雪夫不等式来验证，记忆相合性的判断可以帮助我们记忆切比雪夫不等式。相合性可以认为是在找到实数$a$使得对于所有的$\varepsilon$​都有：<br>$$<br>\underset{n\rightarrow \infty}{\lim}P\left( |\hat{\theta}_n-a|\geqslant \varepsilon \right) &#x3D;0<br>$$<br>​	实际上就是切比雪夫不等式的直接应用。由切比雪夫不等式可知，此时的$E\hat{\theta}$大多数情况下是无偏的。不是无偏的情况确实没见到。可以说一致性是无偏性延申出来的，所以有时会直接证明一致无偏估计。我们以上面的样本方差$S^2$为例子。进一步证明$S^2$是总体方差$\sigma^2$的一致无偏估计。</p>
-<p>​	但这里有个插曲，在推导$E(S^2)&#x3D;\sigma^2$时，我们对总体的性质没有要求。也就是说不管是正态总体还是别的，这个都正确。但是如果推导我们下面的结论，我们就仅在正态总体的情况下讨论。点到为止，这样会带来很大便利。实际上如果我们考虑一般总体，那么样本方差的方差为：<br>$$<br>D\left( S^2 \right) &#x3D;\frac{\nu <em>4}{n}-\frac{\left( n-3 \right) \sigma ^4}{n\left( n-1 \right)},\nu <em>4&#x3D;E\left[ x-E\left( x \right) \right] ^4&lt;\infty<br>$$<br>​	计算过程这里就略过了，想说的就是在考虑一般总体时，样本方差的方差比较复杂，而如果考虑正态总体，它的四阶中心矩可通过下式确定：<br>$$<br>E\left[ \left( X-EX \right) ^k \right] &#x3D;\frac{\left( \sqrt{2}\sigma \right) ^k}{\sqrt{\pi}}\varGamma \left( \frac{k+1}{2} \right) &#x3D;\frac{2^{\frac{k}{2}}\sigma ^k}{\sqrt{\pi}}\frac{k-1}{2}\frac{k-3}{2}…\frac{1}{2}\varGamma \left( \frac{1}{2} \right)<br>\<br>&#x3D;\left( k-1 \right) \left( k-3 \right) …1\cdot \sigma ^k<br>\<br>k&#x3D;4,\nu _4&#x3D;3\sigma ^4<br>$$<br>​	上面式子的导出涉及到了伽马函数，也比较复杂，这里先略去。这样在正态总体情况下的$D(S^2)$即可被确定，从而：<br>$$<br>ES^2&#x3D;\sigma ^2,,,DS^2&#x3D;\frac{2\sigma ^4}{n-1}<br>$$<br>​	那样由切比雪夫不等式：<br>$$<br>P\left( |S^2-ES^2|\geqslant \varepsilon \right) \leqslant \frac{DS^2}{\varepsilon ^2}&#x3D;\frac{2\sigma ^4}{\left( n-1 \right) \varepsilon ^2}\overset{n\rightarrow \infty}{\longrightarrow}0<br>$$<br>​	相合性即得到证明，实际上对于正态总体下的样本方差的方差，可以借助卡方分布的性质：<br>$$<br>\frac{\left( n-1 \right) S^2}{\sigma ^2}\sim \chi ^2\left( n-1 \right)<br>\<br>E\left[ \chi ^2\left( n \right) \right] &#x3D;n,D\left[ \chi ^2\left( n \right) \right] &#x3D;2n<br>\<br>E\left[ \frac{\left( n-1 \right) S^2}{\sigma ^2} \right] &#x3D;n-1,D\left[ \frac{\left( n-1 \right) S^2}{\sigma ^2} \right] &#x3D;2\left( n-1 \right)<br>$$<br>​	接下来就是区间估计，在区间估计前，为了叙述的方便，先引入$\alpha$分位点的概念。我们以正态分布为例，实际上这个不需要记得非常清楚，因为考试会给参考值，那个其实是个提示，我们说如果对于一个$0\sim1$的正数$\alpha$，则$P(X&gt;z</em>{\alpha})&#x3D;\alpha$，我们就叫$z</em>{\alpha}$为上$\alpha$分位点，这个值可以查表得到，考试也会给出来，就好像$3-\sigma$检验的那个意思。</p>
-<p>​	我们所谓作区间估计的原因，是基于这样的逻辑，对于某个情景，我们计算出一个均值$\mu_*$，我们并不清楚能不能相信他，但我们知道该数据服从的分布，所以我们可以采用某种手段，计算出在有多少把握的程度下，可以信任的区间，比如在$95%$下，区间是$(-10,10)$。在$80%$下，区间是$(-20,20)$，这样可以给我们一个定量的结果，当然在比较复杂的情况下，我们可能并知道数据的均值方差，这个我们后面再说，先以简单的为例。</p>
-<p>​	在给出之前，我们先严格规定一下格式，这很重要，即：<br>$$<br>P\left( \underline{\theta }\left( X_1,X_2,…,X_n \right) &lt;\theta &lt;\bar{\theta}\left( X_1,X_2,…,X_n \right) \right) &#x3D;1-\alpha<br>$$<br>​	对于给定的$1-\alpha$，我们称之为置信水平，我们就是为了找到那两个$\theta$的区间，将其称之为置信下限和置信上限。</p>
-<p>​	①单正态$\sigma^2$已知估计$\mu$：</p>
-<p>​	由于正态分布有对称性，所以可以取$\alpha&#x2F;2$，回忆抽样分布定理，可以得到：<br>$$<br>P\left( z_{-\alpha &#x2F;2}&lt;U&lt;z_{\alpha &#x2F;2} \right) &#x3D;1-\alpha ,U&#x3D;\frac{\bar{X}-\mu}{\sigma &#x2F;\sqrt{n}}\sim N\left( 0,1 \right)<br>\<br>P\left( z_{-\alpha &#x2F;2}&lt;\frac{\bar{X}-\mu}{\sigma &#x2F;\sqrt{n}}&lt;z_{\alpha &#x2F;2} \right) &#x3D;1-\alpha<br>\<br>P\left( \bar{X}-\frac{\sigma}{\sqrt{n}}z_{\alpha &#x2F;2}&lt;\mu &lt;\bar{X}+\frac{\sigma}{\sqrt{n}}z_{\alpha &#x2F;2} \right) &#x3D;1-\alpha<br>$$<br>​	所以置信区间就是：<br>$$<br>(\bar{X}\pm \frac{\sigma}{\sqrt{n}}z_{\alpha &#x2F;2})<br>$$<br>​	②单正态$\sigma^2$未知估计$\mu$</p>
-<p>​	在未知的情况下，我们知道要利用证明中消去$\sigma$​的那个分布，即：<br>$$<br>T&#x3D;\frac{\bar{X}-\mu}{S&#x2F;\sqrt{n}}\sim t\left( n-1 \right) ,P\left( t_{-\alpha &#x2F;2}&lt;T&lt;t_{\alpha &#x2F;2} \right) &#x3D;1-\alpha ,<br>\<br>P\left( -t_{-\alpha &#x2F;2}\left( n-1 \right) &lt;\frac{\bar{X}-\mu}{S&#x2F;\sqrt{n}}&lt;t_{\alpha &#x2F;2}\left( n-1 \right) \right) &#x3D;1-\alpha<br>\<br>P\left( \bar{X}-\frac{S}{\sqrt{n}}t_{\alpha &#x2F;2}\left( n-1 \right) &lt;\mu &lt;\bar{X}+\frac{S}{\sqrt{n}}t_{\alpha &#x2F;2}\left( n-1 \right) \right) &#x3D;1-\alpha<br>\<br>\left( \bar{X}\pm \frac{S}{\sqrt{n}}t_{\alpha &#x2F;2}\left( n-1 \right) \right)<br>$$<br>​	其实只是将正态分布换成自由度为$n-1$的$t$分布，且将$\sigma$换成$S$，因为$\sigma$未知。</p>
-<p>​	③单正态$\mu$已知估计$\sigma^2$</p>
-<p>​	注意，这里要估计的是$\sigma^2$，并不能在概率的那个不等式上简单的理解为两边平方，所以我们利用分母里有$\sigma^2$并且有$\mu$的抽样分布：<br>$$<br>\frac{\sum_{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}}{\sigma ^2}\sim \chi ^2\left( n \right) ,P\left( \chi <em>{1-\alpha &#x2F;2}^{2}&lt;\frac{\sum</em>{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}}{\sigma ^2}&lt;\chi <em>{\alpha &#x2F;2}^{2} \right) &#x3D;1-\alpha ,<br>\<br>P\left( \frac{\sum</em>{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}}{\chi <em>{\alpha &#x2F;2}^{2}}&lt;\sigma ^2&lt;\frac{\sum</em>{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}}{\chi <em>{1-\alpha &#x2F;2}^{2}} \right) &#x3D;1-\alpha<br>\<br>\left( \frac{\sum</em>{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}}{\chi <em>{\alpha &#x2F;2}^{2}},\frac{\sum</em>{i&#x3D;1}^n{\left( X_i-\mu \right) ^2}}{\chi _{1-\alpha &#x2F;2}^{2}} \right)<br>$$<br>​	注意，这里卡方分布并不对称，所以角标变成了$\alpha&#x2F;2,1-\alpha&#x2F;2$，正态分布时都是直接加个负号。</p>
-<p>​	④单正态$\mu$未知估计$\sigma^2$</p>
-<p>​	这里就不能用含$\mu$的抽样分布了，直接用抽样分布定理(2)：<br>$$<br>\frac{\left( n-1 \right) S^2}{\sigma ^2}\sim \chi ^2\left( n-1 \right)<br>\<br>P\left( \chi _{1-\alpha &#x2F;2}^{2}\left( n-1 \right) &lt;\frac{\left( n-1 \right) S^2}{\sigma ^2}&lt;\chi _{\alpha &#x2F;2}^{2}\left( n-1 \right) \right) &#x3D;1-\alpha<br>\<br>P\left( \frac{\left( n-1 \right) S^2}{\chi _{\alpha &#x2F;2}^{2}\left( n-1 \right)}&lt;\sigma ^2&lt;\frac{\left( n-1 \right) S^2}{\chi _{1-\alpha &#x2F;2}^{2}\left( n-1 \right)} \right) &#x3D;1-\alpha<br>\<br>\left( \frac{\left( n-1 \right) S^2}{\chi _{\alpha &#x2F;2}^{2}\left( n-1 \right)},\frac{\left( n-1 \right) S^2}{\chi _{1-\alpha &#x2F;2}^{2}\left( n-1 \right)} \right)<br>$$<br>​	双正态下要掌握的几种情况可以从单正态下直接推出：</p>
-<p>​	①$\sigma_1^2,\sigma_2^2$已知对$\mu_1-\mu_2$的估计：</p>
-<p>​	证明与①是类似的，这里直接类比出来：<br>$$<br>(\bar{X}\pm \frac{\sigma}{\sqrt{n}}z_{\alpha &#x2F;2})\rightarrow \left( \bar{X}-\bar{Y}\pm \sqrt{\frac{\sigma _{1}^{2}}{n_1}+\frac{\sigma <em>{2}^{2}}{n_2}}z</em>{\alpha &#x2F;2} \right)<br>$$<br>​	②$\sigma_1^2,\sigma_2^2$未知对$\mu_1-\mu_2$​的估计：</p>
-<p>​	一样可以从②中类比：<br>$$<br>\left( \bar{X}\pm \frac{S}{\sqrt{n}}t_{\alpha &#x2F;2}\left( n-1 \right) \right) \rightarrow \left( \bar{X}-\bar{Y}\pm S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}t_{\alpha &#x2F;2}\left( n_1+n_2-2 \right) \right)<br>\<br>S_w&#x3D;\sqrt{\frac{\left( n_1-1 \right) S_{1}^{2}+\left( n_2-1 \right) S_{2}^{2}}{n_1+n_2-2}}<br>$$<br>​	 最后剩下的两个关于双正态的置信区间说的是：</p>
-<p>​	③$\mu_1,\mu_2$已知对$\sigma_1^2&#x2F;\sigma_2^2$估计：<br>$$<br>\frac{n_2\sigma <em>{2}^{2}\sum</em>{i&#x3D;1}^{n_1}{\left( X_i-\mu <em>1 \right) ^2}}{n_1\sigma <em>{1}^{2}\sum</em>{i&#x3D;1}^{n_2}{\left( Y_i-\mu <em>2 \right) ^2}}\sim F\left( n_1,n_2 \right)<br>\<br>P\left( \frac{1}{F</em>{\frac{\alpha}{2}}\left( n_2,n_1 \right)}&lt;\frac{n_2\sigma <em>{2}^{2}\sum</em>{i&#x3D;1}^{n_1}{\left( X_i-\mu <em>1 \right) ^2}}{n_1\sigma <em>{1}^{2}\sum</em>{i&#x3D;1}^{n_2}{\left( Y_i-\mu <em>2 \right) ^2}}&lt;F</em>{\frac{\alpha}{2}}\left( n_1,n_2 \right) \right) &#x3D;1-\alpha<br>\<br>P\left( \frac{n_2\sum</em>{i&#x3D;1}^{n_1}{\left( X_i-\mu <em>1 \right) ^2}}{n_1\sum</em>{i&#x3D;1}^{n_2}{\left( Y_i-\mu <em>2 \right) ^2}}\frac{1}{F</em>{\frac{\alpha}{2}}\left( n_1,n_2 \right)}&lt;\frac{\sigma <em>{1}^{2}}{\sigma <em>{2}^{2}}&lt;\frac{n_2\sum</em>{i&#x3D;1}^{n_1}{\left( X_i-\mu <em>1 \right) ^2}}{n_1\sum</em>{i&#x3D;1}^{n_2}{\left( Y_i-\mu <em>2 \right) ^2}}F</em>{\frac{\alpha}{2}}\left( n_2,n_1 \right) \right) &#x3D;1-\alpha<br>\<br>\left( \frac{n_2\sum</em>{i&#x3D;1}^{n_1}{\left( X_i-\mu <em>1 \right) ^2}}{n_1\sum</em>{i&#x3D;1}^{n_2}{\left( Y_i-\mu <em>2 \right) ^2}}\frac{1}{F</em>{\frac{\alpha}{2}}\left( n_1,n_2 \right)},\frac{n_2\sum</em>{i&#x3D;1}^{n_1}{\left( X_i-\mu <em>1 \right) ^2}}{n_1\sum</em>{i&#x3D;1}^{n_2}{\left( Y_i-\mu <em>2 \right) ^2}}F</em>{\frac{\alpha}{2}}\left( n_2,n_1 \right) \right)<br>$$<br>​	④$\mu_1,\mu_2$未知对$\sigma_1^2&#x2F;\sigma_2^2$估计：<br>$$<br>\frac{\sigma <em>{2}^{2}S</em>{1}^{2}}{\sigma <em>{1}^{2}S</em>{2}^{2}}\sim F\left( n_1-1,n_2-1 \right)<br>\<br>P\left( \frac{1}{F_{\frac{\alpha}{2}}\left( n_2-1,n_1-1 \right)}&lt;\frac{\sigma <em>{2}^{2}S</em>{1}^{2}}{\sigma <em>{1}^{2}S</em>{2}^{2}}&lt;F_{\frac{\alpha}{2}}\left( n_1-1,n_2-1 \right) \right) &#x3D;1-\alpha<br>\<br>P\left( \frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{\frac{\alpha}{2}}\left( n_2-1,n_1-1 \right)}&lt;\frac{\sigma <em>{1}^{2}}{\sigma <em>{2}^{2}}&lt;\frac{S</em>{1}^{2}}{S</em>{2}^{2}}F_{\frac{\alpha}{2}}\left( n_1-1,n_2-1 \right) \right) &#x3D;1-\alpha<br>\<br>\left( \frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{\frac{\alpha}{2}}\left( n_1-1,n_2-1 \right)},\frac{S_{1}^{2}}{S_{2}^{2}}F_{\frac{\alpha}{2}}\left( n_2-1,n_1-1 \right) \right)<br>$$<br>​	这样就完成了对八个置信区间的推导，有些时候，我们会用到单侧置信区间，此时依据不同的情况，我们只需要把区间的一端释放成正&#x2F;负无穷即可，总之，理解抽样分布定理十分重要，因为即使没有背下来置信区间公式，也可以有现推的机会，最后书里还给出了一种0-1分布的总体参数的置信区间，这里就不推导了，它的形式十分好记，像一元二次方程的通解：<br>$$<br>X\sim B\left( 1,p \right)<br>\<br>\left( \frac{1}{2a}\left( -b-\sqrt{b^2-4ac} \right) ,\frac{1}{2a}\left( -b+\sqrt{b^2-4ac} \right) \right)<br>\<br>a&#x3D;n+z_{a&#x2F;2}^{2},b&#x3D;-\left( 2n\bar{X}+z_{a&#x2F;2}^{2} \right) ,c&#x3D;n\bar{X}^2<br>$$</p>
+<p>​
+下面我们强化条件，设想我们得到了一系列数据，并且知道数据服从的分布，现在想根据数据统计出该分布的参数，自然我们要关心，如何求出参数，以及参数的区间范围，换句话说，估计出的参数的多少，与可信度的关系。</p>
+<p>​
+由辛钦大数定律知，样本均值依概率收敛于总体均值，这就引出了矩估计法，这里我们没必要给出理论推导了，简而言之就是：“<strong>算期望（一阶矩），列等式；一阶矩不够，列高阶矩。</strong>”。</p>
+<p>​
+(这里的算，指的是利用样本均值构造理论分布均值的表达式，然后列线性方程组。)</p>
+<p>​ 举个例子：设总体$XU( a,b ) <span
+class="math inline">\(，其中\)</span>a,b<span
+class="math inline">\(为未知参数，\)</span>X_1,X_2,...,X_n<span
+class="math inline">\(为来自总体\)</span>X_n<span
+class="math inline">\(的一个样本，求\)</span>a,b$的矩估计量。</p>
+<p>​ 显然有两个位置参数，而一阶矩显然为<span
+class="math inline">\((a+b)/2\)</span>​，则： <span
+class="math display">\[
+\frac{a+b}{2}=\bar{X}
+\]</span> ​ 还差一个方程，则就接着算高阶矩： <span
+class="math display">\[
+EX^2=DX+\left( EX \right) ^2=\frac{\left( b-a \right) ^2}{12}+\left(
+\frac{a+b}{2} \right) ^2=\frac{1}{n}\sum_{i=1}^n{X_{i}^{2}}
+\]</span> ​ 联立解得： <span class="math display">\[
+\hat{a}=\bar{X}-\sqrt{\frac{3}{n}\sum_{i=1}^n{\left( X_i-\bar{X} \right)
+^2}},\hat{b}=\bar{X}+\sqrt{\frac{3}{n}\sum_{i=1}^n{\left( X_i-\bar{X}
+\right) ^2}}
+\]</span> ​
+这里的尖代表估计量，一般考试不会超过二阶矩，连续的变量下也是一样的，写成积分就好。</p>
+<p>​
+第二种方法是最大似然估计，这个的做法十分的固定，这里就略去了，但稍微指出的就是当似然函数单调时，取值的特殊情况，如果你不知道上面那句话是什么意思的话，指的就是下面这道作业题，列出这道题的原因不止是想说明上面的那个情况，还是因为这个题成分比较复杂。：</p>
+<p>​ 设某种元件的使用寿命<span
+class="math inline">\(X\)</span>的概率密度为 <span
+class="math display">\[
+f\left( x \right) =\left\{ \begin{array}{c}
+    2e^{-2\left( x-\theta \right)},x\geqslant \theta\\
+    0,x&lt;\theta\\
+\end{array} \right. ,\theta &gt;0
+\]</span> ​ <span class="math inline">\(\theta\)</span>为未知参数，<span
+class="math inline">\(X_1,X_2,...,X_n\)</span>为来自总体<span
+class="math inline">\(X\)</span>的一个样本，试求<span
+class="math inline">\(\theta\)</span>的极大似然估计和<span
+class="math inline">\(D\hat{\theta}\)</span></p>
+<p>​ 我们先按照极大似然估计的模板，依次写出： <span
+class="math display">\[
+L\left( \theta \right) =\prod_{i=1}^n{2e^{-2\left( x_i-\theta
+\right)}}=2^ne^{-2\left( \sum_{i=1}^n{x_i}-n\theta \right)}
+\\
+\ln L\left( \theta \right) =n\ln 2-2\sum_{i=1}^n{x_i}+2n\theta
+\\
+\frac{\partial \ln L\theta}{\partial \theta}=2n&gt;0
+\\
+\hat{\theta}=\min \left( x_1,x_2,...,x_n \right)
+\\
+\hat{\theta}=\min \left( X_1,X_2,...,X_n \right)
+\]</span> ​
+你可能会觉得，对数似然函数单增，为了让对数似然函数尽可能的大，难道不应该尽可能的让<span
+class="math inline">\(\theta\)</span>取大，然后迷迷糊糊写<span
+class="math inline">\(max(X_1,X_2,...,X_n)\)</span>，这是不对的，要注意，我们是在给定样本的情况下计算的最大似然估计量，我们希望它尽可能大，但在许多概率密度函数中，比如本题的<span
+class="math inline">\(f(x)\)</span>，一旦<span
+class="math inline">\(\theta\)</span>超过某个<span
+class="math inline">\(x_i\)</span>，这个<span
+class="math inline">\(x_i\)</span>出现的概率就是0了，这就会引发矛盾，所以<span
+class="math inline">\(\theta\)</span>只能在样本取得的情况下尽可能大，或者也可以直接记下来，似然函数单增，似然量取样本里最小的；似然函数单减，似然量取样本里最大的。</p>
+<p>​
+之后要计算其方差，问题就被归结为了极大/极小型随机变量密度的求解，有些同学可能忘了，所以在这里也要说明一下：</p>
+<p>​ 我们利用分布函数法来求解这个问题：</p>
+<p>​ <span
+class="math inline">\(X_i\)</span>独立同分布，它们的分布函数是： <span
+class="math display">\[
+F\left( x \right) =\int_{-\infty}^x{f\left( t \right) dt}=\left\{
+\begin{array}{c}
+    1-e^{-2\left( x-\theta \right)},x\geqslant \theta\\
+    0,x&lt;\theta\\
+\end{array} \right.
+\]</span> ​ 所以<span
+class="math inline">\(X_{max}\)</span>​的分布函数是它们的联合分布函数：
+<span class="math display">\[
+F_{\min}\left( x \right) =P\left( X_{\min}\leqslant x \right) =1-P\left(
+X_1&gt;x,X_2&gt;x,...,X_n&gt;x \right) =1-\left[ 1-F_X\left( x \right)
+\right] ^n
+\]</span> ​ 概率密度函数直接求导即可： <span class="math display">\[
+f_{\min}\left( x \right) =n\left[ 1-F_X\left( x \right) \right]
+^{n-1}=\left\{ \begin{array}{c}
+    2ne^{-2n\left( x-\theta \right)},x&gt;\theta\\
+    0,x\leqslant \theta\\
+\end{array} \right.
+\]</span> ​ <span class="math inline">\(f_{min}\)</span>即为<span
+class="math inline">\(f_{\theta}\)</span>，（回忆前面计算出的似然估计量的结果）为了计算方差，我们下面直接按照定义来计算：
+<span class="math display">\[
+D\hat{\theta}=E\hat{\theta}^2-\left( E\hat{\theta} \right) ^2
+\\
+=\int_{-\infty}^{+\infty}{x^2f_{\theta}\left( x \right)
+\mathrm{d}x}-\left( \int_{-\infty}^{+\infty}{xf_{\theta}\left( x \right)
+\mathrm{d}x} \right) ^2
+\\
+=\int_{\theta}^{+\infty}{x^22ne^{-2n\left( x-\theta
+\right)}\mathrm{d}x}-\left( \int_{\theta}^{+\infty}{x2ne^{-2n\left(
+x-\theta \right)}\mathrm{d}x} \right) ^2
+\\
+=\theta ^2+\frac{\theta}{n}+\frac{1}{2n^2}-\left( \theta +\frac{1}{2n}
+\right) ^2
+\\
+=\frac{1}{4n^2}
+\]</span> ​
+要注意，矩估计法和最大似然估计法求出的估计量可能不同，以及推广到用其他的一些估计方法，求出的参数也不一定相同，如上例，如果我们改用矩估计：
+<span class="math display">\[
+EX=\int_{\theta}^{+\infty}{2xe^{-\left( x-\theta
+\right)}\mathrm{d}x}=\theta +\frac{1}{2}
+\\
+\theta =\bar{X}-\frac{1}{2}
+\]</span> ​
+结果并不相同，所以我们要有判断估计量的标准，这里有三个要求：无偏性，有效性，相合性，重点是前两个。</p>
+<p>​
+<strong>对于无偏性</strong>，无偏性指的就是，单纯的无偏，即理论上估计量的等号右端，精准的指向所估计的量，写成数学表达式即：
+<span class="math display">\[
+E\bar{\theta}=\theta
+\]</span> ​ 例如高阶矩，无论什么时候都是对相关原点矩的无偏估计： <span
+class="math display">\[
+EA_k=\frac{1}{n}\sum_{i=1}^n{EX_{i}^{k}=\mu _k}
+\]</span> ​ 再如上面的例题中对<span
+class="math inline">\(\theta\)</span>的估计： <span
+class="math display">\[
+E\hat{\theta}=\int_{\theta}^{+\infty}{x2ne^{-2n\left( x-\theta
+\right)}\mathrm{d}x}=\theta +\frac{1}{2n}
+\]</span> ​ 这就不是无偏估计。</p>
+<p>​ 下面再用一个例子来加深理解，即样本方差的分母为什么是<span
+class="math inline">\(n-1\)</span>：</p>
+<p>​ 如果按照之前的想法，将方差的分母计成<span
+class="math inline">\(n\)</span>，那么我们直接计算<span
+class="math inline">\(E(S^2)\)</span>： <span class="math display">\[
+E\left( S^2 \right) =\frac{1}{n}\sum_{i=1}^n{E\left( \left( X_i-\bar{X}
+\right) ^2 \right)}=\sum_{i=1}^n{E\left( \left( X_i-\mu +\mu -\bar{X}
+\right) ^2 \right)}
+\\
+=\frac{1}{n}E\left( \sum_{i=1}^n{\left( X_i-\mu \right)
+^2}-2\sum_{i=1}^n{\left( X_i-\mu \right) \left( \bar{X}-\mu \right)
++n\left( \bar{X}-\mu \right)}^2 \right)
+\\
+=\frac{1}{n}E\left( \sum_{i=1}^n{\left( X_i-\mu \right) ^2}-2n\left(
+\bar{X}-\mu \right) ^2+n\left( \bar{X}-\mu \right) ^2 \right)
+\\
+=\frac{1}{n}E\left( \sum_{i=1}^n{\left( X_i-\mu \right) ^2}-n\left(
+\bar{X}-\mu \right) ^2 \right)
+\\
+=\frac{1}{n}\left( nDX-nD\bar{X} \right) =\sigma ^2-\frac{\sigma
+^2}{n}=\frac{n-1}{n}\sigma ^2
+\]</span> ​
+这个的计算与前一篇证明抽样定理（2）时的展开很类似，我们发现如果分母为<span
+class="math inline">\(n\)</span>，此时的估计量不是无偏估计。</p>
+<p>​ 但如果分母为<span
+class="math inline">\(n-1\)</span>，则最后就变为了： <span
+class="math display">\[
+\frac{n\sigma ^2}{n-1}-\frac{\sigma ^2}{n-1}=\sigma ^2
+\]</span> ​ 就变成了无偏估计，这就是分母是<span
+class="math inline">\(n-1\)</span>的由来。</p>
+<p>​
+<strong>对于有效性</strong>，有效性就是指，当有多个无偏估计时，哪个的方差小选哪个，考试不会考的很难。应该只会让计算一个方差。</p>
+<p>​
+<strong>对于相合性（一致性）</strong>，相合性就是说要保证选取的估计量依概率收敛，即<span
+class="math inline">\(n\)</span>取大的时候，它得收敛，一般就是利用切比雪夫不等式来验证，记忆相合性的判断可以帮助我们记忆切比雪夫不等式。相合性可以认为是在找到实数<span
+class="math inline">\(a\)</span>使得对于所有的<span
+class="math inline">\(\varepsilon\)</span>​都有： <span
+class="math display">\[
+\underset{n\rightarrow \infty}{\lim}P\left( |\hat{\theta}_n-a|\geqslant
+\varepsilon \right) =0
+\]</span> ​
+实际上就是切比雪夫不等式的直接应用。由切比雪夫不等式可知，此时的<span
+class="math inline">\(E\hat{\theta}\)</span>大多数情况下是无偏的。不是无偏的情况确实没见到。可以说一致性是无偏性延申出来的，所以有时会直接证明一致无偏估计。我们以上面的样本方差<span
+class="math inline">\(S^2\)</span>为例子。进一步证明<span
+class="math inline">\(S^2\)</span>是总体方差<span
+class="math inline">\(\sigma^2\)</span>的一致无偏估计。</p>
+<p>​ 但这里有个插曲，在推导<span
+class="math inline">\(E(S^2)=\sigma^2\)</span>时，我们对总体的性质没有要求。也就是说不管是正态总体还是别的，这个都正确。但是如果推导我们下面的结论，我们就仅在正态总体的情况下讨论。点到为止，这样会带来很大便利。实际上如果我们考虑一般总体，那么样本方差的方差为：
+<span class="math display">\[
+D\left( S^2 \right) =\frac{\nu _4}{n}-\frac{\left( n-3 \right) \sigma
+^4}{n\left( n-1 \right)},\nu _4=E\left[ x-E\left( x \right) \right]
+^4&lt;\infty
+\]</span> ​
+计算过程这里就略过了，想说的就是在考虑一般总体时，样本方差的方差比较复杂，而如果考虑正态总体，它的四阶中心矩可通过下式确定：
+<span class="math display">\[
+E\left[ \left( X-EX \right) ^k \right] =\frac{\left( \sqrt{2}\sigma
+\right) ^k}{\sqrt{\pi}}\varGamma \left( \frac{k+1}{2} \right)
+=\frac{2^{\frac{k}{2}}\sigma
+^k}{\sqrt{\pi}}\frac{k-1}{2}\frac{k-3}{2}...\frac{1}{2}\varGamma \left(
+\frac{1}{2} \right)
+\\
+=\left( k-1 \right) \left( k-3 \right) ...1\cdot \sigma ^k
+\\
+k=4,\nu _4=3\sigma ^4
+\]</span> ​
+上面式子的导出涉及到了伽马函数，也比较复杂，这里先略去。这样在正态总体情况下的<span
+class="math inline">\(D(S^2)\)</span>即可被确定，从而： <span
+class="math display">\[
+ES^2=\sigma ^2\,\,,DS^2=\frac{2\sigma ^4}{n-1}
+\]</span> ​ 那样由切比雪夫不等式： <span class="math display">\[
+P\left( |S^2-ES^2|\geqslant \varepsilon \right) \leqslant
+\frac{DS^2}{\varepsilon ^2}=\frac{2\sigma ^4}{\left( n-1 \right)
+\varepsilon ^2}\overset{n\rightarrow \infty}{\longrightarrow}0
+\]</span> ​
+相合性即得到证明，实际上对于正态总体下的样本方差的方差，可以借助卡方分布的性质：
+<span class="math display">\[
+\frac{\left( n-1 \right) S^2}{\sigma ^2}\sim \chi ^2\left( n-1 \right)
+\\
+E\left[ \chi ^2\left( n \right) \right] =n,D\left[ \chi ^2\left( n
+\right) \right] =2n
+\\
+E\left[ \frac{\left( n-1 \right) S^2}{\sigma ^2} \right] =n-1,D\left[
+\frac{\left( n-1 \right) S^2}{\sigma ^2} \right] =2\left( n-1 \right)
+\]</span> ​ 接下来就是区间估计，在区间估计前，为了叙述的方便，先引入<span
+class="math inline">\(\alpha\)</span>分位点的概念。我们以正态分布为例，实际上这个不需要记得非常清楚，因为考试会给参考值，那个其实是个提示，我们说如果对于一个<span
+class="math inline">\(0\sim1\)</span>的正数<span
+class="math inline">\(\alpha\)</span>，则<span
+class="math inline">\(P(X&gt;z_{\alpha})=\alpha\)</span>，我们就叫<span
+class="math inline">\(z_{\alpha}\)</span>为上<span
+class="math inline">\(\alpha\)</span>分位点，这个值可以查表得到，考试也会给出来，就好像<span
+class="math inline">\(3-\sigma\)</span>检验的那个意思。</p>
+<p>​
+我们所谓作区间估计的原因，是基于这样的逻辑，对于某个情景，我们计算出一个均值<span
+class="math inline">\(\mu_*\)</span>，我们并不清楚能不能相信他，但我们知道该数据服从的分布，所以我们可以采用某种手段，计算出在有多少把握的程度下，可以信任的区间，比如在<span
+class="math inline">\(95\%\)</span>下，区间是<span
+class="math inline">\((-10,10)\)</span>。在<span
+class="math inline">\(80\%\)</span>下，区间是<span
+class="math inline">\((-20,20)\)</span>，这样可以给我们一个定量的结果，当然在比较复杂的情况下，我们可能并知道数据的均值方差，这个我们后面再说，先以简单的为例。</p>
+<p>​ 在给出之前，我们先严格规定一下格式，这很重要，即： <span
+class="math display">\[
+P\left( \underline{\theta }\left( X_1,X_2,...,X_n \right) &lt;\theta
+&lt;\bar{\theta}\left( X_1,X_2,...,X_n \right) \right) =1-\alpha
+\]</span> ​ 对于给定的<span
+class="math inline">\(1-\alpha\)</span>，我们称之为置信水平，我们就是为了找到那两个<span
+class="math inline">\(\theta\)</span>的区间，将其称之为置信下限和置信上限。</p>
+<p>​ ①单正态<span class="math inline">\(\sigma^2\)</span>已知估计<span
+class="math inline">\(\mu\)</span>：</p>
+<p>​ 由于正态分布有对称性，所以可以取<span
+class="math inline">\(\alpha/2\)</span>，回忆抽样分布定理，可以得到：
+<span class="math display">\[
+P\left( z_{-\alpha /2}&lt;U&lt;z_{\alpha /2} \right) =1-\alpha
+,U=\frac{\bar{X}-\mu}{\sigma /\sqrt{n}}\sim N\left( 0,1 \right)
+\\
+P\left( z_{-\alpha /2}&lt;\frac{\bar{X}-\mu}{\sigma
+/\sqrt{n}}&lt;z_{\alpha /2} \right) =1-\alpha
+\\
+P\left( \bar{X}-\frac{\sigma}{\sqrt{n}}z_{\alpha /2}&lt;\mu
+&lt;\bar{X}+\frac{\sigma}{\sqrt{n}}z_{\alpha /2} \right) =1-\alpha
+\]</span> ​ 所以置信区间就是： <span class="math display">\[
+(\bar{X}\pm \frac{\sigma}{\sqrt{n}}z_{\alpha /2})
+\]</span> ​ ②单正态<span
+class="math inline">\(\sigma^2\)</span>未知估计<span
+class="math inline">\(\mu\)</span></p>
+<p>​ 在未知的情况下，我们知道要利用证明中消去<span
+class="math inline">\(\sigma\)</span>​的那个分布，即： <span
+class="math display">\[
+T=\frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t\left( n-1 \right) ,P\left(
+t_{-\alpha /2}&lt;T&lt;t_{\alpha /2} \right) =1-\alpha ,
+\\
+P\left( -t_{-\alpha /2}\left( n-1 \right)
+&lt;\frac{\bar{X}-\mu}{S/\sqrt{n}}&lt;t_{\alpha /2}\left( n-1 \right)
+\right) =1-\alpha
+\\
+P\left( \bar{X}-\frac{S}{\sqrt{n}}t_{\alpha /2}\left( n-1 \right)
+&lt;\mu &lt;\bar{X}+\frac{S}{\sqrt{n}}t_{\alpha /2}\left( n-1 \right)
+\right) =1-\alpha
+\\
+\left( \bar{X}\pm \frac{S}{\sqrt{n}}t_{\alpha /2}\left( n-1 \right)
+\right)
+\]</span> ​ 其实只是将正态分布换成自由度为<span
+class="math inline">\(n-1\)</span>的<span
+class="math inline">\(t\)</span>分布，且将<span
+class="math inline">\(\sigma\)</span>换成<span
+class="math inline">\(S\)</span>，因为<span
+class="math inline">\(\sigma\)</span>未知。</p>
+<p>​ ③单正态<span class="math inline">\(\mu\)</span>已知估计<span
+class="math inline">\(\sigma^2\)</span></p>
+<p>​ 注意，这里要估计的是<span
+class="math inline">\(\sigma^2\)</span>，并不能在概率的那个不等式上简单的理解为两边平方，所以我们利用分母里有<span
+class="math inline">\(\sigma^2\)</span>并且有<span
+class="math inline">\(\mu\)</span>的抽样分布： <span
+class="math display">\[
+\frac{\sum_{i=1}^n{\left( X_i-\mu \right) ^2}}{\sigma ^2}\sim \chi
+^2\left( n \right) ,P\left( \chi _{1-\alpha
+/2}^{2}&lt;\frac{\sum_{i=1}^n{\left( X_i-\mu \right) ^2}}{\sigma
+^2}&lt;\chi _{\alpha /2}^{2} \right) =1-\alpha ,
+\\
+P\left( \frac{\sum_{i=1}^n{\left( X_i-\mu \right) ^2}}{\chi _{\alpha
+/2}^{2}}&lt;\sigma ^2&lt;\frac{\sum_{i=1}^n{\left( X_i-\mu \right)
+^2}}{\chi _{1-\alpha /2}^{2}} \right) =1-\alpha
+\\
+\left( \frac{\sum_{i=1}^n{\left( X_i-\mu \right) ^2}}{\chi _{\alpha
+/2}^{2}},\frac{\sum_{i=1}^n{\left( X_i-\mu \right) ^2}}{\chi _{1-\alpha
+/2}^{2}} \right)
+\]</span> ​ 注意，这里卡方分布并不对称，所以角标变成了<span
+class="math inline">\(\alpha/2,1-\alpha/2\)</span>，正态分布时都是直接加个负号。</p>
+<p>​ ④单正态<span class="math inline">\(\mu\)</span>未知估计<span
+class="math inline">\(\sigma^2\)</span></p>
+<p>​ 这里就不能用含<span
+class="math inline">\(\mu\)</span>的抽样分布了，直接用抽样分布定理(2)：
+<span class="math display">\[
+\frac{\left( n-1 \right) S^2}{\sigma ^2}\sim \chi ^2\left( n-1 \right)
+\\
+P\left( \chi _{1-\alpha /2}^{2}\left( n-1 \right) &lt;\frac{\left( n-1
+\right) S^2}{\sigma ^2}&lt;\chi _{\alpha /2}^{2}\left( n-1 \right)
+\right) =1-\alpha
+\\
+P\left( \frac{\left( n-1 \right) S^2}{\chi _{\alpha /2}^{2}\left( n-1
+\right)}&lt;\sigma ^2&lt;\frac{\left( n-1 \right) S^2}{\chi _{1-\alpha
+/2}^{2}\left( n-1 \right)} \right) =1-\alpha
+\\
+\left( \frac{\left( n-1 \right) S^2}{\chi _{\alpha /2}^{2}\left( n-1
+\right)},\frac{\left( n-1 \right) S^2}{\chi _{1-\alpha /2}^{2}\left( n-1
+\right)} \right)
+\]</span> ​ 双正态下要掌握的几种情况可以从单正态下直接推出：</p>
+<p>​ ①<span
+class="math inline">\(\sigma_1^2,\sigma_2^2\)</span>已知对<span
+class="math inline">\(\mu_1-\mu_2\)</span>的估计：</p>
+<p>​ 证明与①是类似的，这里直接类比出来： <span class="math display">\[
+(\bar{X}\pm \frac{\sigma}{\sqrt{n}}z_{\alpha /2})\rightarrow \left(
+\bar{X}-\bar{Y}\pm \sqrt{\frac{\sigma _{1}^{2}}{n_1}+\frac{\sigma
+_{2}^{2}}{n_2}}z_{\alpha /2} \right)
+\]</span> ​ ②<span
+class="math inline">\(\sigma_1^2,\sigma_2^2\)</span>未知对<span
+class="math inline">\(\mu_1-\mu_2\)</span>​的估计：</p>
+<p>​ 一样可以从②中类比： <span class="math display">\[
+\left( \bar{X}\pm \frac{S}{\sqrt{n}}t_{\alpha /2}\left( n-1 \right)
+\right) \rightarrow \left( \bar{X}-\bar{Y}\pm
+S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}t_{\alpha /2}\left( n_1+n_2-2
+\right) \right)
+\\
+S_w=\sqrt{\frac{\left( n_1-1 \right) S_{1}^{2}+\left( n_2-1 \right)
+S_{2}^{2}}{n_1+n_2-2}}
+\]</span> ​ 最后剩下的两个关于双正态的置信区间说的是：</p>
+<p>​ ③<span class="math inline">\(\mu_1,\mu_2\)</span>已知对<span
+class="math inline">\(\sigma_1^2/\sigma_2^2\)</span>估计： <span
+class="math display">\[
+\frac{n_2\sigma _{2}^{2}\sum_{i=1}^{n_1}{\left( X_i-\mu _1 \right)
+^2}}{n_1\sigma _{1}^{2}\sum_{i=1}^{n_2}{\left( Y_i-\mu _2 \right)
+^2}}\sim F\left( n_1,n_2 \right)
+\\
+P\left( \frac{1}{F_{\frac{\alpha}{2}}\left( n_2,n_1
+\right)}&lt;\frac{n_2\sigma _{2}^{2}\sum_{i=1}^{n_1}{\left( X_i-\mu _1
+\right) ^2}}{n_1\sigma _{1}^{2}\sum_{i=1}^{n_2}{\left( Y_i-\mu _2
+\right) ^2}}&lt;F_{\frac{\alpha}{2}}\left( n_1,n_2 \right) \right)
+=1-\alpha
+\\
+P\left( \frac{n_2\sum_{i=1}^{n_1}{\left( X_i-\mu _1 \right)
+^2}}{n_1\sum_{i=1}^{n_2}{\left( Y_i-\mu _2 \right)
+^2}}\frac{1}{F_{\frac{\alpha}{2}}\left( n_1,n_2 \right)}&lt;\frac{\sigma
+_{1}^{2}}{\sigma _{2}^{2}}&lt;\frac{n_2\sum_{i=1}^{n_1}{\left( X_i-\mu
+_1 \right) ^2}}{n_1\sum_{i=1}^{n_2}{\left( Y_i-\mu _2 \right)
+^2}}F_{\frac{\alpha}{2}}\left( n_2,n_1 \right) \right) =1-\alpha
+\\
+\left( \frac{n_2\sum_{i=1}^{n_1}{\left( X_i-\mu _1 \right)
+^2}}{n_1\sum_{i=1}^{n_2}{\left( Y_i-\mu _2 \right)
+^2}}\frac{1}{F_{\frac{\alpha}{2}}\left( n_1,n_2
+\right)},\frac{n_2\sum_{i=1}^{n_1}{\left( X_i-\mu _1 \right)
+^2}}{n_1\sum_{i=1}^{n_2}{\left( Y_i-\mu _2 \right)
+^2}}F_{\frac{\alpha}{2}}\left( n_2,n_1 \right) \right)
+\]</span> ​ ④<span class="math inline">\(\mu_1,\mu_2\)</span>未知对<span
+class="math inline">\(\sigma_1^2/\sigma_2^2\)</span>估计： <span
+class="math display">\[
+\frac{\sigma _{2}^{2}S_{1}^{2}}{\sigma _{1}^{2}S_{2}^{2}}\sim F\left(
+n_1-1,n_2-1 \right)
+\\
+P\left( \frac{1}{F_{\frac{\alpha}{2}}\left( n_2-1,n_1-1
+\right)}&lt;\frac{\sigma _{2}^{2}S_{1}^{2}}{\sigma
+_{1}^{2}S_{2}^{2}}&lt;F_{\frac{\alpha}{2}}\left( n_1-1,n_2-1 \right)
+\right) =1-\alpha
+\\
+P\left( \frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{\frac{\alpha}{2}}\left(
+n_2-1,n_1-1 \right)}&lt;\frac{\sigma _{1}^{2}}{\sigma
+_{2}^{2}}&lt;\frac{S_{1}^{2}}{S_{2}^{2}}F_{\frac{\alpha}{2}}\left(
+n_1-1,n_2-1 \right) \right) =1-\alpha
+\\
+\left( \frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{\frac{\alpha}{2}}\left(
+n_1-1,n_2-1
+\right)},\frac{S_{1}^{2}}{S_{2}^{2}}F_{\frac{\alpha}{2}}\left(
+n_2-1,n_1-1 \right) \right)
+\]</span> ​
+这样就完成了对八个置信区间的推导，有些时候，我们会用到单侧置信区间，此时依据不同的情况，我们只需要把区间的一端释放成正/负无穷即可，总之，理解抽样分布定理十分重要，因为即使没有背下来置信区间公式，也可以有现推的机会，最后书里还给出了一种0-1分布的总体参数的置信区间，这里就不推导了，它的形式十分好记，像一元二次方程的通解：
+<span class="math display">\[
+X\sim B\left( 1,p \right)
+\\
+\left( \frac{1}{2a}\left( -b-\sqrt{b^2-4ac} \right) ,\frac{1}{2a}\left(
+-b+\sqrt{b^2-4ac} \right) \right)
+\\
+a=n+z_{a/2}^{2},b=-\left( 2n\bar{X}+z_{a/2}^{2} \right) ,c=n\bar{X}^2
+\]</span></p>
 
     </div>
 
