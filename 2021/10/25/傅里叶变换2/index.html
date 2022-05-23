@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	上一篇我们介绍了傅里叶变换，但是也指出了现实情况中不能直接应用傅里叶变换这一缺点，就此我们这一篇来介绍离散傅里叶变换和快速傅里叶变换。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="傅里叶变换2">
+<meta property="og:url" content="http://example.com/2021/10/25/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A22/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	上一篇我们介绍了傅里叶变换，但是也指出了现实情况中不能直接应用傅里叶变换这一缺点，就此我们这一篇来介绍离散傅里叶变换和快速傅里叶变换。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-25T13:34:41.000Z">
+<meta property="article:modified_time" content="2021-10-26T14:51:01.806Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="傅里叶变换">
+<meta property="article:tag" content="信号处理">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/10/25/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A22/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/10/25/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A22/","path":"2021/10/25/傅里叶变换2/","title":"傅里叶变换2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>傅里叶变换2 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/25/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="傅里叶变换2 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          傅里叶变换2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-10-25 21:34:41" itemprop="dateCreated datePublished" datetime="2021-10-25T21:34:41+08:00">2021-10-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-26 22:51:01" itemprop="dateModified" datetime="2021-10-26T22:51:01+08:00">2021-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">信号与系统</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	上一篇我们介绍了傅里叶变换，但是也指出了现实情况中不能直接应用傅里叶变换这一缺点，就此我们这一篇来介绍离散傅里叶变换和快速傅里叶变换。</p>
+<span id="more"></span>
+
+<p>​	实际上由于我们现在的信号都是数字信号，他们只是一串给定了采样间隔的数据，比如对于一个模拟出的连续信号$f(t)&#x3D;cost$，可能会按照某个采样间隔$T_s$来进行采样，但是由于许多时候这个间隔都很小，所以我们一般用采样频率$f_s&#x3D;1&#x2F;T_s$来进行叙述。这也好理解，因为采样必须要是一个有规律的周期过程。</p>
+<p>​	但是如果我们用直接的想法：把离散的点拟合成连续函数，再傅里叶变换，即使我们现在不考虑无穷积分，直接应用傅里叶变换，结果并不唯一，会发现好几组频率似乎都满足条件。同时为了解释这一现象，我们要先理解采样的这一过程。</p>
+<p>​	采样利用的是狄拉克梳状函数，也叫采样函数：<br>$$<br>\delta <em>s\left( t \right) &#x3D;\sum</em>{-\infty}^{\infty}{\delta \left( t-nT_s \right)},\delta \left( x \right) &#x3D;\left{ \begin{array}{c}<br>    +\infty ,x&#x3D;0\<br>    0,x\ne 0\<br>\end{array} \right. ,\int_{-\infty}^{+\infty}{\delta \left( x \right) \mathrm{d}x&#x3D;1}<br>$$<br>​	实际上在我做的事情里给到我手里的就是一组采样以后的数据，介绍这些只是为了给采样这个过程加以数学描述，这样的话才方便引入离散傅里叶变换。</p>
+<p>​	狄拉克函数（右边的那个）有筛选性质，这一点很有用：<br>$$<br>\int_{-\infty}^{+\infty}{x\left( t \right) \delta \left( t-t_0 \right) \mathrm{d}t&#x3D;x\left( t_0 \right)}<br>$$<br>​	同时为了后面的叙述，这里还要给出采样函数的傅里叶变换，显然由于采样函数是周期函数：<br>$$<br>c_n&#x3D;\frac{1}{T_s}\int_{-\frac{1}{2}T_s}^{\frac{1}{2}T_s}{\delta <em>s\left( t \right) e^{-j\frac{2\pi n}{T_s}t}\mathrm{d}t}&#x3D;\frac{1}{T_s}<br>\<br>\delta <em>s\left( t \right) &#x3D;\frac{1}{T_s}\sum</em>{n&#x3D;-\infty}^{\infty}{e^{j\frac{2\pi n}{T_s}t}}<br>$$<br>​	放在一起看，如何进行采样就呼之欲出了，即：<br>$$<br>x_s\left( t \right) &#x3D;\sum</em>{n&#x3D;-\infty}^{\infty}{x\left( t \right) \delta \left( t-nT_s \right)}<br>$$<br>​	这样我们就对一个连续的序列进行了采样，正是利用的狄拉克函数，那么接下来就可以利用连续信号的傅里叶变换来推导出离散情况下的傅里叶变换：（利用改了狄拉克函数的筛选性质）<br>$$<br>\mathcal{F} \left( \omega \right) &#x3D;\int_{-\infty}^{\infty}{x\left( t \right) e^{-i\omega t}\mathrm{d}t}<br>\<br>&#x3D;\int_{-\infty}^{\infty}{\sum_{n&#x3D;-\infty}^{\infty}{x\left( t \right) \delta <em>s\left( t-nT_s \right)}e^{-i\omega t}\mathrm{d}t}<br>\<br>&#x3D;\sum</em>{n&#x3D;-\infty}^{\infty}{\left( \int_{-\infty}^{\infty}{x\left( t \right) \delta <em>s\left( t-nT_s \right) e^{-i\omega t}\mathrm{d}t} \right)}<br>\<br>&#x3D;\sum</em>{n&#x3D;-\infty}^{\infty}{x\left( nT_s \right) e^{-j\omega nT_s}}<br>$$<br>​	此时信号序列已经被离散成了$x(nT_s)$，对数字信号来说，采样后的信号是一个类似数列的序列，我们一般将其写成：<br>$$<br>X_s\left( \omega \right) &#x3D;\sum_{n&#x3D;-\infty}^{\infty}{x\left[ n \right] e^{-j\omega nT_s}}<br>$$<br>​	但是问题在于，现在虽然信号变成离散的了，但求和上下界还是无穷，计算机还是不能直接计算，所以频谱也要离散化，实际上我们差一点就能解决了这个问题了，我们知道，当我们引入狄拉克函数后，更一般的函数也可以进行傅里叶展开了，我们考虑：对于连续信号$x(t)$按照采样时间$T_s$进行$N$次抽样，将这$N$个数值进行周期延拓，这其实就解决了我们的问题，周期延拓后采样信号被表示为：<br>$$<br>x_s\left( t \right) &#x3D;x\left( t \right) \sum_{n&#x3D;0}^{N-1}{\delta \left( t-nT_s \right)}<br>$$<br>​	由于进行了周期延拓，我们作傅里叶级数：<br>$$<br>c_k&#x3D;X\left[ k\omega \right] &#x3D;\frac{1}{T}\int_{-\frac{1}{2}T}^{\frac{1}{2}T}{x\left( t \right) \sum_{n&#x3D;0}^{N-1}{\delta \left( t-nT_s \right)}e^{-j\frac{2\pi}{T}kt}\mathrm{d}t}<br>\<br>&#x3D;\frac{1}{T}\sum_{n&#x3D;0}^{N-1}{\int_{-\frac{1}{2}T}^{\frac{1}{2}T}{x\left( t \right) \delta \left( t-nT_s \right) e^{-j\frac{2\pi}{T}kt}\mathrm{d}t}}<br>\<br>T\rightarrow N\cdot T_s,t\rightarrow n\cdot T_s<br>\<br>&#x3D;\frac{1}{N\cdot T_s}\sum_{n&#x3D;0}^{N-1}{x\left( nT_s \right) e^{-j\frac{2\pi}{N}kn}}<br>\<br>&#x3D;\frac{1}{N\cdot T_s}\sum_{n&#x3D;0}^{N-1}{x\left[ n \right] e^{-j\frac{2\pi}{N}kn}}<br>$$<br>​	如果看到这里觉得很困惑，不妨回忆一下傅里叶变换和傅里叶级数，实际上傅里叶级数就是分立的傅里叶变换，傅里叶变换是傅里叶级数向连续情况下的推广。当我们用傅里叶级数展开某个函数时，系数就代表了频率分量，但是此时的频率都是$n\omega$，当在傅里叶变换时，我们得到了连续的频率谱，在这里，我们也是对一个“连续函数”来求傅里叶级数，以来得到离散形式的频率信息，只不过这个“连续函数”是一个真实的连续函数与狄拉克函数的乘积，并且作了周期延拓。</p>
+<p>​	最后的操作是进行整理，记一个序列为$X[k]$：<br>$$<br>X\left[ k\omega \right] \cdot T_s&#x3D;X\left[ k \right]<br>\<br>X\left[ k \right] &#x3D;\frac{1}{N}\sum_{n&#x3D;0}^{N-1}{x\left[ n \right] e^{-j\frac{2\pi}{N}kn}}<br>$$<br>​	在这种情况下我们如何获得频率信息呢？过程如下：<br>$$<br>k\omega &#x3D;k\frac{2\pi}{T}&#x3D;k\frac{2\pi}{NT_s}&#x3D;2\pi f_s\frac{k}{N},k\omega &#x3D;2\pi kf_k<br>\<br>f_k&#x3D;\frac{k}{N}f_s<br>$$<br>​	所以上面计算出的第$k$个数对应的频率可以由上面的公式计算。</p>
+<p>​	所以实际上，会给人一种开倒车的感觉，离散形式下的傅里叶变换，其实就是某种傅里叶级数，只不过之前计算傅里叶计数时，例如：<br>$$<br>f\left( x \right) &#x3D;x<br>\<br>a_0&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}{x\mathrm{d}x}&#x3D;0<br>\<br>a_n&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}{x\cos \left( nx \right) \mathrm{d}x}&#x3D;0<br>\<br>b_n&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}{x\sin \left( nx \right) \mathrm{d}x}&#x3D;\left( -1 \right) ^{n-1}\frac{2}{n}<br>\<br>x&#x3D;2\sum_{n&#x3D;1}^{\infty}{\left( -1 \right) ^{n-1}\frac{1}{n}\sin \left( nx \right)}<br>$$<br>​	形如这样的离散频率的系数，对于我们要处理的数字信号，其实就是$f(x)&#x3D;x$变为了一个由连续信号和狄拉克函数组成的特殊函数。</p>
+<p>​	在最后留下两个坑，以后有空再填：</p>
+<p>​	①最开始的好几组频率都符合要求，是由于混叠现象，这个问题最终的答案为：如果想避免混叠在对连续信号进行抽样离散时，必须保证采样频率是原连续信号最大频率分量的2倍频率以上。（采样定理），由于我做的工作里大部分时候是处理已经被给定的信号，所以这个部分等后面有空再谈论、</p>
+<p>​	②实际上我们确实得到了离散傅里叶变换的表达式，但是实际上现在实现这个变换的方法是快速傅里叶变换，它已经被集成在了matlab和python的scipy里，它最后的结果和我们推导出的完全一致，但显著的减少了需要的计算时间，后面我们会介绍它的算法原理。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag"># 傅里叶变换</a>
+              <a href="/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" rel="tag"># 信号处理</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/22/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="prev" title="傅里叶变换">
+                  <i class="fa fa-chevron-left"></i> 傅里叶变换
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/14/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="next" title="数理统计">
+                  数理统计 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

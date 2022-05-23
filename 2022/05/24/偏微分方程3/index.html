@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​		由于偏微分方程数值方法和计算其解析解是一块非常庞大的内容，并且我以及队友的专业都不是数学&#x2F;物理方向，但其中已经涉及了相当一部分数值分析和数学物理方法的内容，考虑到以上原因本文只局限在数学建模中够用的且很肤浅的范围内总结一些内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="偏微分方程3">
+<meta property="og:url" content="http://example.com/2022/05/24/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​		由于偏微分方程数值方法和计算其解析解是一块非常庞大的内容，并且我以及队友的专业都不是数学&#x2F;物理方向，但其中已经涉及了相当一部分数值分析和数学物理方法的内容，考虑到以上原因本文只局限在数学建模中够用的且很肤浅的范围内总结一些内容。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/PDE3_Fourier.jpg">
+<meta property="og:image" content="http://example.com/images/PDE3_ErrorShow.gif">
+<meta property="og:image" content="http://example.com/images/PDEover.jpg">
+<meta property="article:published_time" content="2022-05-23T16:30:09.767Z">
+<meta property="article:modified_time" content="2021-10-06T16:25:25.437Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="PDE">
+<meta property="article:tag" content="数学建模">
+<meta property="article:tag" content="傅里叶变换">
+<meta property="article:tag" content="数值方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/PDE3_Fourier.jpg">
+
+
+<link rel="canonical" href="http://example.com/2022/05/24/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/05/24/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B3/","path":"2022/05/24/偏微分方程3/","title":"偏微分方程3"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>偏微分方程3 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E5%B7%AE%E5%88%86%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">不同的差分格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%AE%80%E9%9A%90%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">最简隐格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Crank-Nicolson%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">Crank-Nicolson格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A7%E8%87%B4%E5%B7%AE%E5%88%86%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">紧致差分格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E8%A7%A3%E6%9E%90%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">关于稳定性和解析解</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/24/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="偏微分方程3 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          偏微分方程3
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-24 00:30:09" itemprop="dateCreated datePublished" datetime="2022-05-24T00:30:09+08:00">2022-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-07 00:25:25" itemprop="dateModified" datetime="2021-10-07T00:25:25+08:00">2021-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​		由于偏微分方程数值方法和计算其解析解是一块非常庞大的内容，并且我以及队友的专业都不是数学&#x2F;物理方向，但其中已经涉及了相当一部分数值分析和数学物理方法的内容，考虑到以上原因本文只局限在数学建模中够用的且很肤浅的范围内总结一些内容。</p>
+<span id="more"></span>
+
+<h3 id="不同的差分格式"><a href="#不同的差分格式" class="headerlink" title="不同的差分格式"></a>不同的差分格式</h3><p>​		实际上差分格式大多大同小异，不同差分格式的稳定性和精度都有所不同，针对具体问题应该选择合适的差分格式，下面主要介绍三种比较重要的格式：</p>
+<h4 id="最简隐格式"><a href="#最简隐格式" class="headerlink" title="最简隐格式"></a>最简隐格式</h4><p>​		我们以一维热传导时的情况举例，如果是最简隐格式，实际上就是：<br>$$<br>\frac{u_{j}^{n+1}-u_{j}^{n}}{\tau}&#x3D;\frac{u_{j+1}^{n+1}-2u_{j}^{n+1}+u_{j-1}^{n+1}}{h^2}<br>$$<br>​		注意到右边，右边的时间状态是$n+1$​,那就注意到一个问题了，既然是迭代求解的，在尚未知道$n+1$​时的状态时，这个等式是如何进行迭代呢？这实际上就是隐格式的特点，需要借用一些代数方程组再来联立，在最简隐格式中，常用的是用最简显格式先得到一个迭代初值，然后代入上面再反复迭代，直到结果稳定（收敛）后，所以，最简隐格式是无条件收敛的（这点在后面再详细论述），但它比较耗时。</p>
+<h4 id="Crank-Nicolson格式"><a href="#Crank-Nicolson格式" class="headerlink" title="Crank-Nicolson格式"></a>Crank-Nicolson格式</h4><p>$$<br>\frac{u_{j}^{n+1}-u_{j}^{n}}{\tau}&#x3D;\frac{a}{2}\left[ \frac{u_{j+1}^{n+1}-2u_{j}^{n+1}+u_{j-1}^{n+1}}{h^2}+\frac{u_{j+1}^{n}-2u_{j}^{n}+u_{j-1}^{n}}{h^2} \right]<br>$$</p>
+<p>​		观察可知，这种方法其实也是一种隐式方法，实际上是向前差分格式和向后差分格式作算数平均，这种格式使用起来比较方便，我们记$\beta &#x3D;\frac{a\tau}{2h^2}$​​​,再对上面的式子进行移项处理，对于整理后的形式，我们发现它可以写成：<br>$$<br>\left( \beta ,-1-2\beta ,\beta \right) \left( \begin{array}{c}<br>    u_{i-1}^{j+1}\<br>    u_{i}^{j+1}\<br>    u_{i+1}^{j+1}\<br>\end{array} \right) &#x3D;\left( -\beta ,2\beta -1,-\beta \right) \left( \begin{array}{c}<br>    u_{i-1}^{j}\<br>    u_{i}^{j}\<br>    u_{i+1}^{j}\<br>\end{array} \right)<br>$$<br>​		也就是说可以写为这样的矩阵形式：$AU^{n+1}&#x3D;BU^n$,左乘$A^{-1}$就能得到我们需要的计算方式。</p>
+<h4 id="紧致差分格式"><a href="#紧致差分格式" class="headerlink" title="紧致差分格式"></a>紧致差分格式</h4><p>​		实际上我们作离散化时都是用特定的一些节点来逼近想要的对象，紧致差分格式说的是利用函数值的某种线性组合，来表示我们所需的导数值，其实原理非常的简单。</p>
+<p>​		对于一阶导数的紧致差分格式，目标上是想得到：<br>$$<br>\beta f_{i-2}^{‘}+\alpha f_{i-1}^{‘}+f_{i}^{‘}+\alpha f_{i+1}^{‘}+\beta f_{i+2}^{‘}\&#x3D;c\frac{f_{i+3}-f_{i-3}}{6h}+b\frac{f_{i+2}-f_{i-2}}{4h}+a\frac{f_{i+1}-f_{i-1}}{2h}<br>$$<br>​		这里参数的确定直接应用$Taylor$级数展开，用待定系数法即得<br>$$<br>\begin{array}{c}<br>    a+b+c&#x3D;1+2\alpha +2\beta\<br>    a+4b+9c&#x3D;6\alpha +24\beta\<br>    a+16b+81c&#x3D;10\alpha +160\beta\<br>\end{array}<br>$$<br>​		当满足第一个式子时，可以得到具有二阶精度的差分格式，同时满足第一个和第二个式子时候，可以得到具有四阶精度的差分格式，如果三个式子都满足，可以得到具有六阶精度的差分格式。</p>
+<p>​		我们根据需要选取合适的取值，即可得到所需的差分格式，例如：<br>$$<br>\frac{1}{4}f_{i-1}^{‘}+f_{i}^{‘}+\frac{1}{4}f_{i+1}^{‘}&#x3D;\frac{3}{4h}\left( f_{i+1}-f_{i-1} \right)<br>$$<br>​		就是一个具有四阶精度的紧致差分格式。</p>
+<p>​		对于二阶导数的紧致差分格式，道理是一样的，目的是指得到：<br>$$<br>\beta f_{i-2}^{‘’}+\alpha f_{i-1}^{‘’}+f_{i}^{‘’}+\alpha f_{i+1}^{‘’}+\beta f_{i+2}^{‘’}\&#x3D;c\frac{f_{i+3}-2f_i+f_{i-3}}{9h^2}+b\frac{f_{i+2}-2f_i+f_{i-2}}{4h^2}+a\frac{f_{i+1}-2f_i+f_{i-1}}{h^2}<br>$$<br>​		也是进行$Taylor$​​级数展开，最后选取合适的参数值，例如：<br>$$<br>\frac{1}{10}f_{i-1}^{‘’}+f_{i}^{‘’}+\frac{1}{10}f_{i+1}^{‘’}&#x3D;\frac{6}{5}\left( \frac{f_{i+1}-2f_i+f_{i-1}}{h^2} \right)<br>$$<br>​		就是一种四阶精度的紧致差分格式。</p>
+<h3 id="关于稳定性和解析解"><a href="#关于稳定性和解析解" class="headerlink" title="关于稳定性和解析解"></a>关于稳定性和解析解</h3><p>​		在简单介绍这部分内容之前，要先作下面的铺垫：</p>
+<p>​		我们知道，对于符合傅里叶级数展开的条件的函数：<br>$$<br>f_T\left( t \right) &#x3D;\frac{a_0}{2}+\sum_{n&#x3D;1}^{\infty}{\left( a_n\cos n\omega t+b_n\sin n\omega t \right)}<br>$$<br>​		且由欧拉公式：<br>$$<br>e^{i\theta}&#x3D;\cos \theta +i\sin \theta<br>\<br>\cos \theta &#x3D;\frac{1}{2}\left( e^{i\theta}+e^{-i\theta} \right)<br>\<br>\sin \theta &#x3D;-\frac{i}{2}\left( e^{i\theta}-e^{-i\theta} \right)<br>$$<br>​		我们将两者联立，可以得到：<br>$$<br>f_T\left( t \right) &#x3D;c_0+\sum_{n&#x3D;1}^{\infty}{\left( c_ne^{in\omega t}+c_{-n}e^{-in\omega t} \right)}</p>
+<p>&#x3D;\sum_{-\infty}^{\infty}{c_ne^{in\omega t}}<br>$$<br>​		之后如果我们求解$c_n$​​的表达式，会发现：$c_n&#x3D;\frac{1}{T}\int_{-T&#x2F;2}^{T&#x2F;2}{f_T\left( t \right) e^{-in\omega x}\mathrm{d}t}$​​​,此时居然表达式是不需要额外讨论而完全一致的，从而：<br>$$<br>f_T\left( t \right)<br>&#x3D;\sum_{-\infty}^{\infty}{c_ne^{in\omega t}}<br>$$<br>​		就是傅里叶级数的复数形式，现在我们有了两种傅里叶级数的表达，在这里我们将$\omega &#x3D;\frac{2\pi}{T}$称为基频率，因为它是由该函数的周期而唯一确定的。现在我们来直观感受一下这两种表达方式的区别：</p>
+<p>​		<img src="/images/PDE3_Fourier.jpg"></p>
+<p>​		其中时域图是我们很熟悉的，而频域图则有些陌生，实际上，我们考虑傅里叶级数的每一项，$c_n$是一个函数，不同的$n$对应着不同的$c_n$。我们取它的模长，按照$n\omega$来作为横轴，而不同$n$时与$e^{inwt}$的线性组合，即是傅里叶级数。换句话说，就类似千手观音，如果我们掌握着构成某个函数的傅里叶级数，那么他们就在这个函数背后按照一排站好，侧过去看，实际上就是频域图。</p>
+<p>​		但直到这里，好像还和我们要研究的内容没有什么关系，因为我们直觉上就知道大多数偏微分方程的解它肯定不是周期函数，所以我们还要把上面的内容再延申一下。</p>
+<p>​		对于非周期函数，即考虑周期趋近于无穷的时候，那么我们说的基频率$\omega$会相当的小，频域图会从离散的分立点构成一个连续的曲线。此时上面的积分上下限也从$\frac{T}{2}$变为$\infty$，并且此时的$n\omega$会越来越接近为我们熟悉的“自变量$\omega$”，此时频域图中分立点的间隔$\varDelta \omega %$也变得越来越小，即：</p>
+<p>​																		$\sum_{n&#x3D;-\infty}^{+\infty}{\varDelta \omega}\rightarrow \int_{-\infty}^{+\infty}{d\omega}$​</p>
+<p>​		之后我们将$c_n$的表达式连同我们上一段在周期趋于无穷时的延伸，全部带入原式：<br>$$<br>f\left( t \right) &#x3D;\frac{1}{2\pi}\int\limits_{-\infty}^{+\infty}{\left[ \int_{-\infty}^{+\infty}{f\left( t \right) e^{-i\omega t}dt} \right] e^{iwt}dw}<br>$$</p>
+<p>​		这个式子，括号里，正是<strong>傅里叶变换</strong>，而将括号内看成整体$F(\omega)$，这个式子就是傅里叶变换的逆变换。<em><strong>它的意义非常深刻</strong></em></p>
+<p>​		下面我们来讨论稳定性，所谓稳定性，大多是在有时间变量的问题里所提及的，如果选择的时间步长不合适，可能会出现这样类似爆炸，使人大为震撼的情况：</p>
+<p>​				<img src="/images/PDE3_ErrorShow.gif"></p>
+<p>​		一种经典的分析差分格式稳定性的方法就是：傅里叶分析法。</p>
+<p>​		这里我们只给出具有指导意义的结论：将迭代时的$U_{j}^{n}$改写成复变量$v_ne^{ijk\varDelta x}$,只要计算$G&#x3D;v_{n+1}&#x2F;v_n$，如果对于任意实数$k$来说$G$的模长都小于1，那么格式就是稳定的。</p>
+<p>​		最后我们再说一下解析解的问题，实际上很多时候我们并不是很需要一个偏微分方程的解析解…但是有的时候，对于一些三维无界问题，找出解析解更加方便，那么上面说的傅里叶变换和解这个偏微分方程有什么关系呢？</p>
+<p>​		我们考虑这样的一维波动方程：<br>$$<br>\frac{\partial ^2u}{\partial t^2}&#x3D;\frac{\partial ^2u}{\partial x^2},-\infty &lt;x&lt;+\infty ,t&gt;0<br>$$<br>​		这个方程令我们麻爪的是：它有对不同量的多次微分，这很难整。但这个问题已经被前人解决了，我们下面这样来理解这个过程，由于傅里叶变换的作用区间是负无穷到正无穷，我们记对空间变量$x$的傅里叶变换为：<br>$$<br>\overset{<del>}{U}\left( \omega ,t \right) &#x3D;\int_{-\infty}^{+\infty}{u\left( x,t \right) e^{-i\omega x}dx}<br>$$<br>​		我们对方程两边也作傅里叶变换，观察一下会发生什么：<br>$$<br>\mathcal{F} \left[ \frac{\partial ^2u}{\partial x^2} \right] &#x3D;\int_{-\infty}^{+\infty}{\frac{\partial ^2}{\partial x^2}\left( u\left( x,t \right) e^{-i\omega x} \right) dx}&#x3D;\left( -i\omega \right) ^2\int_{-\infty}^{+\infty}{u\left( x,t \right) e^{-i\omega x}dx}&#x3D;-\omega ^2\overset{</del>}{U}\left( \omega ,t \right)<br>\\mathcal{F} \left[ \frac{\partial ^2u}{\partial t^2} \right] &#x3D;\int_{-\infty}^{+\infty}{\frac{\partial ^2}{\partial t^2}\left( u\left( x,t \right) e^{-i\omega x} \right) dx}&#x3D;\frac{d^2}{dt^2}\overset{~}{U}\left( \omega ,t \right)<br>$$<br>​		实际上，傅里叶变换把多次偏微分直接“取”了出来，就像我们曾经求导不好求而取对数一样。而关于时间的偏微分化为常微分，这样当我们求得傅里叶变换后的$U(\omega,t)$​后，再对它作傅里叶逆变换，就得到了之前的解。具体的计算过程这里就从略了。</p>
+<p>​		实际上数学物理里还有更多的求解方法，但这里就不介绍了。</p>
+<p>​		这里我举一个实际例子来说明这种办法的功用，我们假设一个扩散源在$(x_0,y_0,z_0)$且满足$Cauchy$问题的扩散问题：<br>$$<br>\left{ \begin{array}{c}<br>    \frac{\partial u}{\partial t}&#x3D;a^2\frac{\partial ^2u}{\partial x^2}+b^2\frac{\partial ^2u}{\partial y^2}+c^2\frac{\partial ^2u}{\partial z^2}-k^2u,\<br>    u\left( x,y,z,0 \right) &#x3D;M\delta \left( x-x_0 \right) \delta \left( y-y_0 \right) \delta \left( z-z_0 \right)\<br>\end{array} \right.<br>$$<br>​		记$\omega &#x3D;\left( \omega _1,\omega _2,\omega _3 \right) $,$\overset{<del>}{u}\left( t,\omega \right) &#x3D;\mathcal{F} \left[ u\left( x,y,z,t \right) \right] $​。我们对三个空间变量以及初始条件作傅里叶变换，最后得到：<br>$$<br>\left{ \begin{array}{c}<br>    \frac{d\overset{</del>}{u}}{dt}+\left( a^2\omega _{1}^{2}+b^2\omega _{2}^{2}+c^2\omega _{3}^{2}+k^2 \right) \overset{<del>}{u}&#x3D;0,\<br>    \overset{</del>}{u}\left( 0,\omega \right) &#x3D;Me^{-i\left( \omega _{1}^{}x_0+\omega _{2}^{}y_0+\omega _{3}^{}z_0 \right)}\<br>\end{array} \right.<br>$$<br>​		（这里初始条件是$Dirac$函数的性质）</p>
+<p>​		解这个常微分方程后，得到唯一解，再对齐进行傅里叶逆变换，得：<br>$$<br>u\left( x,y,z,t \right) &#x3D;\frac{M}{\left( 2\sqrt{\pi t} \right) ^3\sqrt{a^2b^2c^2}}\exp \left{ -\frac{\left( x-x_0 \right) ^2}{4a^2t}-\frac{\left( y-y_0 \right) ^2}{4b^2t}–\frac{\left( z-z_0 \right) ^2}{4c^2t}-k^2t \right}<br>$$<br>​		实际上走这一套流程的时候，如果要独立的计算出来所涉及的数学知识可能有很多，所以并不是很方便，把解析解的内容写上来只是起到“知道”就行的作用，实践时还是应以数值方法为主。</p>
+<p>​		应该到这里偏微分方程的内容就结束了，我希望我的队友…有在家好好学习，嗯……只是希望。</p>
+<p>​		完结撒花！</p>
+<p><img src="/images/PDEover.jpg"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PDE/" rel="tag"># PDE</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" rel="tag"># 数学建模</a>
+              <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag"># 傅里叶变换</a>
+              <a href="/tags/%E6%95%B0%E5%80%BC%E6%96%B9%E6%B3%95/" rel="tag"># 数值方法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/24/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B2/" rel="prev" title="偏微分方程2">
+                  <i class="fa fa-chevron-left"></i> 偏微分方程2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/24/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8BOVA/" rel="next" title="偏微分方程OVA">
+                  偏微分方程OVA <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

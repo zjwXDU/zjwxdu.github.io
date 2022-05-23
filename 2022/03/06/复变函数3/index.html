@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	为了撑过期末考试的复变函数，我之前曾经进行了部分归纳。但是我和我的朋友们在突击过程中明显觉得，简单的堆砌很难在最短时间内记忆并掌握考试内容。所以有了这篇blog。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="复变函数3">
+<meta property="og:url" content="http://example.com/2022/03/06/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B03/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	为了撑过期末考试的复变函数，我之前曾经进行了部分归纳。但是我和我的朋友们在突击过程中明显觉得，简单的堆砌很难在最短时间内记忆并掌握考试内容。所以有了这篇blog。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-06T02:22:21.000Z">
+<meta property="article:modified_time" content="2022-03-10T16:21:29.517Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="复变函数">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/03/06/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B03/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/03/06/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B03/","path":"2022/03/06/复变函数3/","title":"复变函数3"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>复变函数3 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/06/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="复变函数3 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          复变函数3
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-06 10:22:21" itemprop="dateCreated datePublished" datetime="2022-03-06T10:22:21+08:00">2022-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-03-11 00:21:29" itemprop="dateModified" datetime="2022-03-11T00:21:29+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	为了撑过期末考试的复变函数，我之前曾经进行了部分归纳。但是我和我的朋友们在突击过程中明显觉得，简单的堆砌很难在最短时间内记忆并掌握考试内容。所以有了这篇blog。</p>
+<span id="more"></span>
+
+<p>​	本篇假设需要急救包的受众有着最基本的复数运算基础。那么我们先从复变函数的两种写法说起：简单来说，就是$f(z),u(x,y)+iv(x,y)$。这两者实际上是一体两面。当涉及到$f(z)$这种写法时，关于连续和可导和实变情况下完全一样。复变函数1里有三个很好的例子。当写作后者那样的写法时，我们需要记忆柯西黎曼方程，根据柯西黎曼方程的条件，可以计算函数在哪里可导，继而推出哪里解析，例如对$f(z)&#x3D;2x^3+3y^3i$，我们只需要计算$C-R$方程：<br>$$<br>\frac{\partial u}{\partial x}&#x3D;6x^2,\frac{\partial v}{\partial y}&#x3D;9y^2,\frac{\partial u}{\partial x}&#x3D;\frac{\partial v}{\partial y},2x^2&#x3D;3y^2<br>\<br>\frac{\partial u}{\partial y}&#x3D;0,\frac{\partial v}{\partial x}&#x3D;0,\frac{\partial u}{\partial y}&#x3D;-\frac{\partial v}{\partial x}<br>$$<br>​	可知在那两条直线上可导，所以在复平面处处不解析。</p>
+<p>​	在$f(z)$写法下，我们需要掌握初等函数在复变函数下的情形。其中对数和指数其实是好记忆的，只要记住核心的欧拉公式：<br>$$<br>e^{ix}&#x3D;\cos x+i\sin x<br>$$<br>​	所以指数，对数，幂函数即自成体系。我们无需进行特殊记忆，例如计算$(1+i)^i$：<br>$$<br>&#x3D;e^{i\ln \sqrt{2}}\cdot e^{-\left( \frac{\pi}{4}+2k\pi \right)}&#x3D;e^{-\left( \frac{\pi}{4}+2k\pi \right)}\left( \cos \frac{\ln 2}{2}+i\sin \frac{\ln 2}{2} \right) ,k&#x3D;0,\pm 1,…<br>$$<br>​	值得注意的是，在这个问题里$2k\pi$仿佛不影响结果，但我们不应该认为这个周期性一直不影响结果，实际上对数函数$\mathrm{Ln}$的将乘方拿下来的性质不满足，正是由于周期性。</p>
+<p>​	三角函数的情形，也可以由欧拉公式推出，只需写出一个$-x$​时的情形，作和作差即可。但最好额外记忆，即：<br>$$<br>\cos z&#x3D;\frac{e^{iz}+e^{-iz}}{2},\sin z&#x3D;\frac{e^{iz}-e^{-iz}}{2i}<br>$$<br>​	上式取纯虚数时，可以推出双曲正弦和双曲余弦。双曲函数的性质，到时候现推吧。例如找出$\mathrm{sin}z&#x3D;0,\mathrm{cos}z&#x3D;0,\mathrm{sin}z+\mathrm{cos}z&#x3D;0$的全部解，我们只需直接计算：<br>$$<br>\sin z&#x3D;\frac{e^{iz}-e^{-iz}}{2i}&#x3D;0\rightarrow e^{2iz}&#x3D;1\rightarrow 2z&#x3D;2k\pi \rightarrow z&#x3D;k\pi<br>\<br>\cos z&#x3D;\frac{e^{iz}+e^{-iz}}{2}&#x3D;0\rightarrow e^{2iz}&#x3D;-1\rightarrow 2z&#x3D;\left( 2k+1 \right) \pi \rightarrow z&#x3D;\frac{\pi}{2}+k\pi<br>\<br>\sin z+\cos z&#x3D;0\rightarrow \frac{e^{iz}+e^{-iz}}{2}+\frac{e^{iz}-e^{-iz}}{2i}&#x3D;0\rightarrow<br>\<br>e^{2iz}&#x3D;-i\rightarrow z&#x3D;k\pi -\frac{\pi}{4}<br>$$<br>​	然后到了第三章的内容，关于求解复变函数下的积分，这里的题型有两种，第一种是曲线积分的直接应用，设出参数方程即可，利用与实积分时类似的牛顿-莱布尼茨公式。第二种是指对于闭合圆周的积分。第三章中我们会利用柯西-古萨定理，继而有复合闭路定理。将这个积分归结为在特定几个不解析的点的积分，然后用柯西积分公式以及高阶导数公式来计算。计算过程中涉及一些构造，并不是特别容易实施。实际上我们可以直接将第五章的留数定理应用上来：<br>$$<br>\oint_C{f\left( z \right) \mathrm{d}z}&#x3D;2\pi i\sum_{k&#x3D;1}^n{\mathrm{Res}\left[ f\left( z \right) ,z_k \right]}<br>$$<br>​	其中留数的计算规则为：如果$z_0$为$f(z)$的$m$级极点，那么：<br>$$<br>\mathrm{Res}\left[ f\left( z \right) ,z_0 \right] &#x3D;\frac{1}{\left( m-1 \right) !}\underset{z\rightarrow z_0}{\lim}\frac{\mathrm{d}^{m-1}}{\mathrm{d}z^{m-1}}\left{ \left( z-z_0 \right) ^mf\left( z \right) \right}<br>$$<br>​	至于极点的$m$如何确定，只需要考虑$1&#x2F;f(z)$​的零点的阶数，下面是一些例题：<br>$$<br>\left. 1 \right) :\oint_C{\frac{e^z}{z-2}\mathrm{d}z},C:|z-2|&#x3D;1<br>\<br>\frac{z-2}{e^z},z_0&#x3D;2,m&#x3D;1\rightarrow 2\pi i\underset{z\rightarrow 2}{\lim}\left( z-2 \right) \frac{e^z}{z-2}&#x3D;2\pi ie^2<br>\<br>\left. 2 \right) :\oint_C{\frac{e^{iz}}{z^2+1}\mathrm{d}z},C:|z-2i|&#x3D;\frac{3}{2}<br>\<br>\frac{z^2+1}{e^{iz}}&#x3D;\frac{\left( z+i \right) \left( z-i \right)}{e^{iz}},z_0&#x3D;i,m&#x3D;1\rightarrow<br>\<br>2\pi i\underset{z\rightarrow i}{\lim}\left( z-i \right) \frac{e^{iz}}{\left( z-i \right) \left( z+i \right)}&#x3D;\frac{\pi}{e}<br>\<br>\left. 3 \right) :\oint_C{\frac{\mathrm{d}z}{\left( z^2-1 \right) \left( z^3-1 \right)}},C:|z|&#x3D;r&lt;1<br>\<br>\left( z^2-1 \right) \left( z^3-1 \right) \rightarrow \text{无零点}\rightarrow 0<br>\<br>\left. 4 \right) :\oint_C{\frac{\sin z\mathrm{d}z}{\left( z-\frac{\pi}{2} \right) ^2}},C:|z|&#x3D;2<br>\<br>\frac{\left( z-\frac{\pi}{2} \right) ^2}{\sin z},\frac{2\left( z-\frac{\pi}{2} \right)}{\cos z}\rightarrow z_0&#x3D;\frac{\pi}{2},m&#x3D;2\rightarrow 2\pi i\underset{z\rightarrow \frac{\pi}{2}}{\lim}\left[ \left( z-\frac{\pi}{2} \right) ^2\frac{\sin z}{\left( z-\frac{\pi}{2} \right) ^2} \right] ^{\left( 1 \right)}</p>
+<p>\<br>&#x3D;2\pi i\cos \frac{\pi}{2}&#x3D;0<br>\<br>\left. 5 \right) :\oint_C{\frac{e^z\mathrm{d}z}{z^5}},C:|z|&#x3D;1<br>\<br>\frac{z^5}{e^z}\rightarrow z_0&#x3D;0,m&#x3D;5\rightarrow \frac{1}{4!}2\pi i\underset{z\rightarrow 0}{\lim}\left[ z^5\frac{e^z}{z^5} \right] ^{\left( 4 \right)}&#x3D;\frac{\pi i}{12}<br>\<br>\left. 6 \right) :\oint_C{\frac{\mathrm{d}z}{\left( z^2+1 \right) \left( z^2+4 \right)}},C:|z|&#x3D;\frac{3}{2}<br>\<br>\left( z^2+1 \right) \left( z^2+4 \right) \rightarrow z_0&#x3D;-i,z_1&#x3D;i,z_2&#x3D;-2i,z_3&#x3D;2i\left( \text{均是一级零点} \right)<br>\<br>\rightarrow 2\pi i\left( \frac{i}{6}-\frac{i}{6}+\frac{i}{12}-\frac{i}{12} \right) &#x3D;0<br>$$<br>​	这样一些求积分的简单例题就得到了解决，留数定理法稍微增加了复杂度，但是免去了对于不能直接套柯西积分公式和高阶导数公式时的配凑。</p>
+<p>​	第三章还有一个调和函数的内容，考察的内容是给定一个调和函数$u$，求它的共轭调和函数$v$。用$C-R$方程直接构造即可，例如：设$v&#x3D;e^{px}\mathrm{sin}y$，求$p$的值使得$v$为调和函数，并求出解析函数$f(z)&#x3D;u+iv$。</p>
+<p>​	先按照拉普拉斯方程的条件直接计算：<br>$$<br>\frac{\partial v}{\partial x}&#x3D;pe^{px}\sin y,\frac{\partial v}{\partial y}&#x3D;e^{px}\cos y<br>\<br>\frac{\partial ^2v}{\partial x^2}&#x3D;p^2e^{px}\sin y,\frac{\partial ^2v}{\partial y^2}&#x3D;-e^{px}\sin y<br>\<br>\frac{\partial ^2v}{\partial x^2}+\frac{\partial ^2v}{\partial y^2}&#x3D;0\rightarrow \left( p^2-1 \right) e^{px}\sin y&#x3D;0<br>\<br>p&#x3D;\pm 1<br>$$<br>​	之后求解$u$：<br>$$<br>\frac{\partial u}{\partial x}&#x3D;\frac{\partial v}{\partial y}&#x3D;e^{px}\cos y,\frac{\partial u}{\partial y}&#x3D;-\frac{\partial v}{\partial x}<br>\<br>u&#x3D;\int{\frac{\partial u}{\partial x}\mathrm{d}x}&#x3D;\frac{1}{p}e^{px}\cos y+g\left( y \right)<br>\<br>\frac{\partial u}{\partial y}&#x3D;-\frac{1}{p}e^{px}\sin y+g’\left( y \right) &#x3D;-pe^{px}\sin y\left( p&#x3D;\pm 1 \right)<br>\<br>g’\left( y \right) &#x3D;0\rightarrow g\left( y \right) &#x3D;C<br>\<br>u\left( x,y \right) &#x3D;\frac{1}{p}e^{px}\cos y+C<br>\<br>f\left( z \right) &#x3D;u+iv&#x3D;\frac{1}{p}e^{px}\cos y+C+ie^{px}\sin y\left( p&#x3D;\pm 1 \right)<br>$$<br>​	这实际上有个细节要做出解释：在大多数时候我们给出$u+iv$这样的表述，此时的柯西黎曼方程就是我们熟悉的那个样子，同时我们称$v$是$u$的共轭调和函数。这里的顺序并不能随意颠倒，如果我们说$u$是$v$的共轭调和函数，那么满足的$C-R$方程实际上是：<br>$$<br>\frac{\partial v}{\partial x}&#x3D;\frac{\partial u}{\partial y},\frac{\partial v}{\partial y}&#x3D;-\frac{\partial u}{\partial x}<br>$$<br>​	即正好对调，很可惜我们将不会看到调和函数的应用。它将以一个类似于高数下求全微分方程的形式一样，被我们记住了，然后考试以后忘掉。</p>
+<p>​	值得注意的是，我们刚才以留数定理来解决了第三章的积分问题，但我们仍然要记住在第三章讲授的理论，下面列举以作复习：</p>
+<p>​	对于圆形线积分，一个重要的结论是：<br>$$<br>\oint_{|z-z_0|&#x3D;r}{\frac{\mathrm{d}z}{\left( z-z_0 \right) ^{n+1}}}&#x3D;\left{ \begin{array}{c}<br>    2\pi i,n&#x3D;0\<br>    0,n\ne 0\<br>\end{array} \right.<br>$$<br>​	如果我们应用留数定理，当$n&#x3D;0$时，是一级极点，无需求导：<br>$$<br>\mathrm{Res}\left[ f\left( z \right) ,z_0 \right] &#x3D;\left( z-z_0 \right) \frac{1}{\left( z-z_0 \right)}&#x3D;1,I&#x3D;2\pi i<br>$$<br>​	当$n\ne0$时，求导后常数项变为0，导致积分值为零：<br>$$<br>\mathrm{Res}\left[ f\left( z \right) ,z_0 \right] &#x3D;\frac{d^n}{dz^n}\left[ \left( z-z_0 \right) ^{n+1}\frac{1}{\left( z-z_0 \right) ^{n+1}} \right] &#x3D;0<br>$$<br>​	如果是直接积分，也是有办法的，我们利用复数的指数表示：<br>$$<br>z&#x3D;z_0+re^{i\theta},0\leqslant \theta \leqslant 2\pi ,\mathrm{d}z&#x3D;ri\theta e^{i\theta}\mathrm{d}\theta<br>\<br>\oint_{|z-z_0|&#x3D;r}{\frac{\mathrm{d}z}{\left( z-z_0 \right) ^{n+1}}}&#x3D;\int_0^{2\pi}{\frac{ri\theta e^{i\theta}}{r^{n+1}e^{i\left( n+1 \right) \theta}}\mathrm{d}\theta}&#x3D;\frac{i}{r^n}\int_0^{2\pi}{e^{-in\theta}\mathrm{d}\theta}<br>\<br>n&#x3D;0:i\int_0^{2\pi}{\mathrm{d}\theta}&#x3D;2\pi i<br>\<br>n\ne 0:\frac{i}{r^n}\int_0^{2\pi}{\left( \cos n\theta -i\sin n\theta \right) \mathrm{d}\theta}&#x3D;0<br>$$<br>​	柯西-古萨基本定理指出：如果$f(z)$在单连通域$B$内处处解析，那么$f(z)$沿$B$内任意一条封闭曲线$C$的积分值为零，即$\oint_C{f\left( z \right)}\mathrm{d}z&#x3D;0$。定理经过推广，可以得到在$B$域内解析，边界上连续，也有上述等式。之后又通过复合闭路定理和闭路变形原理，计算一个积分归结为了考虑区域内不解析的点处的积分值，最终柯西积分公式和高阶导数公式给出了圆满的结果：<br>$$<br>f\left( z_0 \right) &#x3D;\frac{1}{2\pi i}\oint_C{\frac{f\left( z \right)}{z-z_0}\mathrm{d}z},f^{\left( n \right)}\left( z_0 \right) &#x3D;\frac{n!}{2\pi i}\oint_C{\frac{f\left( z \right)}{\left( z-z_0 \right) ^{n+1}}\mathrm{d}z}<br>$$<br>​	第四章涉及到级数，这一章需要复习一下高数中的级数知识，非常简单和粗糙的说：正项级数的敛散性可以由比值审敛法或根值审敛法得出，交错级数的敛散性由莱布尼茨定理给出（提取出级数中的$(-1)^{n}$后，若$u_n \ge u_{n+1}$,$\underset{n\rightarrow \infty}{\lim}u_n&#x3D;0$。则该交错级数收敛。若该级数的绝对值收敛，则它本身必收敛，记作绝对收敛。若该级数的绝对值发散而本身收敛，称作条件收敛。）</p>
+<p>​	在复数项级数中，一个复数序列$\left{ \alpha _n \right} &#x3D;\left{ a_n+ib_n \right} $，可以视作是由两个独立的实数序列形成的。在这里要指出，我们说的复数级数收敛，是说级数$\left{ a _n \right},\left{ b _n \right}$都收敛。同时绝对收敛时的绝对值，在这里即模长$|\alpha_n|$。简单证明可以得：$\left{ \alpha _n \right}$绝对收敛的充要条件是$\left{ a _n \right},\left{ b _n \right}$都绝对收敛。</p>
+<p>​	下面选取了几个判断敛散性的例子，可以帮助我们体会复数项时的区别：<br>$$<br>\sum_{n&#x3D;1}^{\infty}{\frac{1+ni}{1-ni}}:\frac{1+ni}{1-ni}&#x3D;\frac{1-n^2}{1+n^2}+\frac{2n}{1+n^2}i&#x3D;a_n+b_ni<br>\<br>\underset{n\rightarrow \infty}{\lim}a_n&#x3D;-1,\underset{n\rightarrow \infty}{\lim}b_n&#x3D;0<br>\<br>\left{ \alpha _n \right} \rightarrow -1<br>$$</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/" rel="tag"># 复变函数</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/03/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/" rel="prev" title="常微分方程">
+                  <i class="fa fa-chevron-left"></i> 常微分方程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/07/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A13/" rel="next" title="数理统计3">
+                  数理统计3 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

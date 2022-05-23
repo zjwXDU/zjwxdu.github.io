@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	从本篇开始来介绍随机变量及其分布，借此可以引申出一些常用的分布函数。（我不想上课）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率论2">
+<meta property="og:url" content="http://example.com/2021/10/07/%E6%A6%82%E7%8E%87%E8%AE%BA2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	从本篇开始来介绍随机变量及其分布，借此可以引申出一些常用的分布函数。（我不想上课）">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-07T14:22:19.000Z">
+<meta property="article:modified_time" content="2022-02-25T09:40:35.050Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="概率论">
+<meta property="article:tag" content="概率分布">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/10/07/%E6%A6%82%E7%8E%87%E8%AE%BA2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/10/07/%E6%A6%82%E7%8E%87%E8%AE%BA2/","path":"2021/10/07/概率论2/","title":"概率论2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>概率论2 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/%E6%A6%82%E7%8E%87%E8%AE%BA2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="概率论2 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          概率论2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-10-07 22:22:19" itemprop="dateCreated datePublished" datetime="2021-10-07T22:22:19+08:00">2021-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-02-25 17:40:35" itemprop="dateModified" datetime="2022-02-25T17:40:35+08:00">2022-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	从本篇开始来介绍随机变量及其分布，借此可以引申出一些常用的分布函数。（我不想上课）</p>
+<span id="more"></span>
+
+<p>​	当样本空间$\varOmega$的元素不是数时，比较难以描述，所以我们构建了这样的映射关系，使得样本空间的每一个元素都与一个实数对应起来，这个概念就是随机变量。</p>
+<p>​	<strong>定义</strong>    设$\varOmega&#x3D;\left{ \omega \right} $是随机试验的样本空间，称定义在样本空间$\varOmega$上的单值实值函数$X&#x3D;X\left( \omega \right) $为随机变量</p>
+<p>​	随机变量会是一个实数，这样样本空间的元素都可以用一个数来表达，一般地，$\forall L\subset \mathbf{R}$，则$\left{ X\in L \right} $表示$\left{ \omega |X\left( \omega \right) \in L \right} $中满足条件的样本点组成的事件，可以将其视作数字之间的比较。当$L&#x3D;\left( -\infty ,x \right] $时，随机事件$\left{ X\in L \right} &#x3D;\left{ X\leqslant x \right} $有概率$P\left( X\leqslant x \right) $。这样就有了一个定义在$\mathbf{R}$上的函数$F(x)$，我们叫它分布函数。它具有如下性质：</p>
+<p>①$0\leqslant F\left( x \right) \leqslant 1\left( x\in \mathbf{R} \right) ,F\left( -\infty \right) &#x3D;0,F\left( +\infty \right) &#x3D;1$</p>
+<p>②$F(x)$单调不减，当$x_1&lt;x_2$时，$F(x_1)\leqslant F(x_2)$。（没有说它单增）</p>
+<p>③$F(x)$右连续，即$F\left( x+0 \right) &#x3D;F\left( x \right) $。（没说它左连续）</p>
+<p>​	其中第三条在某些离散型或者被人为构造出的分布函数中会带来困惑，例如：</p>
+<p>​	设随机变量$X$的分布函数<br>$$<br>F\left( x \right) &#x3D;\left{ \begin{array}{c}<br>    0, x&lt;0\<br>    \frac{1}{2}, 0\leqslant x&lt;1\<br>    1-e^{-x},,x\geqslant 1\<br>\end{array} \right.<br>$$<br>​	求$P(x&#x3D;1)$：</p>
+<p>​	$P\left( x&#x3D;1 \right) &#x3D;F\left( 1 \right) -F\left( 1-0 \right) &#x3D;1-e^{-1}-\frac{1}{2}&#x3D;\frac{1}{2}-e^{-1}$，其中$F(1-0)$实际上表达的是$0\leqslant x&lt;1$时$F(x)$右连续的性质。</p>
+<p>​	并且当一个函数满足①②③时，它一定是某个随机变量的分布函数。证明这里我们就不管了。</p>
+<p>​	在高中的时候我们已经对离散型随机变量有了一定的认识，所以书上关于离散型随机变量的内容我们先跳过了，一些必要的内容后面再补充。当$X$是一个连续型随机变量的时候，如果存在非负可积函数$f(x)$，使得：<br>$$<br>F\left( x \right) &#x3D;\int_{-\infty}^x{f\left( t \right) \mathrm{d}t}<br>$$<br>​	则$f(t)$为$X$的概率密度函数，简称概率密度。这里密度一词其实有一点线密度的感觉。我们要注意，概率密度和概率，并不是一回事。之前我们都听过一个例子，叫“概率为0的事情也可以发生”。最经典的说法是一个数轴上选一个点，则抽一个数等于这个点的概率是0。这个事情的深入解释需要引入测度论里的知识，我们做一些浅显的理解就好了。</p>
+<p>​	对于连续型随机变量，$P(X&#x3D;x)$实际上是0。真正有意义的是在某一区间处的概率，也就是$P\left( x\leqslant X\leqslant x+\mathrm{d}x \right) &#x3D;F\left( x+\mathrm{d}x \right) -F\left( x \right) &#x3D;f\left( x \right) \mathrm{d}x$，所以实际上$f(x)$在孤立点的值并不是概率，我们可以将$f(x)\mathrm{d}x$看成在极小点处的概率，所以概率密度和概率并不一样，也就是说概率密度会出现某些值大于1的情况，但是这都是正常的，只要它从负无穷积到正无穷的值是1即可。</p>
+<p>​	现在对于连续型的数据，我们也可以有刻画它的工具了。那么在实际应用中，许多时候我们研究的是以随机变量函数为自变量的函数，比如工厂车床加工的圆盘的半径的误差符合一个以$\mu$为均值$\sigma^2$为方差的正态分布，但我们实际关心的是制造出的圆盘的面积的概率分布。对于离散型的数据，这样很简单，我们只需要直接计算就好了。下面我们给出一个通用的办法：分布函数法。</p>
+<p>​	设随机变量$X$服从$N(\mu,\sigma^2)$，求随机变量$Y&#x3D;aX+b(a\ne0)$的概率密度。</p>
+<p>​	设$Y$的分布函数为$F_Y(y)$则当$a&gt;0$时：<br>$$<br>F_Y\left( y \right) &#x3D;P\left( Y\leqslant y \right) &#x3D;P\left( aX+b\leqslant y \right) &#x3D;P\left( X\leqslant \frac{y-b}{a} \right)<br>\<br>&#x3D;\int_{-\infty}^{\frac{y-b}{a}}{\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\left( x-\mu \right) ^2}{2\sigma ^2}}\mathrm{d}x}<br>\<br>f_Y\left( y \right) &#x3D;F_{Y}^{‘}\left( y \right) &#x3D;\frac{1}{\sqrt{2\pi}a\sigma}e^{-\frac{\left( x-\left( a\mu +b \right) \right) ^2}{2\left( a\sigma \right) ^2}}<br>$$<br>​	$a&lt;0$时，道理是一样的，要注意变号。<br>$$<br>F_Y\left( y \right) &#x3D;P\left( Y\leqslant y \right) &#x3D;P\left( aX+b\leqslant y \right) &#x3D;P\left( X\geqslant \frac{y-b}{a} \right)<br>\<br>&#x3D;\int_{\frac{y-b}{a}}^{+\infty}{\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\left( x-\mu \right) ^2}{2\sigma ^2}}\mathrm{d}x}<br>\<br>f_Y\left( y \right) &#x3D;F_{Y}^{‘}\left( y \right) &#x3D;-\frac{1}{\sqrt{2\pi}a\sigma}e^{-\frac{\left( x-\left( a\mu +b \right) \right) ^2}{2\left( a\sigma \right) ^2}}&#x3D;\frac{1}{\sqrt{2\pi}\left( -a \right) \sigma}e^{-\frac{\left( x-\left( a\mu +b \right) \right) ^2}{2\left( a\sigma \right) ^2}}<br>$$<br>​	所以$Y$的概率密度为：<br>$$<br>f_Y\left( y \right) &#x3D;\frac{1}{\sqrt{2\pi}\left| a \right|\sigma}e^{-\frac{\left( x-\left( a\mu +b \right) \right) ^2}{2\left( a\sigma \right) ^2}}<br>\<br>Y&#x3D;aX+b\sim N\left( a\mu +b,\left( a\sigma \right) ^2 \right)<br>$$<br>​	上面我们借助单次积分定义一个连续的概率密度函数，那么自然可以推广到重积分，那么就是多维随机变量及其分布，这里我们重点讨论二维的情形，因为比较直观。如果一个二元函数$F(x,y)$有如下的性质：</p>
+<p>①$0\leqslant F\left( x,y \right) \leqslant 1,F\left( -\infty ,y \right) &#x3D;F\left( x,-\infty \right) &#x3D;F\left( -\infty ,-\infty \right) &#x3D;0,F\left( +\infty ,+\infty \right) &#x3D;1$</p>
+<p>②固定一个变量，$F(x,y)$是另一个变量的单调不减函数</p>
+<p>③固定一个变量，满足右连续</p>
+<p>​	通过$F(x,y)$的定义，可以推出一个有用的判断一个二元函数是否为一个二维随机变量的分布函数的方法，取$x_1&lt;x_2,y_1&lt;y_2$，则有：<br>$$<br>F(x_2,y_2)-F(x_1,y_2)-F(x_2,y_1)+F(x_1,y_1) \geqslant  0<br>$$<br>​	这是由于实际上上面的式子表达了$P\left( x_1&lt;X\leqslant x_2,y_1&lt;Y,\leqslant y_2 \right) $，它自然是非负的。那么关于二维连续型随机变量的定义就是如果存在$f(x,y)$使得<br>$$<br>F\left( x,y \right) &#x3D;\int_{-\infty}^x{\int_{-\infty}^y{f\left( u,v \right) \mathrm{d}u\mathrm{d}v}}<br>$$<br>​	这是个二重积分，那么很自然会引出当固定其中一个积分变量时，积分的结果。这个结果被记作边缘概率密度：<br>$$<br>f_X\left( x \right) &#x3D;\int_{-\infty}^{+\infty}{f\left( x,y \right) \mathrm{d}y}<br>\<br>f_Y\left( y \right) &#x3D;\int_{-\infty}^{+\infty}{f\left( x,y \right) \mathrm{d}x}<br>$$<br>​	实际上就是问，不考虑另一个变量时某个变量为一个值时的概率。</p>
+<p>​	我们知道，随机变量可以表示随机事件，随机事件中存在条件概率。那么实际上也可以将条件概率引入随机变量的分布上来，即条件分布。我们先写出离散条件下的形式：<br>$$<br>P\left( X&#x3D;x_i|Y&#x3D;y_i \right) &#x3D;\frac{P\left( X&#x3D;x_i,Y&#x3D;y_i \right)}{P\left( Y&#x3D;y_i \right)}&#x3D;\frac{p_{ij}}{p_{\cdot j}}<br>$$<br>​	在这里用一个例子来停顿一下，这样有助于我们理解。因为上面的内容公式和符号堆砌的太多了，并不能很好的让人理解。假设一个枪手正在射击，击中目标的概率为$p(0&lt;p&lt;1)$，直至击中目标两次为止。设$X$为首次击中目标所进行的射击次数，$Y$表示总共进行的射击次数，试求$(X,Y)$的联合分布律与条件分布律。</p>
+<p>​	我们分析这个问题，条件分布往往都很抽象，我们先从联合分布入手。这里我们显然注意到，$X$和$Y$是有关系的，我们虽然说不出是什么关系，但我们可以确定他们肯定不是独立的。当$X&#x3D;m,Y&#x3D;n$时，如果$m \geqslant n$，显然概率$P(X&#x3D;m,Y&#x3D;n)&#x3D;0$。如果$m&lt;n$，那么也就是在$n-1$次里击中了一次，并且是在$m$次击中的。那么$P(X&#x3D;m,Y&#x3D;n)&#x3D;p^2(1-p)^{n-1}$。</p>
+<p>​	所以我们就有了联合分布：<br>$$<br>P\left( X&#x3D;m,Y&#x3D;n \right) &#x3D;\left{ \begin{array}{c}<br>    p^2\left( 1-p \right) ^{n-2},m&lt;n\<br>    0,m\geqslant n\<br>\end{array} \right.<br>$$<br>​	那么为了求条件分布，只要求出$P(X&#x3D;m),P(Y&#x3D;n)$即可。我们可以直接计算，对于$P(X&#x3D;m)$，即前$m-1$次不中，即$p(1-p)^{m-1}$。对于$P(Y&#x3D;n)$，即两次射中，一次在前$n-1$里，有$n-1$种可能，为$(n-1)p^2(1-p)^{n-2}$。</p>
+<p>​	如果用上面的边缘概率的定义来算，我们会发现是一样的：<br>$$<br>P\left( X&#x3D;m \right) &#x3D;\sum_{n&#x3D;2}^{\infty}{P\left( X&#x3D;m,Y&#x3D;n \right)}&#x3D;p^2\sum_{n&#x3D;m+1}^{\infty}{\left( 1-p \right) ^{n-2}}<br>\<br>&#x3D;p^2\frac{\left( 1-p \right) ^{m-1}}{1-\left( 1-p \right)}&#x3D;p\left( 1-p \right) ^{m-1}<br>\<br>P\left( Y&#x3D;n \right) &#x3D;\sum_{m&#x3D;1}^{\infty}{P\left( X&#x3D;m,Y&#x3D;n \right)}&#x3D;\sum_{m&#x3D;1}^{n-1}{p^2\left( 1-p \right) ^{n-2}}&#x3D;\left( n-1 \right) p^2\left( 1-p \right) ^{n-2}<br>$$<br>​	最后计算条件分布律：<br>$$<br>P\left( X&#x3D;m|Y&#x3D;n \right) &#x3D;\frac{p^2\left( 1-p \right) ^{n-2}}{\left( n-1 \right) p^2\left( 1-p \right) ^{n-2}}&#x3D;\frac{1}{n-1}<br>\<br>P\left( Y&#x3D;n|X&#x3D;m \right) &#x3D;\frac{p^2\left( 1-p \right) ^{n-2}}{p\left( 1-p \right) ^{m-1}}&#x3D;p\left( 1-p \right) ^{n-m-1}<br>$$<br>​	我建议在这里停留一小会儿感受一下上面条件分布计算的结果：当给定$Y&#x3D;n$时，第一次击中是第几次的概率是均匀分布的，这个值与$p$无关。因为在$Y&#x3D;n$发生的情况下，所以前面一定击中了一次，概率是$1&#x2F;(n-1)$。但是是不知道$p$的。反过来，知道$X&#x3D;m$了，那么$Y&#x3D;n$就是与$p$有关的了，因为在不知道具体的概率值的情况下，是不可能进行估计的。这里体现了先验和后验的微妙区别。</p>
+<p>​	连续情况下的条件分布，我们称之为条件概率密度：<br>$$<br>f_{X|Y}\left( x|y \right) &#x3D;\frac{f\left( x,y \right)}{f_Y\left( y \right)}<br>$$<br>​	我们用一道例题练习一下：<br>$$<br>f\left( x,y \right) &#x3D;\left{ \begin{array}{c}<br>    e^{-x},0&lt;y&lt;x\<br>    0,\mathrm{else}\<br>\end{array} \right.<br>$$<br>​	求条件概率密度$f_{Y|X}\left( y|x \right) $，和条件概率$P\left( X\leqslant 1|Y\leqslant 1 \right) $。</p>
+<p>​	连续时的情况和离散型的时候其实是一样的，但要注意变量取值范围，这会影响积分区间。</p>
+<p>​	首先计算各自的边缘概率分布：<br>$$<br>f_X\left( x \right) &#x3D;\int_{-\infty}^{+\infty}{f\left( x,y \right) \mathrm{d}y}&#x3D;\left{ \begin{array}{c}<br>    \begin{array}{c}<br>    \int_0^x{e^{-x}\mathrm{d}y}&#x3D;xe^{-x},x&gt;0\<br>    0,\mathrm{else}\<br>\end{array}\<br>\end{array} \right.<br>\<br>f_Y\left( y \right) &#x3D;\int_{-\infty}^{+\infty}{f\left( x,y \right) \mathrm{d}x}&#x3D;\left{ \begin{array}{c}<br>    \int_y^{+\infty}{e^{-x}\mathrm{d}x}&#x3D;e^{-y},y&gt;0\<br>    0,\mathrm{else}\<br>\end{array} \right.<br>$$<br>​	然后计算条件概率密度：<br>$$<br>f_{Y|X}\left( \begin{array}{c}<br>    y|x\<br>\end{array} \right) &#x3D;\frac{f\left( x,y \right)}{f_X\left( x \right)}&#x3D;\left{ \begin{array}{c}<br>    \frac{1}{x},0&lt;y&lt;x\<br>    0,\mathrm{else}\<br>\end{array} \right.<br>$$<br>​	之后的概率直接按照定义进行计算：<br>$$<br>P\left( X\leqslant 1|Y\leqslant 1 \right) &#x3D;\frac{P\left( X\leqslant 1,Y\leqslant 1 \right)}{P\left( Y\leqslant 1 \right)}&#x3D;\frac{\int_{-\infty}^1{\int_{-\infty}^1{f\left( x,y \right) \mathrm{d}x}\mathrm{d}y}}{\int_{-\infty}^1{f_Y\left( y \right) \mathrm{d}y}}&#x3D;\frac{\int_0^1{\int_0^x{e^{-x}\mathrm{d}y\mathrm{d}x}}}{\int_0^1{e^{-y}\mathrm{d}y}}&#x3D;\frac{e-2}{e-1}<br>$$<br>​	现在我们进一步考虑了联合分布，那么自然我们要考虑一种特殊的情况：即随机变量间独立。我们不加推理，直接给出结论，当$X$与$Y$相互独立时：<br>$$<br>F\left( x,y \right) &#x3D;F_X\left( x \right) F_Y\left( y \right) ,f\left( x,y \right) &#x3D;f_X\left( x \right) f_Y\left( y \right)<br>$$<br>​	歇一口气缓一下，这简短的一篇与上一篇相比，实际上是将我们对概率的认识，从一个单纯的“事件$A$发生的概率”扩展到一个离散型的情景“$A$取1的概率是xx,$A$取2的概率是xx…”，进一步，由极限和高等数学，我们得到了一个更为抽象的连续型表达，很遗憾我没有时间对这些稍微抽象的概念在这里给出一些更多的例子和解释了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag"># 概率论</a>
+              <a href="/tags/%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/" rel="tag"># 概率分布</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/05/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="prev" title="概率论">
+                  <i class="fa fa-chevron-left"></i> 概率论
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/10/17/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/" rel="next" title="大学物理">
+                  大学物理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	在本篇我们要先对之前说的随机变量做一些补充，之后给出随机变量的数字特征，如方差，期望，协方差。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率论3">
+<meta property="og:url" content="http://example.com/2022/02/25/%E6%A6%82%E7%8E%87%E8%AE%BA3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	在本篇我们要先对之前说的随机变量做一些补充，之后给出随机变量的数字特征，如方差，期望，协方差。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Probability1.png">
+<meta property="article:published_time" content="2022-02-25T09:41:03.000Z">
+<meta property="article:modified_time" content="2022-02-27T03:09:09.631Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="概率论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Probability1.png">
+
+
+<link rel="canonical" href="http://example.com/2022/02/25/%E6%A6%82%E7%8E%87%E8%AE%BA3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/02/25/%E6%A6%82%E7%8E%87%E8%AE%BA3/","path":"2022/02/25/概率论3/","title":"概率论3"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>概率论3 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/25/%E6%A6%82%E7%8E%87%E8%AE%BA3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="概率论3 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          概率论3
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-02-25 17:41:03" itemprop="dateCreated datePublished" datetime="2022-02-25T17:41:03+08:00">2022-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-02-27 11:09:09" itemprop="dateModified" datetime="2022-02-27T11:09:09+08:00">2022-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	在本篇我们要先对之前说的随机变量做一些补充，之后给出随机变量的数字特征，如方差，期望，协方差。</p>
+<span id="more"></span>
+
+<p>​	在考试中往往会遇到二维随机变量函数及其分布，这个问题值得整理，第一是考的多，第二是数理统计里要用到。</p>
+<p>​	求法和之前计算$Y&#x3D;X^2$时是一样的，都可以用分布函数法来计算，我们先用一般的例子来练习：<br>$$<br>f\left( x,y \right) &#x3D;\left{ \begin{array}{c}<br>    \frac{1}{2}\left( x+y \right) e^{-\left( x+y \right)},x&gt;0,y&gt;0\<br>    0,\mathrm{else}\<br>\end{array} \right.<br>$$<br>​	求$Z&#x3D;X+Y$的概率密度：</p>
+<p>​	我们直接求分布函数，再对分布函数求导：<br>$$<br>F_Z\left( z \right) &#x3D;P\left( Z\leqslant z \right) &#x3D;P\left( X+Y\leqslant z \right) &#x3D;\iint_{x+y\leqslant z}{f\left( x,y \right) \mathrm{d}x\mathrm{d}y}<br>$$<br><img src="/images/Probability1.png"></p>
+<p>​	我们做出了积分区域，这样方便我们计算上式的重积分。我们可以看到，不同的$Z$的取值，结果是不一样的。所以我们往往需要进行分类讨论。<br>$$<br>z&gt;0:\int_0^z{\int_0^{z-x}{\frac{1}{2}\left( x+y \right) e^{-\left( x+y \right)}\mathrm{d}y\mathrm{d}x}}&#x3D;1-ze^{-z}-e^{-z}-\frac{1}{2}z^2e^{-z}<br>\<br>f_Z\left( z \right) &#x3D;F_{Z}^{‘}\left( z \right) &#x3D;\frac{1}{2}z^2e^{-z}<br>$$<br>​	一定要记住求完分布函数以后，要求导。因为有时候求分布函数可能需要许多次分部积分，然后最后好不容易算出来，结果就忘了。一定要记住求导求成概率密度函数。<br>$$<br>z\leqslant 0:f_Z\left( z \right) &#x3D;0<br>$$<br>​	$z \leqslant 0$时显然概率密度为0。</p>
+<p>​	这种加法实际上十分特殊，可以被推成一个公式，这个公式仿佛信号处理中的卷积：<br>$$<br>f_Z\left( z \right) &#x3D;\int_{-\infty}^{+\infty}{f\left( z-y,y \right) \mathrm{d}y}&#x3D;\int_{-\infty}^{+\infty}{f\left( x,z-x \right) \mathrm{d}x}<br>$$<br>​	如果$X,Y$相互独立，则可以把被积函数拆开成对应的概率密度函数。</p>
+<p>​	这样只用积分一次，会很简洁，例如对上面那道例题：<br>$$<br>f_Z\left( z \right) &#x3D;\int_{-\infty}^{+\infty}{f\left( z-y,y \right) \mathrm{d}y},z-y&gt;0,y&gt;0\rightarrow 0&lt;y&lt;z<br>\<br>&#x3D;\int_0^z{\frac{1}{2}ze^{-z}\mathrm{d}y&#x3D;}\frac{1}{2}z^2e^{-z}<br>$$<br>​	现在我们考虑$X\sim N\left( \mu _1,\sigma _{1}^{2} \right) ,Y\sim N\left( \mu _2,\sigma _{2}^{2} \right) $，求$Z&#x3D;X+Y$（$X,Y$相互独立）。<br>$$<br>f_X\left( x \right) &#x3D;\frac{1}{\sqrt{2\pi}\sigma _1}e^{-\frac{\left( x-\mu _1 \right) ^2}{2\sigma _{1}^{2}}},f_Y\left( y \right) &#x3D;\frac{1}{\sqrt{2\pi}\sigma _2}e^{-\frac{\left( y-\mu <em>2 \right) ^2}{2\sigma <em>{2}^{2}}}<br>\<br>f_Z\left( z \right) &#x3D;\int</em>{-\infty}^{+\infty}{f_X\left( z-y \right) f_Y\left( y \right) \mathrm{d}y}&#x3D;\frac{1}{2\pi}\int</em>{-\infty}^{+\infty}{\begin{array}{c}<br>    \frac{1}{\sigma _1\sigma _2}e^{-\frac{\left( z-y-\mu _1 \right) ^2}{2\sigma _{1}^{2}}-\frac{\left( y-\mu _2 \right) ^2}{2\sigma _{2}^{2}}}\mathrm{d}y\<br>\end{array}}<br>\<br>&#x3D;\frac{1}{2\pi \sigma _1\sigma <em>2}\int</em>{-\infty}^{+\infty}{\begin{array}{c}<br>    e^{-\frac{\left( z-y-\mu _1 \right) ^2}{2\sigma _{1}^{2}}-\frac{\left( y-\mu _2 \right) ^2}{2\sigma <em>{2}^{2}}}\mathrm{d}y\<br>\end{array}}<br>$$<br>​	最后的这个积分式子需要一定的技巧，原则上我们要意识到，对于反常积分，大多数时候我们只能由高斯积分计算。<br>$$<br>\int</em>{-\infty}^{+\infty}{\begin{array}{c}<br>    e^{-t^2}\mathrm{d}t\<br>\end{array}}&#x3D;\sqrt{\pi}<br>$$<br>​	根据这个思想，我们考虑把上式的指数部分凑成一个带有平方的形式：<br>$$<br>a\left( y-b \right) ^2+c<br>\<br>&#x3D;\frac{z^2}{\sigma _{1}^{2}}-\frac{2zy}{\sigma _{1}^{2}}+\frac{y^2}{\sigma _{1}^{2}}-\frac{2\mu _1z}{\sigma _{1}^{2}}+\frac{2\mu _1y}{\sigma _{1}^{2}}+\frac{\mu _{1}^{2}}{\sigma _{1}^{2}}-\frac{y^2}{\sigma _{2}^{2}}+\frac{2\mu _2y}{\sigma _{2}^{2}}-\frac{\mu _{2}^{2}}{\sigma _{2}^{2}}<br>\<br>&#x3D;\left( \frac{1}{\sigma _{1}^{2}}+\frac{1}{\sigma _{2}^{2}} \right) y^2-\left( \frac{2\mu _1}{\sigma _{1}^{2}}+\frac{2\mu _2}{\sigma _{2}^{2}}-\frac{2z}{\sigma _{1}^{2}} \right) y+\frac{z^2}{\sigma _{1}^{2}}-\frac{2\mu _1z}{\sigma _{1}^{2}}+\frac{\mu _{1}^{2}}{\sigma _{1}^{2}}-\frac{\mu _{2}^{2}}{\sigma _{2}^{2}}<br>\<br>a&#x3D;\frac{1}{\sigma _{1}^{2}}+\frac{1}{\sigma _{2}^{2}}<br>\<br>b&#x3D;\frac{\left( \frac{\mu _1}{\sigma _{1}^{2}}+\frac{\mu _2}{\sigma _{2}^{2}}-\frac{z}{\sigma _{1}^{2}} \right)}{\left( \frac{1}{\sigma _{1}^{2}}+\frac{1}{\sigma _{2}^{2}} \right)}&#x3D;\frac{\mu _1\sigma _{2}^{2}+\mu _2\sigma _{1}^{2}-\sigma _{2}^{2}z}{\sigma _{1}^{2}+\sigma _{2}^{2}}<br>\<br>c&#x3D;\frac{z^2}{\sigma _{1}^{2}}-\frac{2\mu _1z}{\sigma _{1}^{2}}+\frac{\mu _{1}^{2}}{\sigma _{1}^{2}}-\frac{\mu _{2}^{2}}{\sigma _{2}^{2}}-a\cdot b^2<br>\<br>&#x3D;\frac{\left( z-\mu _1-\mu _2 \right) ^2}{\sigma _{1}^{2}+\sigma _{2}^{2}}<br>$$<br>​	这对于很长时间不计算的人来说可以是一道非常好的练习题目。然后直接计算：<br>$$<br>f_Z\left( z \right) &#x3D;\frac{1}{2\pi \sigma _1\sigma _2}e^{\frac{\left( z-\mu _1-\mu _2 \right) ^2}{2\left( \sigma _{1}^{2}+\sigma <em>{2}^{2} \right)}}\int</em>{-\infty}^{+\infty}{\begin{array}{c}<br>    e^{\frac{a\left( y-b \right)}{2}^2}\mathrm{d}y\<br>\end{array}}&#x3D;\frac{1}{\sqrt{2\pi}\sigma _1\sigma _2}e^{\frac{\left( z-\mu _1-\mu _2 \right) ^2}{\sigma _{1}^{2}+\sigma _{2}^{2}}}<br>$$<br>​	可见，正态分布具有可加性。更一般的可以推广到有限个独立的正态随机变量的线性组合。实际上考试时候应该不会这么复杂，但还是要记好上面的高斯积分。</p>
+<p>​	最后，当谈及负指数分布的时候，例如某个系统元件的寿命。我们往往要关注这个系统的最值，例如最差的那根保险丝之类的。这个时候往往会涉及一个特殊的分布：极值分布。它说的是$X_1,X_2,…,X_n$是$n$个独立的随机变量，它们的分布函数分别为$F_{X_1}\left( x_1 \right) ,F_{X_2}\left( x_2 \right) ,…,F_{X_n}\left( x_n \right) $，求关于$M&#x3D;\max \left{ X_1,X_2,…,X_n \right} ,N&#x3D;\min \left{ X_1,X_2,…,X_n \right} $。我们仍可以用分布函数法进行计算：<br>$$<br>F_M\left( x \right) &#x3D;F_{\max}\left( x \right) &#x3D;P\left( \max \left( X_1,X_2,…,X_n \right) \leqslant x \right)<br>\<br>&#x3D;P\left( X_1\leqslant x,X_2\leqslant x,…,X_n\leqslant x \right)<br>\<br>&#x3D;P\left( X_1\leqslant x \right) P\left( X_2\leqslant x \right) …P\left( X_n\leqslant x \right)<br>\<br>&#x3D;\prod_{i&#x3D;1}^n{F_{X_i}\left( x \right)}<br>\<br>f_M\left( x \right) &#x3D;F_{M}^{‘}\left( x \right) &#x3D;\frac{\mathrm{d}}{\mathrm{d}x}\left[ \prod_{i&#x3D;1}^n{F_{X_i}\left( x \right)} \right]<br>$$<br>​	对于极小值分布，方法是一样的：<br>$$<br>F_N\left( x \right) &#x3D;F_{\min}\left( x \right) &#x3D;P\left( \min \left( X_1,X_2,…,X_n \right) \leqslant x \right)<br>\<br>&#x3D;1-P\left( X_1&gt;x,X_2&gt;x,…,X_n&gt;x \right)<br>\<br>&#x3D;1-P\left( X_1&gt;x \right) P\left( X_2&gt;x \right) …P\left( X_n&gt;x \right)<br>\<br>&#x3D;1-\left[ 1-P\left( X_1\leqslant x \right) \right] \left[ 1-P\left( X_2\leqslant x \right) \right] …\left[ 1-P\left( X_n\leqslant x \right) \right]<br>\<br>&#x3D;1-\prod_{i&#x3D;1}^n{\left( 1-F_{X_i}\left( x \right) \right)}<br>\<br>f_N\left( x \right) &#x3D;F_{N}^{‘}\left( x \right) &#x3D;\frac{\mathrm{d}}{\mathrm{d}x}\left[ 1-\prod_{i&#x3D;1}^n{\left( 1-F_{X_i}\left( x \right) \right)} \right]<br>$$<br>​	当它们属于同一个分布函数时，连乘直接化为$n$次方。当引入极值分布后，我们需要对随机变量有一个新的认识，在之前我们学习的过程中，往往会将随机变量认为是一个“未知数”，“自变量”。但当牵扯到多个随机变量的时候，更好的一个观点是把它看成一个“不断变化的数字”，这个数字的出现规律受其概率密度函数约束，当进行一次抽样，这个值将确定下来。这个视角将有助于理解后面的数理统计。</p>
+<p>​	现在引入期望（不加说明我们都说它绝对收敛）：<br>$$<br>EX&#x3D;\sum_i{x_ip_i}\rightarrow \int_{-\infty}^{+\infty}{xf\left( x \right) \mathrm{d}x}<br>$$<br>​	以及，随机变量函数的期望可以直接将$X$换成$g(X)$，证明就不管了。这个性质十分重要，也就是：<br>$$<br>Y&#x3D;g\left( X \right) ,EY&#x3D;\sum_i{g\left( x_i \right) p_i}\rightarrow \int_{-\infty}^{+\infty}{g\left( x \right) f\left( x \right) \mathrm{d}x}<br>$$<br>​	这个定理可以让我们在不计算$g(X)$分布律的情况下直接得出期望，十分方便。</p>
+<p>​	二维及高维情况下是一样的。</p>
+<p>​	期望在任何时候都是可加和的：$E(X+Y)&#x3D;EX+EY$，当独立的时候，乘积可拆分：$E(XY)&#x3D;EX \cdot EY$。</p>
+<p>​	方差是用于计算偏离程度的统计量，与$E(|X-EX|)$比不带绝对值，性质更好：<br>$$<br>DX&#x3D;\sum_i{\left( x_i-EX \right) ^2p_i}&#x3D;\int_{-\infty}^{+\infty}{\left( x-EX \right) ^2f\left( x \right) \mathrm{d}x}<br>\<br>DX&#x3D;E\left( X-EX \right) ^2&#x3D;EX_2-\left( EX \right) ^2<br>$$<br>​	协方差用于度量$X,Y$的相关关系：<br>$$<br>\mathrm{cov}\left( X,Y \right) &#x3D;E\left[ \left( X-EX \right) \left( Y-EY \right) \right]<br>\<br>&#x3D;E\left( XY \right) -E\left( X \right) E\left( Y \right)<br>$$<br>​	当$\mathrm{cov}\left( X,Y \right)&#x3D;0$时称两者不相关，期望和协方差间满足：$D\left( X\pm Y \right) &#x3D;DX+DY\pm 2\mathrm{cov}\left( X,Y \right) $。其他一些比较显然的性质这里就略掉了。相关系数$\rho_{XY}$用于定义$X,Y$的（线性）相关性：<br>$$<br>\rho _{XY}&#x3D;\frac{\mathrm{cov}\left( X,Y \right)}{\sqrt{DX}\sqrt{DY}}<br>$$<br>​	实际上相关系数正是二维正态分布里的$\rho$：<br>$$<br>f\left( x,y \right) &#x3D;\frac{1}{2\pi \sigma _1\sigma _2\sqrt{1-\rho ^2}}e^{-\frac{1}{2\left( 1-\rho ^2 \right)}\left[ \frac{\left( x-\mu _1 \right) ^2}{\sigma _{1}^{2}}-2\rho \frac{\left( x-\mu _1 \right) \left( y-\mu _2 \right)}{\sigma _1\sigma _2}+\frac{\left( y-\mu _2 \right) ^2}{\sigma _{2}^{2}} \right]}<br>$$<br>​	常用的期望和方差需要记住，我们下面做一些整理：<br>$$<br>X\sim B\left( n,p \right) ,EX&#x3D;np,DX&#x3D;np\left( 1-p \right)<br>\<br>X\sim P\left( \lambda \right) ,EX&#x3D;\lambda ,DX&#x3D;\lambda<br>\<br>X\sim U\left( a,b \right) ,EX&#x3D;\frac{a+b}{2},DX&#x3D;\frac{\left( b-a \right) ^2}{12}<br>\<br>X\sim N\left( \mu ,\sigma ^2 \right) ,EX&#x3D;\mu ,DX&#x3D;\sigma ^2<br>\<br>X\sim E\left( \lambda \right) ,EX&#x3D;\frac{1}{\lambda},DX&#x3D;\frac{1}{\lambda ^2}<br>$$<br>​	常用分布的字母表达需要记住，$B$意思是<em>binary</em>，二项分布。$P$意思是<em>Poisson</em>，泊松分布。$U$是<em>uniform</em>，均匀分布。$N$是<em>normal</em>，是正态分布。$E$是<em>exponential</em>，是指数分布。</p>
+<p>​	几何分布和超几何分布这里就略去了，有兴趣的可以查一下咩。</p>
+<p>​	现在我们用一道例题来结束这一篇，严格来说，书上还讲了$n$维随机变量一节，但是考试不会考，虽然在后面的随机过程……贝叶斯优化烂七八糟力会用到它，但是到时候再说吧。</p>
+<p>​	设二维连续型随机变量$(X,Y)$的联合概率密度为：<br>$$<br>f\left( x,y \right) &#x3D;\left{ \begin{array}{c}<br>    \frac{1}{2}\sin \left( x+y \right) ,0\leqslant x\leqslant \frac{\pi}{2},0\leqslant y\leqslant \frac{\pi}{2}\<br>    0,\mathrm{else}\<br>\end{array} \right.<br>$$<br>​	求随机变量$X,Y$的相关系数$\rho_{XY}$：</p>
+<p>​	这个积分运算用到分部积分，比较繁琐，一定要细心算。<br>$$<br>EX&#x3D;\int_{-\infty}^{+\infty}{\int_{-\infty}^{+\infty}{xf\left( x,y \right) \mathrm{d}x\mathrm{d}y}}&#x3D;\frac{1}{2}\int_0^{\frac{\pi}{2}}{\int_0^{\frac{\pi}{2}}{x\sin \left( x+y \right) \mathrm{d}x\mathrm{d}y}}<br>\<br>&#x3D;\frac{1}{2}\int_0^{\frac{\pi}{2}}{\left( \left[ -\cos \left( x+y \right) x \right] _{0}^{\frac{\pi}{2}}+\int_0^{\frac{\pi}{2}}{\cos \left( x+y \right) \mathrm{d}x} \right)}\mathrm{d}y<br>\<br>&#x3D;\frac{1}{2}\int_0^{\frac{\pi}{2}}{\left( \frac{\pi}{2}\sin y+\cos y-\sin y \right) \mathrm{d}y}&#x3D;\frac{\pi}{4}<br>\<br>EX^2&#x3D;\frac{1}{2}\int_0^{\frac{\pi}{2}}{\int_0^{\frac{\pi}{2}}{x^2\sin \left( x+y \right) \mathrm{d}x\mathrm{d}y}}<br>\<br>&#x3D;\frac{1}{2}\int_0^{\frac{\pi}{2}}{\left( \frac{\pi ^2}{4}\sin y+2\left( \frac{\pi}{2}\cos y-\left( \sin y+\cos y \right) \right) \right) \mathrm{d}y}&#x3D;\frac{\pi}{4}<br>\<br>&#x3D;\frac{\pi ^2}{8}+\frac{\pi}{2}-2<br>\<br>DX&#x3D;EX^2-\left( EX \right) ^2&#x3D;\frac{\pi ^2}{8}+\frac{\pi}{2}-2-\frac{\pi ^2}{16}&#x3D;\frac{\pi ^2}{16}+\frac{\pi}{2}-2<br>$$<br>​	由于对称性，$EY,DY$和$EX,DX$是一样的。现在还需要计算$E(XY)$：<br>$$<br>E\left( XY \right) &#x3D;\frac{1}{2}\int_0^{\frac{\pi}{2}}{y\int_0^{\frac{\pi}{2}}{x\sin \left( x+y \right) \mathrm{d}x\mathrm{d}y}}<br>\<br>&#x3D;\frac{1}{2}\int_0^{\frac{\pi}{2}}{y\left( \frac{\pi}{2}\sin y+\cos y-\sin y \right) \mathrm{d}y}&#x3D;\frac{\pi}{2}-1<br>$$<br>​	所以相关系数即可计算：<br>$$<br>\rho _{XY}&#x3D;\frac{\mathrm{cov}\left( X,Y \right)}{\sqrt{DX}\sqrt{DY}}&#x3D;\frac{E\left( XY \right) -EX\cdot EY}{\sqrt{DX}\sqrt{DY}}<br>\<br>&#x3D;\frac{\frac{\pi}{2}-1-\frac{\pi ^2}{16}}{\frac{\pi ^2}{16}+\frac{\pi}{2}-2}<br>$$</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag"># 概率论</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/09/%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/" rel="prev" title="特征值和特征向量">
+                  <i class="fa fa-chevron-left"></i> 特征值和特征向量
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/27/%E6%A6%82%E7%8E%87%E8%AE%BA4/" rel="next" title="概率论4">
+                  概率论4 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

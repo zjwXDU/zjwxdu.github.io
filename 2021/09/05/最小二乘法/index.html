@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	今天是2021年9月4号，星期六。而我宿舍里就我一个人，另外三个连人带包都没了，不知道是去扫楼招新还是去卷了。在宿舍太无聊了所以就随便写点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最小二乘法">
+<meta property="og:url" content="http://example.com/2021/09/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	今天是2021年9月4号，星期六。而我宿舍里就我一个人，另外三个连人带包都没了，不知道是去扫楼招新还是去卷了。在宿舍太无聊了所以就随便写点。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/lsq_1.jpg">
+<meta property="og:image" content="http://example.com/images/lsq_2.jpg">
+<meta property="article:published_time" content="2021-09-05T03:13:28.000Z">
+<meta property="article:modified_time" content="2021-10-06T16:30:34.365Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="数学建模">
+<meta property="article:tag" content="最小二乘法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/lsq_1.jpg">
+
+
+<link rel="canonical" href="http://example.com/2021/09/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/09/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/","path":"2021/09/05/最小二乘法/","title":"最小二乘法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>最小二乘法 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="最小二乘法 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          最小二乘法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-09-05 11:13:28" itemprop="dateCreated datePublished" datetime="2021-09-05T11:13:28+08:00">2021-09-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-07 00:30:34" itemprop="dateModified" datetime="2021-10-07T00:30:34+08:00">2021-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	今天是2021年9月4号，星期六。而我宿舍里就我一个人，另外三个连人带包都没了，不知道是去扫楼招新还是去卷了。在宿舍太无聊了所以就随便写点。</p>
+<span id="more"></span>
+
+<p>​	第一次认识最小二乘来源于高中数学的第19题，有时会给出$\hat{a},\hat{b}$的表达式和一些被初步计算过的数据，来进行算数，即“线性回归”。回归的思想在别的领域也有很大的用处，但不是本文的内容了。由于当时高中受水平限制，老师并没有给出一个较圆满的解释，但“通俗”的解释也足够把我从一个考个一本都不得了的地方送到这里（然后一上网冲浪985遍地走211遍地爬，重开吧）。</p>
+<p>​	实际上在系统的阐述之前要复习一个定理，说的是：</p>
+<p>​	设$A$是一个$m$行$n$列矩阵，则$A$一定可以通过行初等变换和第一种列初等变换将其形式变为：<br>$$<br>\left( \begin{matrix}{l}<br>    a_{11}&amp;		a_{12}&amp;		…&amp;		a_{1n}\<br>    a_{21}&amp;		a_{22}&amp;		…&amp;		a_{2n}\<br>    \vdots&amp;		\vdots&amp;		&amp;		\vdots\<br>    a_{m1}&amp;		a_{m2}&amp;		…&amp;		a_{mn}\<br>\end{matrix} \right) \rightarrow \left( \begin{matrix}{}<br>    1&amp;		0&amp;		0&amp;		…&amp;		0&amp;		c_{1,r+1}&amp;		…&amp;		c_{1n}\<br>    0&amp;		1&amp;		0&amp;		…&amp;		0&amp;		c_{2,r+1}&amp;		…&amp;		c_{2n}\<br>    \vdots&amp;		\vdots&amp;		\vdots&amp;		&amp;		\vdots&amp;		\vdots&amp;		&amp;		\vdots\<br>    0&amp;		0&amp;		0&amp;		…&amp;		1&amp;		c_{r,r+1}&amp;		…&amp;		c_{rn}\<br>    0&amp;		0&amp;		0&amp;		…&amp;		0&amp;		0&amp;		…&amp;		0\<br>    \vdots&amp;		\vdots&amp;		\vdots&amp;		&amp;		\vdots&amp;		\vdots&amp;		&amp;		\vdots\<br>    0&amp;		0&amp;		0&amp;		…&amp;		0&amp;		0&amp;		…&amp;		0\<br>\end{matrix} \right)<br>$$<br>​	这里$r$代表什么现在已经很清楚了，考虑其增广矩阵和$r$，我们能写出线性方程组解的情况。现在我们关注这样的一种情况：当$rank(A)\ne rank(A,b)$时，线性方程组无解。此时将其称为矛盾方程组，但如果能找到一组向量$x$使得$f\left( x \right) &#x3D;\left| Ax-b \right| _2$最小，那么就称$x$是$Ax&#x3D;b$的最小二乘解。</p>
+<p>​	计算其2-范数：<br>$$<br>\left| Ax-b \right| _2&#x3D;\left( Ax-b \right) ^T\left( Ax-b \right) &#x3D;x^TA^TAx-2x^TA^Tb+b^Tb<br>$$<br>​	由极值必要条件，求得极值需要保证关于$x$的偏导为0，因为：<br>$$<br>\frac{\partial x^Ta}{\partial x}&#x3D;\frac{\partial a^Tx}{\partial x}&#x3D;a<br>\<br>\frac{\partial AB}{\partial x}&#x3D;\frac{\partial A}{\partial x}B+\frac{\partial B}{\partial x}A<br>$$<br>​	可得线性方程组：<br>$$<br>A^TAx&#x3D;A^Tb<br>$$<br>​	这看起来是个无奈之举，因为此时原线性方程组已经无解了，就像三个必不共线的点一样，只是勉强的找出了一个和三个点距离之和最小的直线。但实际上这个作法是很有意义的。</p>
+<p>​	对于给定的一组数据$\left{ \left( x_i,y_i \right) \right} _{i&#x3D;1}^{m}$,假设拟合函数为：<br>$$<br>\varphi \left( x \right) &#x3D;a_0\varphi _0\left( x \right) +a_1\varphi <em>1\left( x \right) +…+a_n\varphi <em>n\left( x \right)<br>$$<br>​	这里$\varphi_i(x)$线性无关，则希望误差平方和最小（这一点被高斯和勒让德详细论述过），即：<br>$$<br>E&#x3D;\sum</em>{i&#x3D;1}^m{\left[ \sum</em>{j&#x3D;0}^n{a_j\varphi <em>j\left( x \right) -y_j} \right] ^2}<br>$$<br>​	希望$\frac{\partial E\left( a_0,a_1,…,a_n \right)}{\partial a_i}&#x3D;0$,记：<br>$$<br>a&#x3D;\left[ \begin{array}{c}<br>    a_0\<br>    a_1\<br>    …\<br>    a_n\<br>\end{array} \right] ,y&#x3D;\left[ \begin{array}{c}<br>    y_1\<br>    y_2\<br>    …\<br>    y_n\<br>\end{array} \right]<br>$$<br>​	上述向量组$a$是待求参数，再令$A&#x3D;\left[ a</em>{ij} \right] <em>{m\times \left( n+1 \right)},a</em>{ij}&#x3D;\varphi _j\left( x_i \right) $,那么：<br>$$<br>E&#x3D;\left| Aa-y \right| _{2}^{2}<br>$$<br>​	所以拟合某一曲线的问题就转化为了超定线性方程组$Aa-y$的最小二乘解的问题，即：<br>$$<br>a&#x3D;\left( A^TA \right) ^{-1}A^Ty<br>$$<br>​	此时要求$A$列满秩，在此情况下我们对最小二乘法作简单的几何解释。此时列满秩，则行数必然大于等于列数($m\geqslant n$)，则$A$的所有列张成了一个$m$维线性空间中的$n$维子空间，即$Im(A)$,而又知道$y$不能被$A$的基线性表示，则由推导出的式子：$A^T\left( Ax-y \right) &#x3D;0$，由内积的几何意义（显然可以证明这个向量空间满足欧氏空间）可以说明$A^T$与$Ax-y$正交。则$Ax$就是向量$y$在$Im(A)$的投影，这个情形，与高等代数中对最佳逼近继而推出傅里叶级数的操作如出一辙。也就是说，最小二乘相当于一个高维向量在低维空间的投影。</p>
+<p>​	此时$\left( A^TA \right) ^{-1}A^T$的作用就相当于在有解情况下$Ax&#x3D;b,x&#x3D;A^{-1}b$中$A$的逆一样，称为广义逆，当$A$非列满秩时，广义逆的形式稍作改变。</p>
+<p>​	基于此对最小二乘进行改造，第一种是加权法，考虑到不同方程的重要性不同，可以给出一个对角阵$W$，继而优化$E&#x3D;\left| W(Aa-y) \right| _{2}^{2}$，此时求解的线性方程组就变为了：$\left( A^TW^TWA \right) x&#x3D;A^TW^TWy$。</p>
+<p>​	第二种是阻尼法，这时考虑到当$A$非列满秩时，理论证明此时一种可行的替代途径是阻尼法，此时$A^TA$的行列式为零，则考虑$\mu I+A^TA$，对于任意的$\mu &gt;0$显然$|\mu I+A^TA|\ne$0,其中$\mu$称为阻尼参数，修正后的矩阵便可逆了。此时满足的方程组为$(\mu I+A^TA)x_\mu&#x3D;A^Ty$，自然在这种情形下，要合适的选择阻尼参数$\mu$。(Levenberg-Marquardt方法)</p>
+<p>​	现在可以看到，对最小二乘拟合曲线的求解，最终归结为了对线性方程组的求解，从而对线性方程组求解的所有数值方法均可使用。（后面专门写个数值分析的系列，现在先鸽着）。</p>
+<p>​	这里举一个Gauss-Newton迭代法的例子：</p>
+<p>​	此时的函数是$y&#x3D;f(x,\beta)$,其中$\beta&#x3D;(\beta_1,\beta_2,…,\beta_n)$,在这里已知点的数目$m&gt;n$,这也与实际情况相符。目的是找到最优解使得$S&#x3D;\sum_{i&#x3D;1}^m{r_{i}^{2}}$最小，那么自然希望：<br>$$<br>\frac{\partial S}{\partial \beta _j}&#x3D;2\sum_i{r_i\frac{\partial r_i}{\partial \beta _j}&#x3D;0}<br>$$<br>​	但多数情况下，这个条件不能直接求出，只能迭代求解：$\beta _j\approx \beta <em>{j}^{k+1}&#x3D;\beta <em>{j}^{k}+\varDelta \beta <em>j$,对$\beta^k$处由泰勒级数展开：<br>$$<br>f\left( x_i,\beta \right) \approx f\left( x_i,\beta ^k \right) +\sum_j{\frac{\partial f\left( x_i,\beta ^k \right)}{\partial \beta <em>j}\left( \beta <em>j-\beta <em>{j}^{k} \right)}\approx f\left( x_i,\beta ^k \right) +\sum_j{J</em>{ij}\varDelta \beta <em>j}<br>$$<br>​	此时残差写作：<br>$$<br>r_i&#x3D;y_i-f\left( x_i,\beta \right)<br>\<br>&#x3D;\left( y_i-f\left( x_i,\beta ^k \right) \right) +\left( f\left( x_i,\beta ^k \right) -f\left( x_i,\beta \right) \right) &#x3D;\varDelta y_i-\sum</em>{k&#x3D;1}^n{J</em>{ik}\varDelta \beta <em>k}<br>$$<br>​	带回极值的必要条件：<br>$$<br>\sum</em>{i&#x3D;1}^m{\sum</em>{k&#x3D;1}^n{J</em>{ij}J</em>{ik}\varDelta \beta <em>k}&#x3D;\sum</em>{i&#x3D;1}^m{J</em>{ij}\varDelta y_i}},,\left( j&#x3D;1,…,n \right)<br>$$<br>​	考虑所有的$j$,写成矩阵形式为：<br>$$<br>\left( J^TJ \right) \varDelta \beta &#x3D;J^T\varDelta y&#x3D;J^Tr\left( \beta ^k \right)<br>$$<br>​	所以最终得到迭代公式为：<br>$$<br>\beta _{}^{k+1}&#x3D;\beta _{}^{k}+\left( J^TJ \right) ^{-1}J^Tr\left( \beta ^k \right)<br>$$<br>​	其中$J$是关于参数向量组$\beta$的雅可比矩阵。写一个简单的例子，来由$y&#x3D;e^{ax^2+bx+c}$拟合$y&#x3D;e^{x^2+2x+1}$。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">clear all;</span><br><span class="line">close all;</span><br><span class="line">clc;</span><br><span class="line"></span><br><span class="line">a=<span class="number">1</span>;b=<span class="number">2</span>;c=<span class="number">1</span>;              <span class="comment">%待求解的系数</span></span><br><span class="line"></span><br><span class="line">x=(<span class="number">0</span>:<span class="number">0.01</span>:<span class="number">1</span>)&#x27;;</span><br><span class="line">w=<span class="built_in">rand</span>(<span class="built_in">length</span>(x),<span class="number">1</span>)*<span class="number">2</span><span class="number">-1</span>;   <span class="comment">%生成噪声</span></span><br><span class="line">y=<span class="built_in">exp</span>(a*x.^<span class="number">2</span>+b*x+c)+w;     <span class="comment">%带噪声的模型 </span></span><br><span class="line"><span class="built_in">plot</span>(x,y,<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line"></span><br><span class="line">pre=<span class="built_in">rand</span>(<span class="number">3</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">1000</span></span><br><span class="line">    f = <span class="built_in">exp</span>(pre(<span class="number">1</span>)*x.^<span class="number">2</span>+pre(<span class="number">2</span>)*x+pre(<span class="number">3</span>));</span><br><span class="line">    g = y-f;                    <span class="comment">%r(beta^k)</span></span><br><span class="line">    p1 = <span class="built_in">exp</span>(pre(<span class="number">1</span>)*x.^<span class="number">2</span>+pre(<span class="number">2</span>)*x+pre(<span class="number">3</span>)).*x.^<span class="number">2</span>;    <span class="comment">%Partial a</span></span><br><span class="line">    p2 = <span class="built_in">exp</span>(pre(<span class="number">1</span>)*x.^<span class="number">2</span>+pre(<span class="number">2</span>)*x+pre(<span class="number">3</span>)).*x;       <span class="comment">%Partial b</span></span><br><span class="line">    p3 = <span class="built_in">exp</span>(pre(<span class="number">1</span>)*x.^<span class="number">2</span>+pre(<span class="number">2</span>)*x+pre(<span class="number">3</span>));          <span class="comment">%Partial c</span></span><br><span class="line">    J = [p1 p2 p3];             <span class="comment">%jacobi matrix</span></span><br><span class="line">    delta = inv(J&#x27;*J)*J&#x27;* g;</span><br><span class="line">    pcur = pre+delta;</span><br><span class="line">    <span class="keyword">if</span> norm(delta) &lt;<span class="number">1e-16</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    pre = pcur;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">hold</span> on;</span><br><span class="line"><span class="built_in">plot</span>(x,<span class="built_in">exp</span>(a*x.^<span class="number">2</span>+b*x+c));</span><br><span class="line"><span class="built_in">plot</span>(x,<span class="built_in">exp</span>(pre(<span class="number">1</span>)*x.^<span class="number">2</span>+pre(<span class="number">2</span>)*x+pre(<span class="number">3</span>)));</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/lsq_1.jpg"></p>
+<p>​	利用加噪后的数据拟合出的效果与真实曲线仍符合的很好，并且这种做法也要比暴搜要更……优雅？毕竟当参数得不到有效估计时直接搜索实数空间$R$不是什么好办法。</p>
+<p>​	在CUMCM的题目中有许多时候都涉及到了这个问题，例如2015A太阳影子定位，通过基本地理知识和几何关系可以推出影子长度$d$满足：<br>$$<br>d&#x3D;\frac{L}{\tan \left[ \mathrm{arc}\sin \left( \sin \varphi \sin \delta +\cos \varphi \cos \delta \cos t \right) \right]}<br>$$<br>​	上述问题就化为了与实验数据进行最小二乘确定各参数（纬度，经度，杆长），由于完成该操作的代码过于琐碎，这里从略了。可以看出计算的结果：</p>
+<p><img src="/images/lsq_2.jpg"></p>
+<p>​	可以看出拟合效果很好。并且重要的一点是：运行时间短，如果遍历搜索，每多一个参数就要多一个循环，时间复杂度难以承受。而编写一些迭代算法，可能又会依具体问题出现一些不可预料的错误，例如不收敛，或者报错等等。这个确实是值得度量的，因为可能有用传统方法编写代码的时间，遍历早搜出可以接受的解了。</p>
+<p>​	实际上对于这类参数反演问题，联合使用多种方法是最合适的，例如对某些问题，确定的参数数量不多且区间较小，暴搜的时间在比赛时间内可以接受，用暴搜也是可以的。</p>
+<p>​	写完的时候已经是9月5号了，昨天晚上发生了一个非常恐怖的事情：我舍友吃错药了，真吃错药了。基于此，我想下一篇写一个关于血药浓度的微分方程模型……</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" rel="tag"># 数学建模</a>
+              <a href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" rel="tag"># 最小二乘法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/31/%E5%A4%9A%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96/" rel="prev" title="多目标优化">
+                  <i class="fa fa-chevron-left"></i> 多目标优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/08/%E6%95%B0%E5%80%BC%E7%A7%AF%E5%88%86/" rel="next" title="数值积分">
+                  数值积分 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

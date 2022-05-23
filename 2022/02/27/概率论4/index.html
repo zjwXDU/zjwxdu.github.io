@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率论4">
+<meta property="og:url" content="http://example.com/2022/02/27/%E6%A6%82%E7%8E%87%E8%AE%BA4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-27T03:07:18.000Z">
+<meta property="article:modified_time" content="2022-02-27T17:00:11.501Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数理统计">
+<meta property="article:tag" content="概率论">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/02/27/%E6%A6%82%E7%8E%87%E8%AE%BA4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/02/27/%E6%A6%82%E7%8E%87%E8%AE%BA4/","path":"2022/02/27/概率论4/","title":"概率论4"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>概率论4 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/27/%E6%A6%82%E7%8E%87%E8%AE%BA4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="概率论4 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          概率论4
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-02-27 11:07:18" itemprop="dateCreated datePublished" datetime="2022-02-27T11:07:18+08:00">2022-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-02-28 01:00:11" itemprop="dateModified" datetime="2022-02-28T01:00:11+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	最后的一篇的概率论blog要用于记录具有重要指导意义的大数定律及中心极限定理，虽然很多时候考试考不到或者考的十分简单，但我个人还是不想单纯把对他们的理解停留在：“万物皆可正态”上。</p>
+<span id="more"></span>
+
+<p>​	首先要引入切比雪夫不等式，即$X$为一随机变量，如果$EX,DX$存在，则对于所有的$\varepsilon $​，都有：<br>$$<br>P\left( |X-EX|\geqslant \varepsilon \right) \leqslant \frac{DX}{\varepsilon ^2}<br>$$<br>​	这个式子可以帮助我们在不知道分布函数的情况下对概率进行估计，以及帮助理论证明。</p>
+<p>​	下面我们引入大数定律，大数定律其实就是随机变量序列的前若干项的算术平均值在某种情况下收敛到这些项的均值的算数平均值。我们重点介绍三个大数定律：</p>
+<p>​	<em>切比雪夫大数定律：</em></p>
+<p>​	随机变量序列$\left{ X_i \right} $相互独立，且具有相同的期望和方差，则：<br>$$<br>\underset{n\rightarrow \infty}{\lim}P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\mu |\geqslant \varepsilon \right) &#x3D;0<br>\<br>\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}\overset{P}{\longrightarrow}\mu ,n\rightarrow \infty<br>$$<br>​	直接应用切比雪夫不等式即可证明。实际上当期望相同，方差有上确界时，上式也成立。</p>
+<p>​	<em>马尔可夫大数定律：</em></p>
+<p>​	此时对互相独立的随机变量的期望没有要求（但是得存在），但要求$\underset{n\rightarrow \infty}{\lim}\frac{1}{n^2}D\left[ \sum_{i&#x3D;1}^n{X_i} \right] &#x3D;0$。此时满足：<br>$$<br>\underset{n\rightarrow \infty}{\lim}P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i}|\geqslant \varepsilon \right) &#x3D;0<br>\<br>\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}\overset{P}{\longrightarrow}\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i},n\rightarrow \infty<br>$$<br>​	这个看起来有些不直接，我们这里写下它的证明：<br>$$<br>P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i}|\geqslant \varepsilon \right) &#x3D;P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\sum_{i&#x3D;1}^n{\frac{1}{n}EX_i}|\geqslant \varepsilon \right)<br>\<br>&#x3D;\frac{D\left[ \frac{1}{n}\sum_{i&#x3D;1}^n{X_i} \right]}{\varepsilon ^2}&#x3D;\frac{\frac{1}{n^2}D\left[ \sum_{i&#x3D;1}^n{X_i} \right]}{\varepsilon ^2}\rightarrow 0<br>$$<br>​	<em>辛钦大数定律：</em></p>
+<p>​	辛钦大数定律回答了当方差不存在时的情况，此时要求$\left{ X_i \right} $独立同分布，具有有限的数学期望。<br>$$<br>\underset{n\rightarrow \infty}{\lim}P\left( |\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}-\mu |\geqslant \varepsilon \right) &#x3D;0<br>\<br>\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}\overset{P}{\longrightarrow}\mu ,n\rightarrow \infty<br>$$<br>​	虽然性质和切比雪夫大数定律是一样的，但是此时的条件并不相同，我们要注意。</p>
+<p>​	实际上这三个大数定律就是在告诉我们，在满足各自条件下，随机变量序列前$n$项的算数平均很可能接近于$\frac{1}{n}\sum_{i&#x3D;1}^n{EX_i}$。上面的$\overset{P}{\longrightarrow}$实际上叫依概率收敛，测度论中有更深入的讲解，这里我们只需一个浅显的认识：依概率收敛并不是随便一个随机变量序列都能满足的，在这里我们只用考虑$\frac{1}{n}\sum_{i&#x3D;1}^n{X_i}$。比如最简单的抛硬币，它就不满足依概率收敛，哪怕一万次后，正面反面的概率还是那么多，不会有什么变化。</p>
+<p>​	以及<em>伯努利大数定律</em>告诉了我们频率和概率的关系，实际上这个关系我们早就知道了。即当试验次数很大时，可以用频率来替代概率。</p>
+<p>​	下面我们要介绍中心极限定理，这个定理十分的重要，从信息论上看，正态分布熵最大。正态分布为什么长这个样子，为什么里面带$e$，这些疑问将可以在中心极限定理看到。书上一共给出了三个中心极限定理，我们重点放在第一个，独立同分布情况下的，因为这个简单，并且更有一些应用意味。</p>
+<p>​	设$X_1,X_2,…,X_n$是相互独立且同分布的随机变量序列，期望为$\mu$，方差为$\sigma^2$。则随机变量$Y_n$的分布函数$F_n(x)$满足：<br>$$<br>Y_n&#x3D;\frac{\sum_{i&#x3D;1}^n{X_i}-E\left[ \sum_{i&#x3D;1}^n{X_i} \right]}{\sqrt{D\left[ \sum_{i&#x3D;1}^n{X_i} \right]}}&#x3D;\frac{\sum_{i&#x3D;1}^n{X_i}-n\mu}{\sqrt{n}\sigma}<br>\<br>\underset{n\rightarrow \infty}{\lim}F_n\left( x \right) &#x3D;\underset{n\rightarrow \infty}{\lim}\left( \frac{\sum_{i&#x3D;1}^n{X_i}-n\mu}{\sqrt{n}\sigma}\leqslant x \right) &#x3D;\int_{-\infty}^x{\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}\mathrm{d}t}&#x3D;\varPhi \left( x \right)<br>$$<br>​	本质上就是说许多独立的随机变量相加，我们利用之前学到的卷积公式，可知，对于$Z&#x3D;\sum_{i&#x3D;1}^n{X_i}$，概率密度函数可以写作：<br>$$<br>f_Z&#x3D;f_{X_1}\ast f_{X_2}\ast …\ast f_{X_n}<br>$$<br>​	卷积并不好处理，我们用傅里叶变换，我们先对随机变量$Y_n$进行标准化，写成$R_n$。这样我们计算的结果最后就可以用标准正态分布唯一表示：<br>$$<br>T_k&#x3D;X_k-\mu ,R_k&#x3D;\frac{T_k}{\sqrt{n}\sigma}<br>\<br>Y_n&#x3D;\sum{R_k}<br>\<br>f_R\left( x \right) &#x3D;\sqrt{n}\sigma f_T\left( \sqrt{n}\sigma x \right)<br>$$<br>​	至于$f_R(x)$的傅里叶变换：<br>$$<br>\mathcal{F} <em>R\left( k \right) &#x3D;\int</em>{-\infty}^{+\infty}{\sqrt{n}\sigma f_T\left( \sqrt{n}\sigma x \right) e^{ikx}\mathrm{d}x}&#x3D;\int_{-\infty}^{+\infty}{f_T\left( \sqrt{n}\sigma x \right) e^{\frac{ik\sqrt{n}\sigma x}{\sqrt{n}\sigma}}\mathrm{d}\left( \sqrt{n}\sigma x \right)}<br>\<br>&#x3D;\mathcal{F} <em>T\left( \frac{k}{\sqrt{n}\sigma} \right)<br>$$<br>​	对傅里叶变换后的表达式作泰勒展开，结合傅里叶变换的时域微分性质<br>$$<br>\mathcal{F} \left[ \left( ix \right) ^nf\left( x \right) \right] &#x3D;\mathcal{F} ^n\left( k \right)<br>\<br>\mathcal{F} <em>T\left( 0 \right) &#x3D;\int</em>{-\infty}^{+\infty}{f_T\left( x \right) \mathrm{d}x}&#x3D;1<br>\<br>\mathcal{F} ‘<em>T\left( 0 \right) &#x3D;\int</em>{-\infty}^{+\infty}{ixf_T\left( x \right) \mathrm{d}x}&#x3D;iE\left( X \right) &#x3D;0<br>\<br>\mathcal{F} ‘’<em>T\left( 0 \right) &#x3D;\int</em>{-\infty}^{+\infty}{\left( ix \right) ^2f_T\left( x \right) \mathrm{d}x}&#x3D;-D\left( X \right) &#x3D;-\sigma ^2<br>$$<br>​	所以对于我们想求的：<br>$$<br>\mathcal{F} <em>Y\left( k \right) &#x3D;\left[ \mathcal{F} <em>R\left( k \right) \right] ^n&#x3D;\left[ \mathcal{F} <em>T\left( \frac{k}{\sqrt{n}\sigma} \right) \right] ^n<br>\<br>&#x3D;\underset{n\rightarrow \infty}{\lim}\left[ 1-\frac{k^2}{2n}+o\left( \left( \frac{k}{\sqrt{n}\sigma} \right) ^2 \right) \right] ^n<br>\<br>&#x3D;\underset{n\rightarrow \infty}{\lim}\left{ \left[ 1-\frac{k^2}{2n}+o\left( \left( \frac{k}{\sqrt{n}\sigma} \right) ^2 \right) \right] ^{-\frac{2n}{k^2}} \right} ^{-\frac{k^2}{2}}&#x3D;e^{-\frac{k^2}{2}}<br>$$<br>​	结论此时已经得到了，因为高斯函数的傅里叶变换还是高斯函数，特别地，在标准正态分布下傅里叶变换前后不变。<br>$$<br>\mathcal{F} \left( k \right) &#x3D;\int</em>{-\infty}^{+\infty}{e^{-ax^2}e^{-ikx}\mathrm{d}x}&#x3D;e^{-\frac{k^2}{4a}}\int</em>{-\infty}^{+\infty}{e^{-\left( \sqrt{a}x+\frac{ik}{2\sqrt{a}} \right) ^2}\mathrm{d}x}<br>\<br>&#x3D;\frac{1}{\sqrt{a}}e^{-\frac{k^2}{4a}}\int</em>{-\infty}^{+\infty}{e^{-u^2}\mathrm{d}u}&#x3D;\sqrt{\frac{\pi}{a}}e^{-\frac{k^2}{4a}}<br>\<br>a&#x3D;\frac{1}{2},\mathcal{F} \left( k \right) &#x3D;\sqrt{2\pi}e^{-\frac{k^2}{2}}<br>\<br>\mathcal{F} \left( \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \right) &#x3D;e^{-\frac{k^2}{2}}<br>$$<br>​	这里我们就给出了独立同分布情况下的简单证明，这个证明并不容易。这个证明并不能帮助做对考试题，但是我们仍然有必要知道。这个形式下的定理全称为林德伯格-维勒中心极限定理。简单来说，就是当$n$充分大时，可以近似认为服从正态分布$N(n\mu,n\sigma^2)$，估值为：<br>$$<br>P\left( \sum</em>{i&#x3D;1}^n{X_i}\leqslant x \right) \approx \varPhi \left( \frac{x-n\mu}{\sqrt{n}\sigma} \right)<br>\<br>P\left( a&lt;\sum_{i&#x3D;1}^n{X_i}\leqslant b \right) \approx \varPhi \left( \frac{b-n\mu}{\sqrt{n}\sigma} \right) -\varPhi \left( \frac{a-n\mu}{\sqrt{n}\sigma} \right)<br>$$<br>​	进一步，李普亚诺夫中心极限定理给出了不是同分布时的情况，它指出的情况是当随机变量间相互独立时，当李普亚诺夫条件得以满足时，我们可以将上文的$n\mu$替换成$\sum_{i&#x3D;1}^n{\mu <em>i}$，$\sqrt n \sigma$替换成$\sqrt{\sum</em>{i&#x3D;1}^n{\sigma _{i}^{2}}}$。</p>
+<p>​	棣莫弗-拉普拉斯中心极限定理对二项分布的近似计算有重要作用，实际上就是将最开始的中心极限定理里的$n\mu$换成$np$，$\sqrt n \sigma$换成$\sqrt {np(1-p)}$。</p>
+<p>​	中心极限定理的近似计算有着很好的功用，例如一批灯泡约有5%为残次品，从中抽取1000只灯泡进行检查，试求次品数不少于40的概率，以及次品数在40到60之间的概率。这个问题的精确解需要大量的计算，但用中心极限定理只需查标准正态分布表即可。</p>
+<p>​	由于$EX&#x3D;1000 \times 0.05&#x3D;50 DX &#x3D; 1000 \times 0.05 \times 0.95 &#x3D; 47.5$。<br>$$<br>P\left( X\geqslant 40 \right) &#x3D;P\left( 40\leqslant X\leqslant 1000 \right) \approx \varPhi \left( \frac{1000-50}{\sqrt{47.5}} \right) -\varPhi \left( \frac{40-50}{\sqrt{47.5}} \right)<br>\<br>&#x3D;1-\varPhi \left( -1.45 \right) &#x3D;0.9265<br>\<br>P\left( 40\leqslant X\leqslant 60 \right) \approx \varPhi \left( \frac{60-50}{\sqrt{47.5}} \right) -\varPhi \left( \frac{40-50}{\sqrt{47.5}} \right)<br>\<br>&#x3D;\varPhi \left( 1.45 \right) -\varPhi \left( -1.45 \right) &#x3D;2\varPhi \left( -1.45 \right) -1&#x3D;0.853<br>$$<br>​	一些难以准确计算的问题也可以由中心极限定理估计出，例如：</p>
+<p>​	货车最大载重量为5吨，每箱货物的平均重量为50千克，标准差为5千克。则估计最大能装多少箱，才能保证不超载的概率大于0.977。$\varPhi \left( 2 \right) &#x3D;0.977$。</p>
+<p>​	这个问题可以直接用中心极限定理作很好的估计：<br>$$<br>Y&#x3D;\sum_{i&#x3D;1}^n{X_i},EX_i&#x3D;50,DX_i&#x3D;5^2<br>\<br>P\left( Y\leqslant 5000 \right) &#x3D;\varPhi \left( \frac{5000-50n}{5\sqrt{n}} \right) &gt;\varPhi \left( 2 \right)<br>\<br>\frac{1000-10n}{\sqrt{n}}&gt;2\rightarrow n&lt;98.0199<br>$$<br>​	所以最多可装98箱。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"># 数理统计</a>
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag"># 概率论</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/25/%E6%A6%82%E7%8E%87%E8%AE%BA3/" rel="prev" title="概率论3">
+                  <i class="fa fa-chevron-left"></i> 概率论3
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/28/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%865/" rel="next" title="大学物理5">
+                  大学物理5 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	本篇介绍模拟退火算法的同时，同时引入一下机器学习中的玻尔兹曼机和逻辑斯蒂回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="启发式算法2">
+<meta property="og:url" content="http://example.com/2022/05/24/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%952/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	本篇介绍模拟退火算法的同时，同时引入一下机器学习中的玻尔兹曼机和逻辑斯蒂回归">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/SA_1.gif">
+<meta property="og:image" content="http://example.com/images/SA_2.jpg">
+<meta property="og:image" content="http://example.com/images/SA_3.jpg">
+<meta property="og:image" content="http://example.com/images/SA_4.jpg">
+<meta property="article:published_time" content="2022-05-23T16:30:09.925Z">
+<meta property="article:modified_time" content="2021-10-06T16:37:33.092Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数学建模">
+<meta property="article:tag" content="启发式算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/SA_1.gif">
+
+
+<link rel="canonical" href="http://example.com/2022/05/24/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%952/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/05/24/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%952/","path":"2022/05/24/启发式算法2/","title":"启发式算法2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>启发式算法2 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/24/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%952/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="启发式算法2 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          启发式算法2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-24 00:30:09" itemprop="dateCreated datePublished" datetime="2022-05-24T00:30:09+08:00">2022-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-07 00:37:33" itemprop="dateModified" datetime="2021-10-07T00:37:33+08:00">2021-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index"><span itemprop="name">数学建模</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	本篇介绍模拟退火算法的同时，同时引入一下机器学习中的玻尔兹曼机和逻辑斯蒂回归</p>
+<span id="more"></span>
+
+<p>​	首先我们要先考虑热平衡这一现象，它一般指的是温度在时间或空间上的稳定。而物理退火过程，是指在降温的物体，温度越低，能量越低，够低后，物体内部开始结晶，此时能量状态最低；而退火就是缓慢的降温，在每个温度都达到平衡态，最后在常温达到基态。人们试图参考这个过程的机理，来构造一种算法。</p>
+<p>​	首先热平衡时，物理学中证明了，一个粒子系统处于各种状态的概率服从玻尔兹曼分布：<br>$$<br>F\left( state \right) &#x3D;k\exp \left( -\frac{E}{kT} \right)<br>$$<br>​	这里$E$是状态能量，$k$的玻尔兹曼常数，$T$是温度。再由统计学规律，该系统呈现特定状态的概率为：<br>$$<br>p_i&#x3D;\frac{\exp \left( -E_i&#x2F;kT \right)}{\sum\nolimits_{j&#x3D;1}^M{\exp \left( -E_j&#x2F;kT \right)}}<br>$$<br>​	那么可以得出，两个不同状态的概率之比仅与能量有关：<br>$$<br>\frac{p_i}{p_j}&#x3D;\frac{\exp \left( -E_i&#x2F;kT \right)}{\exp \left( -E_j&#x2F;kT \right)}<br>$$<br>​	上面的推导说明，固体降温时，同一个温度，分子停留在能量小的状态的概率大于停留在能量大的状态的概率，温度越高，不同能量状态对应的概率相差越小，随着温度越来越低，能量明显高于当前状态的粒子会越来越少，最终绝大多数分子稳定了下来，</p>
+<p>​	如果我们将，物理退火时的，物体的内部状态，看作要求解的问题的解空间，状态能量看作解的好坏，状态能量越低，说明越是我们要找的解，而温度类比成一个控制状态能量迁移的参数。那么退火过程就是随着控制参数的逐渐变化，解在解空间内也开始变化，最后当控制参数停止时，即“能量最低状态”，得到的就是“最优解”。</p>
+<p>​	也就是，它允许以一定的概率接受劣化解，使得搜索的过程中有更多的可能，这个规则被称为：Metropolis准则<br>$$<br>p\left( T \right) &#x3D;\left{ \begin{array}{c}<br>    1,\varDelta f\geqslant 0\<br>    e^{-\varDelta f&#x2F;\left( kT \right)},\varDelta f&lt;0\<br>\end{array} \right.<br>$$<br>​	那么模拟退火算法其实就是，我们从某个点开始进行随机扰动，如果随机出的结果更好，那么就选择它，如果随机出的效果不好，那么就以上面所说的概率进行判定，从而决定是选择还是不选择，下面我们举几个例子：</p>
+<p>计算$f(x)&#x3D;9sin(5x)+8cos(4x),，x\in \left[ 0,15 \right]$​的最大值。</p>
+<p>​	这里的用matlab的编程实现要比之前的遗传算法简洁的多：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line">X=<span class="number">0</span>:<span class="number">0.01</span>:<span class="number">15</span>;</span><br><span class="line">Y=val(X);</span><br><span class="line">n=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">x_max=<span class="number">15</span>;</span><br><span class="line">x_min=<span class="number">0</span>;</span><br><span class="line"><span class="comment">%初始温度，停止温度与降温系数</span></span><br><span class="line">temp=<span class="number">1e2</span>;</span><br><span class="line">temp_min=<span class="number">1e-3</span>;</span><br><span class="line">alpha=<span class="number">0.98</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%生成初始随机解</span></span><br><span class="line">x_old=(x_max-x_min)*<span class="built_in">rand</span>();</span><br><span class="line">x_new=x_old;</span><br><span class="line">y_old=val(x_old);</span><br><span class="line">y_new=y_old;</span><br><span class="line"></span><br><span class="line">text_temp=text(<span class="number">0</span>,<span class="number">0</span>,<span class="string">&#x27;Init&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(temp&gt;temp_min)</span><br><span class="line">  <span class="comment">%随机扰动</span></span><br><span class="line">  delta=(<span class="built_in">rand</span>()<span class="number">-0.5</span>)*<span class="number">3</span>;</span><br><span class="line">  x_new =x_old+delta;</span><br><span class="line">  <span class="comment">%扰动的值出界时，进行纠正</span></span><br><span class="line">  <span class="keyword">if</span> x_new&lt;x_min || x_new&gt;x_max</span><br><span class="line">    x_new = x_new - <span class="number">2</span> * delta;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  y_new=val(x_new);</span><br><span class="line">  <span class="comment">%求差值，由于我们求最大值，所以这里dE&lt;0是y_old-y_new</span></span><br><span class="line">  dE=y_old-y_new;</span><br><span class="line">  flag=judge(dE,temp);</span><br><span class="line">  <span class="keyword">if</span>(flag)</span><br><span class="line">    x_old=x_new;</span><br><span class="line">    y_old=y_new;</span><br><span class="line">  <span class="keyword">end</span>        </span><br><span class="line">  <span class="comment">%只有当dE &lt; 0的情况下才降温</span></span><br><span class="line">  <span class="keyword">if</span>(dE &lt; <span class="number">0</span>)</span><br><span class="line">    delete(text_temp);</span><br><span class="line">    <span class="built_in">plot</span>(X,Y);</span><br><span class="line">    <span class="built_in">hold</span> on</span><br><span class="line">    <span class="built_in">scatter</span>(x_old,y_old);</span><br><span class="line">    text_temp=text(<span class="number">0.3</span>, <span class="number">21</span>, [<span class="string">&#x27;temp: &#x27;</span>, num2str(temp)]);</span><br><span class="line">    <span class="built_in">hold</span> off</span><br><span class="line">    f=getframe;<span class="comment">%捕获坐标区或图窗作为影片帧</span></span><br><span class="line">    [I,map] = rgb2ind(f.cdata,<span class="number">256</span>,<span class="string">&#x27;nodither&#x27;</span>);</span><br><span class="line">      <span class="keyword">if</span> n==<span class="number">1</span></span><br><span class="line">         imwrite(I,map,<span class="string">&#x27;videos.gif&#x27;</span>,<span class="string">&#x27;DelayTime&#x27;</span>,<span class="number">0</span>,<span class="string">&#x27;LoopCount&#x27;</span>,<span class="built_in">inf</span>)</span><br><span class="line">         n=<span class="number">0</span>;</span><br><span class="line">      <span class="keyword">else</span>   </span><br><span class="line">         imwrite(I,map,<span class="string">&#x27;videos.gif&#x27;</span>,<span class="string">&#x27;gif&#x27;</span>,<span class="string">&#x27;WriteMode&#x27;</span>,<span class="string">&#x27;append&#x27;</span>,<span class="string">&#x27;DelayTime&#x27;</span>,<span class="number">0</span>);</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="comment">%上面是绘图的代码，下面降温</span></span><br><span class="line">    temp=temp *alpha;</span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>​	这里用到的两个定义的子函数是：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span>=<span class="title">val</span><span class="params">(x)</span></span></span><br><span class="line">    y=<span class="number">9</span>*<span class="built_in">sin</span>(<span class="number">5</span>*x)+<span class="number">8</span>*<span class="built_in">cos</span>(<span class="number">4</span>*x);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flag</span>=<span class="title">judge</span><span class="params">(dE,t)</span></span></span><br><span class="line">  <span class="keyword">if</span>(dE&lt;<span class="number">0</span>)</span><br><span class="line">    flag=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    p=<span class="built_in">exp</span>(-(dE/t));</span><br><span class="line">    <span class="keyword">if</span>(p&gt;<span class="built_in">rand</span>)</span><br><span class="line">      flag=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      flag=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>​	代码运行得到的效果符合我们的预期：</p>
+<p>​	<img src="/images/SA_1.gif"></p>
+<p>​	自然，在多维情况下运行，也是可以的，只需要产生多个方向的扰动即可，下面我们举一个组合优化的问题，（不是TSP，天天TSP都腻了）考虑一所学校40个新生宿舍分配的问题，调查取得了40位新生的兴趣爱好，分为“运动，音乐，游戏，书画，美食，其他”，我们希望找出一种方案，使得4个人一宿舍后，不同寝室间同寝室的两两同学的共同爱好数量分布尽可能的均匀。自然考虑“其他”这个爱好过于宽泛，这里我们就对其不作考虑了。</p>
+<p>​	<img src="/images/SA_2.jpg"></p>
+<p>​	这个问题显然不能用暴力搜索来解决，我们考虑模拟退火。我们将每个同学的喜好看成一个五元组，只考虑前五个，处理excel中的数据得到五元组的0-1矩阵$A$,我们考虑$AA^T$​的上三角部分，就是我们想要的同学之间共同喜好的个数.但实际上我们为了编程的方便不需要对$AA^T$​作多余的处理。</p>
+<p>​	为了让同寝室两两同学的爱好分布尽量均匀，我们想优化的是所有寝室的共同爱好数量的方差，我们希望它最小。</p>
+<p>​	但这里好像有一个小问题，与处理函数极值问题时的随机扰动时的极值而言，这种组合类问题的“随机扰动”感觉没那么直白。根据前人对于模拟退火在TSP问题上的总结，可以有三种方法：</p>
+<p>​	①交换法：将序列中的两个数交换。</p>
+<p>​	②移位法：将序列中的一个片段移动到片段外的某点附近（左或右）。</p>
+<p>​	③倒置法：确定两个坐标，将序列在这两个坐标间的元素逆序。</p>
+<p>​	编程求解后得到最优解的迭代情况：</p>
+<p>​	<img src="/images/SA_3.jpg"></p>
+<p>​	此时确实有最优方案使得方差为0：</p>
+<p>​	<img src="/images/SA_4.jpg"></p>
+<p>​	实际上，模拟退火算法要控制的一般都是初始温度，停止温度，温度衰减系数。当然也有不同的表达方法，比如最大迭代次数等等。这个与遗传算法，粒子群算法这样的群算法不同，相对简单，应用起来也比较方便。</p>
+<p>​	其实这个算法更重要的地方在于，它与玻尔兹曼机和逻辑斯蒂函数都有密切关联，前人据此构造了一种对称连接的网络，可以认为是一个无向有权全连接图，这里面单个节点$i$的能量定义为：<br>$$<br>E_i&#x3D;\sum_j{w_{ij}s_j}+b_i<br>$$<br>​	所以整个网络的能量定义为：（负号的原因是因为我们下一步考虑的是节点从0变1的情况而概率关系中的变化量与我们习惯的末减初是反的）<br>$$<br>E&#x3D;-\left( \sum_i{\sum_{j,i\ne j}{w_{ij}s_is_j}}+\sum_i{b_is_i} \right)<br>$$<br>​	而我们在这里注意其中单个节点$i$​​从0变为1造成的网络能量变化：<br>$$<br>\varDelta E_i&#x3D;\sum_{i\ne j}{w_{ij}s_j}+b_i<br>$$<br>​	再注意最前面关于两个不同状态的概率之比的论述：<br>$$<br>\frac{p_{on}}{p_{off}}&#x3D;\exp \left( \frac{E_{off}-E_{on}}{kT} \right)<br>$$<br>​	代入后取对数进行计算，且注意到$p_{on}+p_{off}&#x3D;1$，可以推出：<br>$$<br>p_{on}&#x3D;\frac{1}{1+\exp \left( -\frac{\varDelta E_i}{T} \right)}<br>$$<br>​	这就是著名的逻辑斯蒂函数，这个式子实际上就给出节点$i$​​​​状态为1的概率，在其他一些领域我们也能见到逻辑斯蒂函数，通过上面的分析可以得出它其中一个功用，在机器学习中我们常常会构造代价函数来使其最小化。我们一般都会比较它们的某一种范数之差，但是如果我们把这里的代价函数看作系统状态的能量，那么它应该服从玻尔兹曼分布，也就是系统获得观察数据$X$​的概率可用逻辑斯蒂函数作估计。</p>
+<p>​	所以有些时候会有作者直接将代价函数写成自然对数的指数，再最大化求参数，根据的就是上式。两者通过的纽带就是玻尔兹曼分布。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" rel="tag"># 数学建模</a>
+              <a href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95/" rel="tag"># 启发式算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/24/%E5%8F%98%E5%88%86%E6%B3%952/" rel="prev" title="变分法2">
+                  <i class="fa fa-chevron-left"></i> 变分法2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/24/%E8%AF%BB%E6%96%87%E7%8C%AE1/" rel="next" title="A Survey of Fault Diagnosis and Fault-Tolerant">
+                  A Survey of Fault Diagnosis and Fault-Tolerant <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

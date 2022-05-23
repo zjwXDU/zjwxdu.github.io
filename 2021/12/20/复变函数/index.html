@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="复变函数">
+<meta property="og:url" content="http://example.com/2021/12/20/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2021/12/20/E8lxKWZqIBh6Lez.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/22/CUBfR4nqwNDaWZl.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/22/xhozjDmIRkGUMiQ.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/22/kHLDigw4t3lXceu.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/22/sNQKaxZYzh4P27l.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/22/ESFTLOfYi92GjkD.png">
+<meta property="article:published_time" content="2021-12-20T07:34:39.000Z">
+<meta property="article:modified_time" content="2021-12-22T09:30:52.457Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="复变函数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2021/12/20/E8lxKWZqIBh6Lez.png">
+
+
+<link rel="canonical" href="http://example.com/2021/12/20/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/12/20/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/","path":"2021/12/20/复变函数/","title":"复变函数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>复变函数 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/20/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="复变函数 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          复变函数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-12-20 15:34:39" itemprop="dateCreated datePublished" datetime="2021-12-20T15:34:39+08:00">2021-12-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-12-22 17:30:52" itemprop="dateModified" datetime="2021-12-22T17:30:52+08:00">2021-12-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。</p>
+<span id="more"></span>
+
+<p>​	复数的前置知识高中都学过了，这里补充并强调下面几点，我们经常习惯把复数看成一个二维向量，实际上可以证明，复数域$\mathbf{C}$作为实数域$\mathbf{R}$上的维数为2的向量空间。</p>
+<img src="https://s2.loli.net/2021/12/20/E8lxKWZqIBh6Lez.png" alt="image-20211220162721916" style="zoom: 80%;" />
+
+<p>​	在上面那个例子中，计算的是红色复数和蓝色复数的乘积，实际上就是模长乘积，辐角相加，如果是复数作除法，那模长就是两模长作除法，这个可以通过计算结果直观的看到，而如果由复变函数中的欧拉公式：<br>$$<br>z_1&#x3D;r_1e^{i\theta _1},z_2&#x3D;r_2e^{i\theta _2}<br>\<br>z_1z_2&#x3D;r_1r_2e^{i\left( \theta _1+\theta _2 \right)}<br>\<br>\frac{z_1}{z_2}&#x3D;\frac{r_1}{r_2}e^{i\left( \theta _1-\theta _2 \right)}<br>$$<br>​	则就十分显然了，基于此定义了复数的幂与根，当我们取$r&#x3D;1$，计算$z&#x3D;cos\theta+isin\theta$的$n$次方，容易写出：<br>$$<br>z_n&#x3D;z^n&#x3D;\left( \cos \theta +i\sin \theta \right) ^n&#x3D;e^{in\theta}&#x3D;\cos n\theta +i\sin n\theta<br>\<br>\left( \cos \theta +i\sin \theta \right) ^n&#x3D;\cos n\theta +i\sin n\theta<br>$$<br>​	上式为棣莫弗公式。</p>
+<p>​	下面我们定义要讨论的复变函数，实际上就是一个新的映射：将复数$x+iy$的集合$G$按照一个法则，有一个<strong>或多个</strong>复数$u+iv$与其对应，那么就记复数$w$是复数$z$的函数，简称复变函数，记作$w&#x3D;f(z)$。</p>
+<p>​	在后面的讨论中，如果无特殊说明，定义$G$是一个平面区域（复平面），讨论的函数为单值函数。</p>
+<p>​	下面我们要讨论复变函数的连续性和极限，粗浅的来讲，这里与二元函数别无二致，例如如果在$z_0$连续，那么是以任何方式趋近于$z_0$，都有一个相同的极限；在$z_0$可导，也是一样的道理。在复变函数理论中真正关注的是解析函数，在$z_0$解析说的是在$z_0$及其邻域内处处可导，如果在区域$D$内每一点都解析，则记$f(z)$是$D$内的一个解析函数，如果$f(z)$在$z_0$不解析，那么$z_0$称为奇点，这个概念在后面要经常用到。</p>
+<p>​	通过上面解析的定义可以知道，在某一区域内处处可导和处处解析是等价的，但是在某一点的解析和可导不是等价的。</p>
+<p>​	下面我们讨论$f(z)&#x3D;z^2,g(z)&#x3D;x+2yi,h(z)&#x3D;|z|^2,q(z)&#x3D;1&#x2F;z$的解析性来加深理解：</p>
+<p>​	这里我们浅显的来讲，复变函数有两种表示方法:$w&#x3D;f(z),w&#x3D;u+vi$,其中$u,v$是两个实函数。一般情况下，写成$f(z)$形式的……求导时可以直接看成一元函数，直接套用之前的求导法则即可。而后一种形式往往都不可导。<br>$$<br>f’\left( z \right) &#x3D;2z<br>$$<br>​	所以$f(z)$处处可导，则也在复平面上处处解析。<br>$$<br>\underset{\varDelta z\rightarrow 0}{\lim}\frac{g\left( z+\varDelta z \right) -g\left( z \right)}{\varDelta z}&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\frac{\left( x+\varDelta x \right) +2\left( y+\varDelta y \right) i-x-2yi}{\varDelta x+\varDelta yi}<br>\<br>&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\frac{\varDelta x+2\varDelta yi}{\varDelta x+\varDelta yi}<br>$$<br>​	不难发现，$g(z)$处处不可导，所以在复平面上处处不解析。<br>$$<br>\underset{\varDelta z\rightarrow 0}{\lim}\frac{h\left( z+\varDelta z \right) -h\left( z \right)}{\varDelta z}&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\frac{|z+\varDelta z|^2-|z|^2}{\varDelta z}&#x3D;\underset{\varDelta z\rightarrow 0}{\lim}\bar{z}+\overline{\varDelta z}+z\frac{\overline{\varDelta z}}{\varDelta z}<br>$$<br>​	可见$h(z)$只有在$z&#x3D;0$点处可导，而在其他点均不可导，所以在复平面内处处不解析。</p>
+<p>​	对于$q(z)$,$q’\left( z \right) &#x3D;-1&#x2F;z^2$，所以在除$z&#x3D;0$外的复平面内，函数$w&#x3D;1&#x2F;z$处处解析，而$z&#x3D;0$是它的奇点。</p>
+<p>​	实际上，对于直接写成$w&#x3D;f(z)$的复变函数，我们较为熟悉利用求导法则判断他们的解析和可导，但对$f(z)&#x3D;u(x,y)+iv(x,y)$这样的复变函数，根据上面的例子我们往往只能列出极限表达式，然后进行判断，实际上关于这种形式下的解析有一个充要条件，即满足柯西-黎曼方程：<br>$$<br>\frac{\partial u}{\partial x}&#x3D;\frac{\partial v}{\partial y},\frac{\partial u}{\partial y}&#x3D;-\frac{\partial v}{\partial x}<br>$$<br>​	严格来讲，即$u(x,y),v(x,y)$在$(x,y)$可微，且满足上面的柯西-黎曼方程，则就在定义域$D$内成立，反过来也成立。当然上面两种形式的复变函数是可以互相转换的，这里不管那么多了，最后要指出：</p>
+<p>​	对于满足柯西黎曼方程($C-R$方程)的复变函数$f(z)&#x3D;u(x,y)+iv(x,y)$在点$z&#x3D;x+iy$处的导数公式为：<br>$$<br>f’\left( z \right) &#x3D;\frac{\partial u}{\partial x}+i\frac{\partial v}{\partial x}&#x3D;\frac{1}{i}\frac{\partial u}{\partial y}+\frac{\partial u}{\partial y}<br>$$<br>​	下面将一些初等函数推广到复变函数中，并给出一些相同点和不同点。这里我们就直接给出了，关于初等函数推广到复变函数的结果，一定要分清，否则在后面会引起混淆。</p>
+<p>​	<strong>指数函数：</strong><br>$$<br>\exp z&#x3D;e^x\left( \cos y+isiny \right)<br>$$<br>​	这个定义实际上就要求了$\exp z$的模长为$e^x$，辐角为$Arg(\exp z)&#x3D;y+2k\pi$，这个定义保证了我们希望的三点，一在整个复平面内处处解析，二是导函数等于原函数，三是当虚部为0时，退化为$e^x$。</p>
+<p>​	实际上……如果不这么指出来你也大概会写出这个表达式，因为：<br>$$<br>e^z&#x3D;e^{x+iy}&#x3D;e^xe^{iy}&#x3D;e^x\left( \cos y+i\sin y \right)<br>$$<br>​	而那些美好的性质不过是$e$的巧夺天工。由于$e^{iy}$的引入，$\exp z$有实变函数时不具有的周期性。</p>
+<p>​	最后要指出一点，这里的$e^z$没有幂的意义。</p>
+<p>​	<strong>对数函数：</strong></p>
+<p>​	和实变函数的时候一样，我们通过对$e^z$取反，来得到对数函数。<br>$$<br>e^w&#x3D;z<br>\<br>w&#x3D;u+iv,z&#x3D;re^{i\theta}<br>\<br>e^{u+iv}&#x3D;re^{i\theta}<br>\<br>u&#x3D;\ln r,v&#x3D;\theta<br>$$<br>​	但是注意到$\theta$其实是多值的，它具有周期性。所以我们需要的对数函数$w$即为：<br>$$<br>w&#x3D;\ln |z|+iArgz<br>$$<br>​	记作$Lnz$,它是一个多值函数，但是如果规定上式中的$Argz$取主值$argz$，那么$Lnz$就变成了一个单值函数，记作$lnz$，称为$Lnz$​的主值。<br>$$<br>\ln z&#x3D;\ln |z|+i\mathrm{arg}z<br>$$<br>​	这其实也和我们直观写出的想法是一样的，因为：<br>$$<br>\ln \left( x+yi \right) &#x3D;\ln \left( re^{i\theta} \right) &#x3D;\ln r+i\theta<br>$$<br>​	对数函数保持了在实变下相加和相减的性质，但乘积和商没有保持，后面在介绍复变函数中的幂函数时会说明原因。但是与$e^z$不同，此时定义的$Lnz$并不能在复平面上处处解析，对于其主值的$ln|z|$而言，它在除原点以外的其他点都是连续的。而$argz$在原点与负实轴上都不连续（当$x&lt;0$时，从$y$的不同方向逼近0辐角的左右极限分别为$\pi,-\pi$，所以不连续。）</p>
+<p>​	总上，今后我们使用$Lnz$时，指的都是去除原点和负半轴的某一单值分支。</p>
+<p>​	<strong>幂函数：</strong></p>
+<p>​	下面我们定义幂函数$a^b$通过$e^{bLna}$，所以这就导致了上面我们说的，对数函数乘积和商的性质未必会保持，由于$Lna$是多值的，所以$a^b$也将会是多值的。</p>
+<p>​	当$b$为整数时，我们将$e^{bLna}$展开，发现：<br>$$<br>e^{bLna}&#x3D;e^{b\ln |a|+ib\left( \mathrm{arg}a+2k\pi \right)}&#x3D;e^{b\left( \ln |a|+i\mathrm{arg}a \right) +2kb\pi i}&#x3D;e^{b\ln a}<br>$$<br>​	因为$2kb\pi i$实际上是旋转了整数圈，所以此时$a^b$是个单值函数。</p>
+<p>​	当$b$是个不可约分数$p&#x2F;q$时，这里$q&gt;0$，上面的$2kb\pi i$作为一个旋转，其中的$b&#x3D;p&#x2F;q$，则就将会有$p$个值。</p>
+<p>​	当$b$是相对一般的情况时，$a^b$有无穷多的值。</p>
+<p>​	换句话说，上面的论述更有意义的一点在于，当$b$取$n,1&#x2F;n$时，其中$n$为正整数，此时$a^b$的意义与$a$的$n$次幂及$a$的$n$次根是一样的。更一般的，根据此我们可以正式给出$z^n$,$z^{1&#x2F;n}$。</p>
+<p>​	$z^n$在复平面内是单值解析函数，$z^{1&#x2F;n}&#x3D;\sqrt[n]{z}$在除去原点和复实轴上是解析函数。这里就不再赘述了，本质上都是因为引入复数后，多出辐角这一概念。</p>
+<p>​	<strong>三角函数：</strong></p>
+<p>​	三角函数可以由欧拉公式通过指数函数来给出：<br>$$<br>\sin z&#x3D;\frac{e^{iz}-e^{-iz}}{2i},\cos z&#x3D;\frac{e^{iz}+e^{-iz}}{2}<br>$$<br>​	它们仍保有周期性，以及保持着平方和公式，和差化积公式等三角函数的性质，但<strong>有界性不再保证</strong>。当$z$取纯虚数时，结构恰好蜕变成了双曲函数，这并不是重点。</p>
+<p>​	反三角函数和反双曲函数见课本，此处从略。</p>
+<p>​	上面点缀的那些内容，意义在于，我们要认识到复变函数和实变函数的不同，不能模模糊糊的把复变函数简单的理解成把$e^x$变成$e^z$等，这样不便于后面的理解。</p>
+<p>​	下面我们来研究在复变函数，也就是复数的映射中的一些现象。</p>
+<p>​	自然，对于一元函数，我们所说的映射，将一组数单值的映射给了另一组数，可以绘制成一个图像，但当我们用一组复数映射给另一个复数时，由于表示一个复数就需要一个平面了，这样往往会有一些奇妙的几何性质。</p>
+<p>​	下图中红色线段表示过某点的切线，就是在复平面上符合我们直接理解的切线。而蓝色线段表示$(x,y)$与原点的连线，我们知道，这实际上是模长。我们即将看到它带来的神奇的性质，对于$f(z)&#x3D;1&#x2F;z$可能看起来不是很方便，我们先选取一个更为简单的$f(z)&#x3D;2z$。</p>
+<img src="https://s2.loli.net/2021/12/22/CUBfR4nqwNDaWZl.png" alt="image-20211222163335728" style="zoom:80%;" />
+
+<p>​		蓝色线段是有两条的，但是它俩重叠了，我们发现映射后蓝色线段的长度恰好是原来的两倍，而红色线段的斜率没有变化，下面我们将映射改为稍微复杂的$f(z)&#x3D;(1+i)z$。</p>
+<img src="https://s2.loli.net/2021/12/22/xhozjDmIRkGUMiQ.png" alt="image-20211222163821839" style="zoom:80%;" />
+
+<p>​	此时我们发现，红色线段的夹角为$45°$，而蓝色线段的长度变为了原来的$\sqrt 2$倍。这与$1+i$的系数和辐角吻合。下面我们考虑映射$f(z)&#x3D;1&#x2F;z$。</p>
+<img src="https://s2.loli.net/2021/12/22/kHLDigw4t3lXceu.png" alt="image-20211222164213409" style="zoom:80%;" />
+
+<p>​	蓝色线段变成了原来的一半，而角度顺时针旋转了90度。如果我们计算$f’\left( z \right) &#x3D;-1&#x2F;z^2$，将$z&#x3D;1+i$代入，会发现结果为$0.5i$，模长正好为0.5,辐角为90度。而上面那个例子$f(z)&#x3D;2z,f(z)&#x3D;(1+i)z$求导后，也符合这个规律。</p>
+<p>​	这里我引入这个结论比较生硬，因为确实不想铺垫那么多了，所以我们就能得到一个结论：对于一个复平面内的有向连续曲线，对它作用一个复变函数，切线转动角为$\mathrm{Arg}f’\left( z_0 \right) $，模长以系数$f’\left( z_0 \right)$伸缩。当然这些是建立在$f’\left( z_0 \right) \ne 0$的条件上。</p>
+<p>​	而更神奇的是，实际上上面那个结论并不局限于“切线”，“切线”只是引入时的一个例子，实际上它是指通过$z_0$的任何曲线，都会有相同的转动角和伸缩率，这被记作保角性和伸缩率的不变性。</p>
+<p>​	这样就进一步引出了共形映射的概念，书上清晰的给出了相关内容，这里不再赘述，书上最后给了一个例子，我现在将这个例子作出来来便于理解：</p>
+<img src="https://s2.loli.net/2021/12/22/sNQKaxZYzh4P27l.png" alt="image-20211222172057306" style="zoom:80%;" />
+
+<p>​	直观上，共形映射将一个三角形，旋转缩放成了另一个相似的三角形。同理，如果作用的是一个圆，它可以进一步缩放，旋转这个圆。</p>
+<img src="https://s2.loli.net/2021/12/22/ESFTLOfYi92GjkD.png" alt="image-20211222172339013" style="zoom:80%;" />
+
+<p>​	后面我们将进一步挖掘，不同形式的映射起到的作用，例如上图中的$f(z)&#x3D;1&#x2F;z$，它将上半平面的圆周映到了下半圆周，等等这一系列性质。如果不是为了考试，这将是非常有趣的内容。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/" rel="tag"># 复变函数</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/14/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A12/" rel="prev" title="数理统计2">
+                  <i class="fa fa-chevron-left"></i> 数理统计2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/24/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B02/" rel="next" title="复变函数2">
+                  复变函数2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	本篇是关于假设检验和单侧置信区间的，是用来补充数理统计2的。马上就要考试了，如果给我一次重来的机会，我应该平时就学的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数理统计3">
+<meta property="og:url" content="http://example.com/2022/03/07/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A13/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	本篇是关于假设检验和单侧置信区间的，是用来补充数理统计2的。马上就要考试了，如果给我一次重来的机会，我应该平时就学的。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-07T11:02:45.000Z">
+<meta property="article:modified_time" content="2022-03-07T12:57:35.443Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="数理统计">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/03/07/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A13/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/03/07/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A13/","path":"2022/03/07/数理统计3/","title":"数理统计3"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数理统计3 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/07/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数理统计3 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数理统计3
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-03-07 19:02:45 / Modified: 20:57:35" itemprop="dateCreated datePublished" datetime="2022-03-07T19:02:45+08:00">2022-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	本篇是关于假设检验和单侧置信区间的，是用来补充数理统计2的。马上就要考试了，如果给我一次重来的机会，我应该平时就学的。</p>
+<span id="more"></span>
+
+<p>​	WARNING：由于我写这篇时没时间了，所以这篇几乎只可能有我本人，wj，jzm看得懂。</p>
+<p>​	在数理统计2中作双侧置信区间时，我们是将$1-\alpha$分为$\pm \frac{\alpha}{2}$。而对于单侧置信区间，我们只关注它的上限或下限，所以单侧置信区间的求法和双侧没有区别，只是将$\alpha&#x2F;2$换成$\alpha$。这里要指出在之前忽略的一部分内容，这与$N,F,t,\chi^2$分布的性质有关。</p>
+<p>​	对于置信水平，实际上我们可以认为我们在找特定的上分位点。对于一个分布$\xi$，对于双侧区间：<br>$$<br>P\left( \xi <em>{1-\frac{\alpha}{2}}&lt;\zeta &lt;\xi <em>{\frac{\alpha}{2}} \right) &#x3D;1-\alpha<br>$$<br>​	其中$\zeta$是所选的统计量。对于$N,t$​，它们是对称的，取值可以取遍全体实数，所以有：<br>$$<br>z</em>{1-\frac{\alpha}{2}}&#x3D;-z</em>{\frac{\alpha}{2}}&#x3D;z_{-\frac{\alpha}{2}}<br>\<br>t_{1-\frac{\alpha}{2}}&#x3D;-t_{\frac{\alpha}{2}}&#x3D;t_{-\frac{\alpha}{2}}<br>$$<br>​	对于卡方分布，没有这个特殊的性质，所以当选取的统计量服从卡方分布时，就直接是：<br>$$<br>P\left( \chi <em>{1-\frac{\alpha}{2}}^{2}&lt;\zeta &lt;\chi <em>{\frac{\alpha}{2}}^{2} \right) &#x3D;1-\alpha<br>$$<br>​	对于$F$分布，有：<br>$$<br>F</em>{1-\frac{\alpha}{2}}\left( n_1,n_2 \right) &#x3D;\frac{1}{F</em>{\frac{\alpha}{2}}\left( n_2,n_1 \right)}<br>$$<br>​	熟悉这些性质有助于许多内容的理解。对于某些估计值的单侧区间，我们只要知道关注的是上限还是下限，直接将$\alpha&#x2F;2$换成$\alpha$，选择需要的区间即可。这里值得注意的其实是，由分布定理导出的估计值，往往与选取的统计量在计算时会翻到不等号的另一边。这就导致了一个反转的现象。这点在假设检验中也有类似的现象，但原理并不一样。下面我们来讨论假设检验。</p>
+<p>​	例如我们要讨论$H_0:\mu \ge \mu_0$，在我们知道总体方差的情况下，我们仍然借助$\frac{\bar{X}-\mu _0}{\sigma &#x2F;\sqrt{n}}\sim N\left( 0,1 \right) $来进行判断，如果$\mu \ge \mu_0$确实成立，那么$\bar{X}-\mu _0$不应该太小，我们就设犯错误的概率最大为$\alpha$（显著性水平），那么我们就会以$-z_\alpha$作临界点，当$\frac{\bar{X}-\mu _0}{\sigma &#x2F;\sqrt{n}}$比临界点小时，拒绝$H_0$接受$H_1$；反之接受$H_0$拒绝$H_1$。</p>
+<p>​	所以假设$H_0:\mu \ge \mu_0$，我们实际上是找一个左端点来度量，左端点右边是接受域，所以叫左边检验。反之就是右边检验，得到右端点，右端点左边是接受域。</p>
+<p>​	上面的内容确实很抽象，如果有看的人我建议结合着课本强化理解，如果你理解了，会发现其实假设检验的考试题根本不需要背，我的一个朋友非常喜欢有参考压缩，下面我展示一下如何在只记住三大抽样分布定理的情况下，结合题目解压出答案。</p>
+<p>①灯泡寿命服从$\sigma^2&#x3D;100^2$的正态分布，抽取某天生产的$40$只灯泡进行测试，得到样本方差$s^2&#x3D;15000$，问在显著性水平$\alpha&#x3D;0.05$下，能否断定灯泡寿命波动显著增大（$\chi _{0.05}^{2}\left( 39 \right) &#x3D;54.572$）</p>
+<p>​	我们希望灯泡寿命没有明显波动，那么：<br>$$<br>H_0:\sigma ^2\leqslant 100^2,H_1:\sigma ^2&gt;100^2<br>$$<br>​	没有给总体均值$\mu_0$，只给了$s^2,\sigma^2$，我们考虑用$(n-1)S^2&#x2F;\sigma^2$，如果$s^2$特别大，说明波动一定显著增大，所哟我们的接受域是$(0,k)$，这里$k&#x3D;\chi _{0.05}^{2}(39)$。所以接受域是$(0,54.572)$</p>
+<p>​	我们计算统计量$\chi^{2}$：$\chi ^2&#x3D;\frac{\left( 40-1 \right) \times 15000}{100^2}&#x3D;58.558&gt;54.572$，所以我们拒绝$H_0$接受$H_1$。</p>
+<p>②灯泡厂进行了工艺革新，分别抽取$10$只革新前后的灯泡做寿命试验，革新前的灯泡样本均值为$2460$小时，标准差为$56$小时；采用新工艺后的灯泡寿命的样本均值为$2550$小时，标准差为$48$小时。设灯泡寿命服从正态分布，两个样本构成的合样本相互独立，是否可以认为采用新工艺后的灯泡寿命有显著提高$(\alpha&#x3D;0.01,F_{0.005}(9,9)&#x3D;6.54,t_{0.01}(18)&#x3D;2.55)$</p>
+<p>​	这是一个双正态总体检验，我们设采用新工艺前的寿命$X \sim N(\mu_1,\sigma_1^2)$，采用新工艺后的寿命服从$Y \sim N(\mu_2,\sigma_2^2)$。</p>
+<p>​	那么首先需要检验$\sigma_1^2&#x3D;\sigma_2^2$，如果这个不成立，我们对平均寿命的估计就没有了意义。需检验：<br>$$<br>H_{01}:\sigma <em>{1}^{2}&#x3D;\sigma <em>{2}^{2},H</em>{11}:\sigma <em>{1}^{2}\ne \sigma <em>{2}^{2}<br>$$<br>​	只给了我们样本方差，所以我们选取$F$为统计量：<br>$$<br>F&#x3D;\frac{S</em>{1}^{2}}{S</em>{2}^{2}}\sim F\left( n_1-1,n_2-1 \right)<br>$$<br>​	$\alpha&#x3D;0.01,n_1&#x3D;10,n_2&#x3D;10$，所以接受域为：<br>$$<br>F</em>{\frac{\alpha}{2}}\left( n_1-1,n_2-1 \right) &#x3D;6.54<br>\<br>F_{1-\frac{\alpha}{2}}\left( n_1-1,n_2-1 \right) &#x3D;\frac{1}{F_{\frac{\alpha}{2}}\left( n_2-1,n_1-1 \right)}&#x3D;\frac{1}{6.54}<br>\<br>\left( \frac{1}{6.54},6.54 \right)<br>$$<br>​	统计量的样本值为$56^2&#x2F;48^2&#x3D;1.36$，在接受域内，所以接受$H_{01}$</p>
+<p>​	之后检验方差，我们说需检验：<br>$$<br>H_{02}:\mu <em>1\geqslant \mu <em>2,H</em>{12}:\mu <em>1&lt;\mu _2<br>$$<br>​	虽然我们是希望$\mu_2&gt;\mu_1$的，但是为了后面列写统计量的方便，我们写上面这样的假设。由于我们只有样本均值和方差，只能用$t$分布。<br>$$<br>T&#x3D;\frac{\bar{X}-\bar{Y}}{S</em>{\omega}\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t\left( n_1+n_2-2 \right)<br>\<br>S</em>{\omega}&#x3D;\sqrt{\frac{\left( n_1-1 \right) S_{1}^{2}+\left( n_2-1 \right) S_{2}^{2}}{n_1+n_2-2}}<br>$$<br>​	这是个左边检验，如果$H_{02}$是真的，那么$T$不应太小，所以我们只需找左临界点，实际上就是$t_{0.01}(18)&#x3D;2.55)$，所以接受域为$(-2.55,+\infty)$</p>
+<p>​	我们计算统计量的样本值：<br>$$<br>S_{\omega}&#x3D;\sqrt{\frac{\left( 10-1 \right) 56^2+\left( 10-1 \right) 48^2}{10+10-2}}&#x3D;52.15<br>\<br>t&#x3D;\frac{\bar{x}-\bar{y}}{s_{\omega}\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}&#x3D;\frac{2460-2550}{52.15\times \sqrt{\frac{1}{10}+\frac{1}{10}}}&#x3D;-3.85899\notin \left( -2.55,+\infty \right)<br>$$<br>​	所以我们拒绝$H_{02}$，认为新工艺实施后灯泡平均寿命显著提高。</p>
+<p>​	往后应该不会再有这种赶工的blog……很遗憾，还有很多数理统计的内容没来得及学习，毕竟是面向考试学习，有的放矢。还有几分钟了，我忽然寻思……“算法工程师”要求“数理基础”，上一下逼乎，人家一顿微分几何，什么流形学习，给你整的一愣一愣的。能学多少就学多少吧，以后抽时间把教师职业资格证考了，然后炼丹纯图一乐，又不靠这个找工作。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"># 数理统计</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/06/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B03/" rel="prev" title="复变函数3">
+                  <i class="fa fa-chevron-left"></i> 复变函数3
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/03/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="next" title="卷积神经网络">
+                  卷积神经网络 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

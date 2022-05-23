@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​	由于在要做的事情上要用到时频分析，在此之前只是简单的接触了一下傅里叶变换，可是那点程度完全不够用。所以写个blog记录一下从傅里叶变换到小波变换的过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="傅里叶变换">
+<meta property="og:url" content="http://example.com/2021/10/22/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​	由于在要做的事情上要用到时频分析，在此之前只是简单的接触了一下傅里叶变换，可是那点程度完全不够用。所以写个blog记录一下从傅里叶变换到小波变换的过程。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/10/24/5Fi3djuxg92AIOK.png">
+<meta property="article:published_time" content="2021-10-22T12:55:33.000Z">
+<meta property="article:modified_time" content="2021-10-23T16:48:48.625Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="傅里叶变换">
+<meta property="article:tag" content="信号处理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/24/5Fi3djuxg92AIOK.png">
+
+
+<link rel="canonical" href="http://example.com/2021/10/22/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/10/22/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/","path":"2021/10/22/傅里叶变换/","title":"傅里叶变换"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>傅里叶变换 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/22/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="傅里叶变换 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          傅里叶变换
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-10-22 20:55:33" itemprop="dateCreated datePublished" datetime="2021-10-22T20:55:33+08:00">2021-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-10-24 00:48:48" itemprop="dateModified" datetime="2021-10-24T00:48:48+08:00">2021-10-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">信号与系统</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​	由于在要做的事情上要用到时频分析，在此之前只是简单的接触了一下傅里叶变换，可是那点程度完全不够用。所以写个blog记录一下从傅里叶变换到小波变换的过程。</p>
+<span id="more"></span>
+
+<p>​	在此之前要再认识一下傅里叶变换，实际上在此之前已经学到了足够多的预备知识，在学习偏微分方程时就已经知道，傅里叶变换可以用于解偏微分方程，但是从本篇起我们要换一个方向，来具体介绍傅里叶变换以及基于傅里叶变换的其他变换在时频分析中的用处。</p>
+<p>​	令$C[a,b]$是定义在$[a,b]$上一切连续实函数所成的向量空间，设$f\left( x \right) ,g\left( x \right) \in C\left[ a,b \right] $<br>$$<br>\left&lt; f,g \right&gt; &#x3D;\int_a^b{f\left( x \right) g\left( x \right) \mathrm{d}x}<br>$$<br>​	由定积分的性质可知，这个运算符合内积的性质，这样就引入了一种度量，也就是说当$\left&lt; f,g \right&gt;&#x3D;0$时就像两向量垂直一样，有两个这样的函数$f(x),g(x)$也是“垂直”的，只不过并不是在我们习惯的$V_2$空间，而是在上面定义的欧氏空间中。</p>
+<p>​	而且我们在学习傅里叶级数的时候，就接触过三角函数系这个概念。<br>$$<br>1,\cos x,\sin x,…,\cos nx,\sin nx<br>\<br>\int_{-\pi}^{\pi}{\cos mx\cos nx\mathrm{d}x}&#x3D;\left{ \begin{array}{c}<br>    \pi ,m&#x3D;n\<br>    0,m\ne n\<br>\end{array} \right.<br>\<br>\int_{-\pi}^{\pi}{\sin mx\sin nx\mathrm{d}x}&#x3D;\left{ \begin{array}{c}<br>    \pi ,m&#x3D;n\<br>    0,m\ne n\<br>\end{array} \right.<br>\<br>\int_{-\pi}^{\pi}{\sin mx\cos nx\mathrm{d}x}&#x3D;\int_{-\pi}^{\pi}{\sin n\mathrm{d}x}&#x3D;\int_{-\pi}^{\pi}{\cos n\mathrm{d}x}&#x3D;0<br>$$<br>​	实际上这一组函数在上述欧氏空间中是正交的（完备正交基），实际上在这里，我们已经看出了一种类似“过滤器”的机制，只有当积分的两个函数相同时，结果才非零。所以只需要对此时的信号作这样的运算，就可以得到频率成分：<br>$$<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot \sin \left( t \right) \mathrm{d}t}&#x3D;0<br>\<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot \sin \left( 1.8t \right) \mathrm{d}t}&#x3D;3.0936<br>\<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot \sin \left( 2t \right) \mathrm{d}t}&#x3D;3.1416<br>\<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot \sin \left( 2.5t \right) \mathrm{d}t}&#x3D;1.7778<br>\<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot \sin \left( 3t \right) \mathrm{d}t}&#x3D;0<br>$$<br>​	实际上上面的$f(t)&#x3D;sin(2t)$，所以只有当和其进行积分运算的信号与$f(t)$的频率相近时，积分值才会明显变大。这样我们其实就得到了$f(t)$的频域信息，如果以频率为横坐标，积分值为纵坐标，我们就可以得到各频率强度的图像。</p>
+<p>​	但是如果将$f(t)$改成$cos(3t)$，那么如果我们只从$1,sin(t),sin(2t)…,sin(nt)$里找，会发现积分值都是0，这是由于$sin$和$cos$在这个空间里是正交的，所以我们这样对频率的筛选，可能需要在两个维度（sin维度和cos维度）都计算一遍……既然如此，那为什么不同时来算一下呢？</p>
+<p>​	我们知道：<br>$$<br>\sin x&#x3D;x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}…+\left( -1 \right) ^{n-1}\frac{x^{2n-1}}{\left( 2n-1 \right) !}+R\left( n \right)<br>\<br>\cos x&#x3D;1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}…+\left( -1 \right) ^{n-1}\frac{x^{2n-2}}{\left( 2n-2 \right) !}+R\left( n \right)<br>\<br>e^x&#x3D;1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+…+\frac{x^n}{n!}+R\left( n \right)<br>$$<br>​	将$e^x$换成$e^{ix}$，即有了复变函数中的欧拉公式：<br>$$<br>e^{ix}&#x3D;1+ix-\frac{x^2}{2!}-\frac{ix^3}{3!}+\frac{x^4}{4!}+…<br>\<br>&#x3D;\cos x+i\sin x<br>$$<br>​	利用这个方程，我们就可以选取基函数$e^{ix}$来作为“滤波器”，比如我们直接计算：<br>$$<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot e^{it}\mathrm{d}t}&#x3D;0+0i<br>\<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot e^{i2t}\mathrm{d}t}&#x3D;0+3.1416i<br>\<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot e^{i3t}\mathrm{d}t}&#x3D;3.1416+0i<br>\<br>\int_{-\pi}^{\pi}{f\left( t \right) \cdot e^{i4t}\mathrm{d}t}&#x3D;0+0i<br>$$<br>​	这里我选择的$f(t)&#x3D;sin(2t)+cos(3t)$，所以我们看出，如果这么计算，得到的实部是与$cos(wt)$的内积（相似度），虚部是与$sin(wt)$的相似度，上面的结果也告诉我们，这种方法效果很明显。</p>
+<p>​	这里要说明，在对于有周期的情况下，比如我们知道周期是$T$，那么我们根据$T&#x3D;2\pi &#x2F;\omega _0$可以计算出$\omega _0$，这是有意义的，因为我们知道，这一段周期信号是若干信号的叠加，因为即使，两个不同周期的信号叠加，它们的周期并不简单的等于周期中取最大的那个，实际上是它们的最小公倍数，这个最小公倍数就是我们观测到的周期$T$，它一定大于各个成分的$T_i$，所以它具有最小的$\omega$，所以我们称此时计算的$\omega_0$为基频率，而我们所选取的“基函数”就是$e^{inw_0t}$，而我们在频谱上看，就是若干各离散的点。</p>
+<p>​	也就是说，根据上面的分析，结合我们知道的“周期函数可以用傅里叶级数表示”，我们就有了这么一种的做法：<br>$$<br>f_T\left( t \right) &#x3D;\sum_{n&#x3D;-\infty}^{\infty}{c_ne^{in\omega <em>0t}},\omega <em>0&#x3D;\frac{2\pi}{T}<br>\<br>c_n&#x3D;\frac{1}{T}\int</em>{-\frac{T}{2}}^{\frac{T}{2}}{f_T\left( t \right) e^{-in\omega <em>0t}\mathrm{d}t}<br>$$<br>​	（如果你觉得这个写法很不好理解，尝试结合上面说的欧拉公式，和下面这个熟悉的版本进行推导）<br>$$<br>\text{设}f\left( x \right) \text{是周期为}2\pi \text{的周期函数，可展开为}<br>\<br>f\left( x \right) &#x3D;\frac{a_0}{2}+\sum</em>{k&#x3D;1}^{\infty}{\left( a_k\cos kx+b_k\sin kx \right)}<br>\<br>a_n&#x3D;\frac{1}{\pi}\int</em>{-\pi}^{\pi}{f\left( x \right) \cos nx\mathrm{d}x}\quad \left( n&#x3D;0,1,2,3,\cdots \right)<br>\<br>b_n&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}{f\left( x \right) \sin nx\mathrm{d}x}\quad \left( n&#x3D;0,1,2,3,\cdots \right)<br>$$<br>​	注意上面的$c_n$，这个运算就是前面我们一直分析的，也就是说，实际上傅里叶级数的系数，正是那个筛选频率的方法，而它的含义，是在某个内积空间下，函数作为向量的度量。（只是我们之前为了过高数考试一直不在意这个罢了）</p>
+<p>​	至于周期函数，傅里叶级数以及上面的分析已经给出圆满的答案，但是很多时候我们遇到的信号序列可能不是周期的，但即使在这种情况下我们也想得到它的频率成分，对于这种非周期的函数，“just roll in”，我们认为它的周期区域无穷大，直接将积分上下限变为无穷，并且此时我们知道，对于无穷大的周期，此时我们上面讨论的离散的点，就发生了一些有趣的变化：<br>$$<br>\varDelta \omega &#x3D;\left( n+1 \right) \omega <em>0-n\omega <em>0&#x3D;\omega <em>0&#x3D;\frac{2\pi}{T}<br>\<br>\lim</em>{T\rightarrow \infty} \varDelta \omega &#x3D;0<br>$$<br>​	而作一些等价变形：<br>$$<br>f_T\left( t \right) &#x3D;\sum</em>{n&#x3D;-\infty}^{\infty}{\frac{1}{T}\int</em>{-\frac{T}{2}}^{\frac{T}{2}}{f_T\left( t \right) e^{-in\omega <em>0t}\mathrm{d}t}e^{in\omega <em>0t}}<br>\<br>&#x3D;\sum</em>{n&#x3D;-\infty}^{\infty}{\frac{\varDelta \omega}{2\pi}\int</em>{-\frac{T}{2}}^{\frac{T}{2}}{f_T\left( t \right) e^{-in\omega <em>0t}\mathrm{d}t}e^{in\omega <em>0t}}<br>\<br>&#x3D;\frac{1}{2\pi}\int</em>{-\infty}^{\infty}{\int</em>{-\infty}^{\infty}{f_T\left( t \right) e^{-i\omega t}\mathrm{d}t}e^{i\omega t}}\mathrm{d}\omega </p>
+<p>\<br>\left( n\omega <em>0\rightarrow \omega \left( \text{一个连续变化的变量} \right) ,\sum</em>{-\infty}^{\infty}{\varDelta \omega}\rightarrow \int_{-\infty}^{\infty}{\mathrm{d}\omega} \right)<br>$$<br>​	注意推导出的最后一个式子中关于$t$的积分：<br>$$<br>\mathcal{F} \left( \omega \right) &#x3D;\int_{-\infty}^{\infty}{f_T\left( t \right) e^{-i\omega t}\mathrm{d}t}<br>$$<br>​	这就是傅里叶变换，它将一段连续的时频数据变化为了连续的频域数据，而最后一个式子：<br>$$<br>\mathcal{F} ^{-1}\left( \omega \right) &#x3D;\frac{1}{2\pi}\int_{-\infty}^{\infty}{\mathcal{F} \left( \omega \right) e^{i\omega t}}\mathrm{d}\omega<br>$$<br>​	这就是傅里叶逆变换，它会将频域信息再变回去，这里的$1&#x2F;2\pi$实际上是归一化因子，在不同地方会有不同写法，比如可能根号一下放在傅里叶变换中，这对我们的目的是无所谓的。</p>
+<p>​	现在唯一的问题就是，这个积分往往不是很好计算，而计算机又无法直接处理反常积分，以及实际采样获得的信号，也并不是连续的，都只是离散点。所以后面就有了离散傅里叶变换（DFT），这是下一篇要介绍的内容了，但实际上它们的原理完全一致。</p>
+<p><img src="https://i.loli.net/2021/10/24/5Fi3djuxg92AIOK.png" alt="image-20211024004545639"></p>
+<p>​	这是利用matlab进行傅里叶变换的结果，可以直观的看到，信号的频率确实被直观的提取了出来。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag"># 傅里叶变换</a>
+              <a href="/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" rel="tag"># 信号处理</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/21/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%864/" rel="prev" title="大学物理4">
+                  <i class="fa fa-chevron-left"></i> 大学物理4
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/10/25/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A22/" rel="next" title="傅里叶变换2">
+                  傅里叶变换2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
