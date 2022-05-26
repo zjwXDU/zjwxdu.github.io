@@ -8,15 +8,23 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>拉普拉斯变换 | 我起初心向明月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="我们即将看到，拉普拉斯变换是傅里叶变换的一种推广，这里有个乐子，有一次我做梦，梦见我是个调和分析大师，然后我就醒了，然后我发现我自己孑然一身P都不会。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="拉普拉斯变换">
 <meta property="og:url" content="http://example.com/2022/05/23/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/index.html">
 <meta property="og:site_name" content="我起初心向明月">
+<meta property="og:description" content="我们即将看到，拉普拉斯变换是傅里叶变换的一种推广，这里有个乐子，有一次我做梦，梦见我是个调和分析大师，然后我就醒了，然后我发现我自己孑然一身P都不会。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/Laplace_1.png">
+<meta property="og:image" content="http://example.com/images/Laplace_2.png">
+<meta property="og:image" content="http://example.com/images/Laplace_3.png">
 <meta property="article:published_time" content="2022-05-23T08:33:31.000Z">
-<meta property="article:modified_time" content="2022-05-23T08:33:31.802Z">
+<meta property="article:modified_time" content="2022-05-26T17:02:58.593Z">
 <meta property="article:author" content="张嘉伟">
+<meta property="article:tag" content="信号处理">
+<meta property="article:tag" content="拉普拉斯变换">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Laplace_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -179,7 +187,206 @@
     
 	<div class="article-entry" itemprop="articleBody">
       
-        
+        <pre><code>我们即将看到，拉普拉斯变换是傅里叶变换的一种推广，这里有个乐子，有一次我做梦，梦见我是个调和分析大师，然后我就醒了，然后我发现我自己孑然一身P都不会。</code></pre>
+<span id="more"></span>
+<p>​
+如果顺着傅里叶变换来看，拉普拉斯变换是其的扩展。如果一个信号不符合傅里叶变换的条件，那么可以通过强加一个负指数衰减让它符合，这个思路非常直接。（但这里想说一下，如果单从这个角度看，拉普拉斯变换的理论意义远大于实际意义，因为大部分信号都会符合傅里叶变换的，从时频分析的应用来看，拉普拉斯变换并没有很明确的作用，但这不影响它在其他方面的作用。）</p>
+<p>​
+既然是强加一个负指数衰减，那么根据衰减的强弱，可以根据原积分是否收敛来划分收敛域。由于遇到的信号都有初始时刻，不妨设初始时刻为坐标的原点。这样就得到了单边拉普拉斯变换，我们下面谈到的拉普拉斯变换就都默认是单边的了，那么正变换和逆变换即：
+<span class="math display">\[
+F\left( s \right) =\mathcal{L} \left[ f\left( t \right) \right]
+=\int_{0_-}^{\infty}{f\left( t \right) e^{-st}\mathrm{d}t}
+\\
+f\left( t \right) =\mathcal{L} ^{-1}\left[ F\left( s \right) \right]
+=\left\{ \begin{array}{c}
+    0,t&lt;0\\
+    \frac{1}{2\pi j}\int_{\sigma -j\infty}^{\sigma +j\infty}{F\left( s
+\right) e^{st}\mathrm{d}s},t&gt;0\\
+\end{array} \right.
+\]</span> ​ 其中正变换包含<span
+class="math inline">\(0_-\)</span>​原因是原函数中可能存在着冲激函数簇，我们先计算三个常见函数的拉普拉斯变换：
+<span class="math display">\[
+F\left( s \right) =\mathcal{L} \left[ \delta \left( t \right) \right]
+=\int_{0_-}^{\infty}{\delta \left( t \right)
+e^{-st}\mathrm{d}t}=1,\mathrm{Re}\left[ s \right] &gt;-\infty
+\]</span> ​ 注意到对于冲激函数来说，收敛域覆盖了整个复平面。 <span
+class="math display">\[
+F\left( s \right) =\mathcal{L} \left[ \varepsilon \left( t \right)
+\right] =\int_{0_-}^{\infty}{\varepsilon \left( t \right)
+e^{-st}\mathrm{d}t}=\left. \left( -\frac{e^{-st}}{s} \right)
+\right|_{0}^{\infty}
+\\
+=\underset{t\rightarrow \infty}{\lim}\left( -\frac{e^{-st}}{s} \right)
++\frac{1}{s}=\frac{1}{s},\mathrm{Re}\left[ s \right] &gt;0
+\]</span> ​ 由于负指数衰减的性质，此时的收敛域是<span
+class="math inline">\(Re[s]&gt;0\)</span> 。</p>
+<p>​ 最后是常见的指数函数： <span class="math display">\[
+F\left( s \right) =\mathcal{L} \left[ e^{-s_0t} \right]
+=\int_{0_-}^{\infty}{e^{-\left( s_0+s \right) t}\mathrm{d}t}=\left.
+\left( -\frac{e^{-\left( s_0+s \right) t}}{s_0+s} \right)
+\right|_{0}^{\infty}
+\\
+=\underset{t\rightarrow \infty}{\lim}\left( -\frac{e^{-\left( s_0+s
+\right) t}}{s_0+s} \right)
++\frac{1}{s_0+s}=\frac{1}{s_0+s},\mathrm{Re}\left[ s \right]
+&gt;\mathrm{Re}\left[ -s_0 \right]
+\]</span> ​
+注意此时的收敛于发生了变化，以及在简单的推导中，我们可以看出，收敛域真正关心的是实部，当<span
+class="math inline">\(s_0=0\)</span>​时，上式退化为刚才的阶跃函数。我们稍后会解释这里的insight。值得指出的是，由欧拉公式，正弦函数和余弦函数的拉普拉斯变换也可得：
+<span class="math display">\[
+F\left( s \right) =\mathcal{L} \left[ \cos \omega _0t \right]
+=\int_{0_-}^{\infty}{\cos \omega _0te^{-st}\mathrm{d}t}=\left. \cos
+\omega _0t\left( -\frac{e^{-st}}{s} \right)
+\right|_{0}^{\infty}-\frac{\omega _0}{s}\int_{0_-}^{\infty}{\sin \omega
+_0te^{-st}\mathrm{d}t}
+\\
+=\frac{1}{s}-\frac{\omega _0}{s}\int_{0_-}^{\infty}{\sin \omega
+_0te^{-st}\mathrm{d}t}
+\\
+\int_{0_-}^{\infty}{\sin \omega _0te^{-st}\mathrm{d}t}=\left. \sin
+\omega _0t\left( -\frac{e^{-st}}{s} \right)
+\right|_{0}^{\infty}+\frac{\omega _0}{s}\int_{0_-}^{\infty}{\cos \omega
+_0te^{-st}\mathrm{d}t}=\frac{\omega _0}{s}\int_{0_-}^{\infty}{\cos
+\omega _0te^{-st}\mathrm{d}t}
+\\
+I=\frac{1}{s}-\left( \frac{\omega _0}{s} \right) ^2I\rightarrow
+I=\frac{s}{s^2+\omega _{0}^{2}},\mathrm{Re}\left[ s \right] &gt;0
+\]</span> ​ 注意到两者之间的关系，正弦函数的拉普拉斯变换即得： <span
+class="math display">\[
+F\left( s \right) =\mathcal{L} \left[ \sin \omega _0t \right]
+=\frac{\omega _0}{s}\int_{0_-}^{\infty}{\cos \omega
+_0te^{-st}\mathrm{d}t}=\frac{\omega _0}{s^2+\omega
+_{0}^{2}},\mathrm{Re}\left[ s \right] &gt;0
+\]</span> ​
+确实，当然可以用欧拉公式展开，然后应用指数函数的拉普拉斯变换得到正余弦函数的变换对，只是想复习一下分部积分。</p>
+<p>​
+拉普拉斯变换作为和傅里叶变换形式类似的积分变换，也有相应的性质，大多的证明大同小异，我们这里先略去这些琐碎的点，突出一下拉普拉斯变换的重点。</p>
+<p>​ 许多时候，像函数<span
+class="math inline">\(F(s)\)</span>会是一个实系数有理真分式，将其利用留数定理进行分解将有利于作拉普拉斯逆变换：
+<span class="math display">\[
+F\left( s \right) =\frac{B\left( s \right)}{A\left( s \right)}
+\\
+A\left( s \right) =\left( s-s_1 \right) ^p\left( s-s_2 \right) ...\left(
+s-s_n \right)
+\\
+F\left( s \right) =\frac{K_{1,p}}{\left( s-s_1 \right)
+^p}+\frac{K_{1,p-1}}{\left( s-s_1 \right)
+^{p-1}}+...+\frac{K_{1,1}}{\left( s-s_1 \right)}
+\\
++\frac{K_2}{\left( s-s_2 \right)}+...\frac{K_n}{\left( s-s_n \right)}
+\]</span> ​ 那么系数<span
+class="math inline">\(K_{i,j}\)</span>的求法即为： <span
+class="math display">\[
+K_{i,j}=\frac{1}{\left( p-j \right) !}\left.
+\frac{\mathrm{d}^{p-j}}{\mathrm{d}s^{p-j}}\left\{ \left( s-s_i \right)
+^p\frac{B\left( s \right)}{A\left( s \right)} \right\}
+\right|_{s=s_i},j=1,2,3,...,p.
+\]</span> ​ （呜呜呜当时没好好学复变函数）</p>
+<p>​ 我们找一个例子试一下： <span class="math display">\[
+F\left( s \right) =\frac{s+3}{\left( s+1 \right) ^3\left( s+2 \right)}
+\\
+K_{1,1}=\frac{1}{2!}\left. \left( 1+\frac{1}{s+2} \right) ^{\left( 2
+\right)} \right|_{s=-1}=1
+\\
+K_{1,2}=\left. \left( 1+\frac{1}{s+2} \right) ^{\left( 1 \right)}
+\right|_{s=-1}=-1
+\\
+K_{1,3}=\left. \left( 1+\frac{1}{s+2} \right) \right|_{s=-1}=2
+\\
+K_2=\left. \left( \frac{s+3}{\left( s+1 \right) ^3} \right)
+\right|_{s=-2}=-1
+\\
+F\left( s \right) =\frac{2}{\left( s+1 \right) ^3}-\frac{1}{\left( s+1
+\right) ^2}+\frac{1}{s+1}-\frac{1}{s+2}
+\]</span> ​ 分解之后就可以很容易的用上面推得的正变换得到原函数<span
+class="math inline">\(f(t)\)</span> <span class="math display">\[
+f\left( t \right) =\left[ \left( t^2-t+1 \right) e^{-t}-e^{-2t} \right]
+\varepsilon \left( t \right)
+\]</span> ​
+还记得正弦余弦的拉普拉斯变换吗？它们的像函数里会带来复数的根，将两个事情联合在一起看，我们就会发现：拉普拉斯变换的极点告诉了我们该信号所含的频率成分以及指数成分。实部为0的那条线就是傅里叶变换。</p>
+<p>​
+但是回忆傅里叶分析时，积分下限是从负无穷开始的，有些时候这样是正好的，比如无边界的扩散问题。有些时候这样是不合适的，例如要考虑0时刻初始值时，而单边拉普拉斯变换恰好满足了这一条件，又有微分性质和积分性质，使得我们可以把线性动力学的问题转化为代数问题：
+<span class="math display">\[
+u\left( t \right) =L\frac{\mathrm{d}i\left( t
+\right)}{\mathrm{d}t}\leftrightarrow U\left( s \right) =sLI\left( s
+\right) -Li_L\left( 0_- \right)
+\\
+i\left( t \right) =C\frac{\mathrm{d}u\left( t
+\right)}{\mathrm{d}t}\leftrightarrow I\left( s \right) =sCU\left( s
+\right) -Cu_C\left( 0_- \right) \leftrightarrow U\left( s \right)
+=\frac{1}{sC}I\left( s \right) +\frac{u_C\left( 0_- \right)}{s}
+\]</span> ​ 我们通过时域微分性质，就得到了在<span
+class="math inline">\(s\)</span>域电容和电感的表达，现在我们将这个技术应用一下，在我们所学的青春版模电的第三章讲过一些无源滤波器，我们现在着手计算一个Butterworth三阶低通滤波器：已知<span
+class="math inline">\(L=1H,C=2F,R=1\varOmega\)</span> ，求系统的<span
+class="math inline">\(H(s)=U_2(s)/U_1(s)\)</span> 。</p>
+<p><img src="/images/Laplace_1.png" /></p>
+<p>​ 进行拉普拉斯变换后，初始状态均为0。由<span
+class="math inline">\(s\)</span>域下的戴维南定理，开路电压和等效阻抗可以很方便的列写：
+<span class="math display">\[
+U_{OC}\left( s \right) =\frac{\frac{1}{sC}}{sL+R+\frac{1}{sC}}U_1\left(
+s \right) =\frac{1}{2s^2+2s+1}U_1\left( s \right)
+\\
+Z_0\left( s \right) =sL+\frac{\left( sL+R \right)
+\frac{1}{sC}}{sL+R+\frac{1}{sC}}=\frac{2s^3+2s^2+2s+1}{2s^2+2s+1}
+\\
+U_2\left( s \right) =\frac{R}{Z_0\left( s \right) +R}U_{OC}\left( s
+\right) =\frac{1}{2\left( s^3+2s^2+2s+1 \right)}U_1\left( s \right)
+\\
+H\left( s \right) =\frac{U_2\left( s \right)}{U_1\left( s
+\right)}=\frac{1}{2\left( s^3+2s^2+2s+1 \right)}
+\]</span> ​ 如果把<span class="math inline">\(s\)</span>换成<span
+class="math inline">\(j\omega\)</span>
+,那么就是之前电路分析里学的相量法，只不过写在<span
+class="math inline">\(s\)</span>域对于更复杂的问题有更好的效果，我们取<span
+class="math inline">\(s\)</span>为纯实数，作出<span
+class="math inline">\(H(s)\)</span>我们会发现一些有用的事实：</p>
+<p><img src="/images/Laplace_2.png" /></p>
+<p>​ 左边三维曲面的高度代表<span
+class="math inline">\(H_s\)</span>的幅度，其中一个坐标轴代表实部另一个代表虚部。根据上面的叙述我们知道其实实部就是<span
+class="math inline">\(\sigma\)</span>
+(我坐标轴写成delta了)虚部就是频率<span
+class="math inline">\(\omega\)</span>
+。左侧图非常直观的告诉我们，其实除了极点处以外，<span
+class="math inline">\(s\)</span>域的其他区域大部分都是平凡的。以及通过分析极点的位置，在不进行复杂计算的前提下，我们即可知道原函数含有的一定信息。而模电教材里的滤波器曲线是怎么来的呢？实际上只需要取实部为0，观察那个切片即可（正是傅里叶变换）：</p>
+<p><img src="/images/Laplace_3.png" /></p>
+<p>​
+现在再去看模电第三章就不会一眼发懵了，因为那些曲线其实就是特定系统的频率响应，而书上非要分析的传递函数其实就是系统的拉普拉斯变换，包括为什么模电书会对极点念念不忘，现在都有了答案。</p>
+<p>​ 下面再引入一个高中历史遗留的问题，来加深印象：质量为<span
+class="math inline">\(m\)</span>的物体竖直挂在劲度系数为<span
+class="math inline">\(k\)</span>的弹簧上，零时刻静止，当受外力<span
+class="math inline">\(f(t)\)</span>自<span
+class="math inline">\(x=0\)</span>处开始向下运动，求运动规律<span
+class="math inline">\(x(t)\)</span> 。</p>
+<p>​
+如果我在高中，那我肯定是不会的，我只知道它是简谐运动。后来大一了，叶峰教我微分方程，我知道了，它可以解出来，然而我只能解一些特定“激励”下，比如重力等等。再后来，我知道了数值分析，我根本不用管那些，直接龙格库达求数值解就好了，反正不是刚性的。现在，又有了新的办法：
+<span class="math display">\[
+m\frac{\mathrm{d}^2x}{\mathrm{d}t^2}+kx\left( t \right) =f\left( t
+\right) ,x\left( 0 \right) =0,x&#39;\left( 0 \right) =0
+\\
+X\left( s \right) =\mathcal{L} \left[ x\left( t \right) \right] ,F\left(
+s \right) =\mathcal{L} \left[ f\left( t \right) \right]
+\\
+ms^2X\left( s \right) +kX\left( s \right) =F\left( s \right) \rightarrow
+X\left( s \right) =\frac{1}{ms^2+k}F\left( s \right)
+\]</span> ​
+下面这一步可能需要一些insight，不过还好，看不出来关系不大，我们只是体验一下拉普拉斯变换在处理微分方程时的威力，记<span
+class="math inline">\(\omega_0=\sqrt{\frac{k}{m}}\)</span> ,之后得：
+<span class="math display">\[
+X\left( s \right) =\frac{1}{m\omega _0}\frac{\omega _0}{s^2+\omega
+_{0}^{2}}F\left( s \right)
+\\
+\sin \omega _0t\leftrightarrow \frac{\omega _0}{s^2+\omega _{0}^{2}}
+\]</span> ​ 由时域卷积定理得： <span class="math display">\[
+x\left( t \right) =\mathcal{L} ^{-1}\left[ X\left( s \right) \right]
+=\frac{1}{m\omega _0}\left[ \sin \omega _0t\ast f\left( t \right)
+\right]
+\]</span> ​ 看，如果<span
+class="math inline">\(f(t)=K\)</span>是个常数，比如<span
+class="math inline">\(mg\)</span> ，那样根据卷积的运算性质，<span
+class="math inline">\(x\left( t \right) =\frac{g}{\omega _0}\sin \omega
+_0t\)</span> 。如果是别的复杂的情形，也是可以计算的。</p>
+<p>​ 当然我还没有整理一些偏向应试内容，比如那些性质和<span
+class="math inline">\(s\)</span>域分析，再说吧。</p>
 
 		
 
@@ -217,7 +424,33 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信号处理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">拉普拉斯变换</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信号与系统//" class="article-tag-list-link color1">信号与系统</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -512,6 +745,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">拉普拉斯变换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
               </li>
              
@@ -524,10 +761,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
               </li>
              
@@ -536,11 +769,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">故障诊断</a>
+                <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">故障诊断</a>
               </li>
             
             <div class="clearfix"></div>
@@ -689,5 +926,20 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
