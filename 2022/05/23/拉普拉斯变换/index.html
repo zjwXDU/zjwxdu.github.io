@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/Laplace_2.png">
 <meta property="og:image" content="http://example.com/images/Laplace_3.png">
 <meta property="article:published_time" content="2022-05-23T08:33:31.000Z">
-<meta property="article:modified_time" content="2022-05-26T17:06:02.610Z">
+<meta property="article:modified_time" content="2022-05-27T01:36:20.505Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="拉普拉斯变换">
@@ -383,9 +383,32 @@ x\left( t \right) =\mathcal{L} ^{-1}\left[ X\left( s \right) \right]
 \right]
 \]</span> ​ 看，如果<span
 class="math inline">\(f(t)=K\)</span>是个常数，比如<span
-class="math inline">\(mg\)</span> ，那样根据卷积的运算性质，<span
-class="math inline">\(x\left( t \right) =\frac{g}{\omega _0}\sin \omega
-_0t\)</span> 。如果是别的复杂的情形，也是可以计算的。</p>
+class="math inline">\(mg\)</span>​ ，那样根据卷积的运算性质： <span
+class="math display">\[
+\int_{-\infty}^{+\infty}{\sin \omega _0\tau \cdot mg\cdot \varepsilon
+\left( t-\tau \right) \mathrm{d}\tau}=mg\int_0^t{\sin \omega _0\tau
+\mathrm{d}\tau}=\frac{mg}{\omega _0}\left( 1-\cos \omega _0t \right)
+\\
+x\left( t \right) =\frac{g}{\omega _{0}^{2}}\left( 1-\cos \omega _0t
+\right)
+\]</span> ​ 如果用时域上的特征根法解决，有一对共轭复根，我们直接计算：
+<span class="math display">\[
+y_g=C_1\cos \omega _0t+C_2\sin \omega _0t
+\\
+y_p=\frac{mg}{k}=\frac{g}{\omega _{0}^{2}}
+\\
+\left\{ \begin{array}{c}
+    C_1+\frac{g}{\omega _{0}^{2}}=0\\
+    \omega _0C_2=0\\
+\end{array} \right. \rightarrow \left\{ \begin{array}{c}
+    C_1=-\frac{g}{\omega _{0}^{2}}\\
+    C_2=0\\
+\end{array} \right.
+\\
+y=y_g+y_p=\frac{g}{\omega _{0}^{2}}\left( 1-\cos \omega _0t \right)
+\]</span> ​ 看，结果是一样的。如果<span
+class="math inline">\(f(t)=A\delta(t)\)</span>这种情形，那么卷积的性质会带来更大的便利。</p>
+<p>​ 如果是别的复杂的情形，也是可以计算的。</p>
 <p>​ 当然我还没有整理一些偏向应试内容，比如那些性质和<span
 class="math inline">\(s\)</span>域分析，再说吧。</p>
 
@@ -730,11 +753,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
               </li>
              
               <li class="article-tag-list-item">
