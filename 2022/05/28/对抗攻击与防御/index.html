@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/TML_1.png">
 <meta property="article:published_time" content="2022-05-28T06:56:20.000Z">
-<meta property="article:modified_time" content="2022-05-28T16:40:21.377Z">
+<meta property="article:modified_time" content="2022-05-29T02:38:35.566Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="课外学习">
@@ -272,15 +272,15 @@ Gradient Sign Method）被提出，该方法给出增加的扰动只需是： <s
 class="math display">\[
 \eta =\epsilon \mathrm{sign}\left( \nabla _xJ\left( \theta ,x,y \right)
 \right)
-\]</span> ​ $<span
-class="math inline">\(用于调整攻击的强度，而\)</span>_xJ( ,x,y ) <span
-class="math inline">\(是损失函对样本求导得到的梯度值，取\)</span>$得到其梯度方向。其思想是简单的：由于是无目标攻击，我们只需要让损失值越来越大即可，在用梯度下降优化时，我们往往是减去学习率乘上梯度，这正好背道而驰，相当于每个被well-trained的参数都被拽了回去，导致损失变大分类效果变差。</p>
+\]</span> ​ $$用于调整攻击的强度，而 $_xJ( ,x,y ) $
+是损失函对样本求导得到的梯度值，取<span
+class="math inline">\(\mathrm{sign}\)</span>得到其梯度方向。其思想是简单的：由于是无目标攻击，我们只需要让损失值越来越大即可，在用梯度下降优化时，我们往往是减去学习率乘上梯度，这正好背道而驰，相当于每个被well-trained的参数都被拽了回去，导致损失变大分类效果变差。</p>
 <p>​ 《DeepFool: a simple and accurate method to fool deep neural
 networks》中从决策边界的角度出发，提出了一种可以度量以及精确的攻击方法，我们现在考虑线性分类器，首先先给出点到超平面的距离推导，这在后面会用到：</p>
 <p>​ 设点<span
 class="math inline">\(x_0\)</span>在超平面上的正交投影为<span
 class="math inline">\(x_{0}^{&#39;}\)</span>,记：<span
-class="math inline">\(\mathcal{F} :f\left( x \right) = w^T+b =
+class="math inline">\(\mathcal{F} :f\left( x \right) = w^Tx+b =
 0\)</span> 那么<span class="math inline">\(f(x_{0}^{&#39;})=0\)</span>
 ，那么 我们直接计算即可： <span class="math display">\[
 w \cdot \overrightarrow{x_{0}
@@ -711,11 +711,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
+                <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -727,15 +731,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
+                <a href="javascript:void(0)" class="js-tag color5">故障诊断</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">故障诊断</a>
               </li>
             
             <div class="clearfix"></div>
