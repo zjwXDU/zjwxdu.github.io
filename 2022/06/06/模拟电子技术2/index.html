@@ -21,8 +21,9 @@
 <meta property="og:image" content="http://example.com/images/analog_2_4.png">
 <meta property="og:image" content="http://example.com/images/analog_2_5.png">
 <meta property="og:image" content="http://example.com/images/analog_2_6.png">
+<meta property="og:image" content="http://example.com/images/analog_2_7.png">
 <meta property="article:published_time" content="2022-06-06T11:29:11.000Z">
-<meta property="article:modified_time" content="2022-06-08T15:57:56.646Z">
+<meta property="article:modified_time" content="2022-06-09T10:03:42.625Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="电路分析">
 <meta name="twitter:card" content="summary">
@@ -277,7 +278,90 @@ R_o\approx R_C</script><p>​     然后我们注意这个输入电阻，道理�
 <script type="math/tex; mode=display">
 R_{i}^{'}=\frac{U_i}{I_{i}^{'}}=\frac{-r_{be}I_b}{-\left( 1+\beta \right) I_b}=\frac{r_{be}}{1+\beta}
 \\
-R_i=R_E//R_{i}^{'}</script><p>​    </p>
+R_i=R_E//R_{i}^{'}</script><p>​    这三种放大电路各有各的特点，下面为了表达的简洁，记$R_{L}^{‘}=R_C//R_L$ 我们得到：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>共射</th>
+<th>共集</th>
+<th>共基</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电压增益$A_u$</td>
+<td>$-\frac{\beta R_{L}^{‘}}{r_{be}}$</td>
+<td>$\frac{\left( 1+\beta \right) R_{L}^{‘}}{r_{be}+\left( 1+\beta \right) R_{L}^{‘}}$</td>
+<td>$\frac{\beta R_{L}^{‘}}{r_{be}}$</td>
+</tr>
+<tr>
+<td>输入电阻$R_i$</td>
+<td>$r_{be}//R_B$</td>
+<td>$\left( r_{be}+\left( 1+\beta \right) R_{L}^{‘} \right) //R_B$</td>
+<td>$\frac{r_{be}}{1+\beta}//R_E$</td>
+</tr>
+<tr>
+<td>输出电阻$R_o$</td>
+<td>$R_C$</td>
+<td>$\frac{R_s+r_{be}}{1+\beta}//R_E$</td>
+<td>$R_C$</td>
+</tr>
+<tr>
+<td>特点</td>
+<td>输出输入反相，作主放大器</td>
+<td>跟随关系，作中间级</td>
+<td>源电压增益小，但高频特性好。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>​    然后是一种长尾式差分放大电路，它很重要，实际上它的精髓在于那个$R_E$。这种电路可以有效抑制零点漂移。这个电路可以进行双端输入和双端输出，首先，输入方式对它是无所谓的，因为不管怎么输入都可以被拆成一对共模信号和一对差模信号，再运用叠加定理。不会影响什么。输出方式可以从两个输出端输出（双端输出），也可以从单端接地输出（单端输出）：</p>
+<p><img src="/images/analog_2_7.png" alt=""></p>
+<p>​    直流工作状态非常好分析，把输入电压置0。我们注意到其的对称性：</p>
+<script type="math/tex; mode=display">
+U_{EE}=U_{BEQ}+IR_E\approx U_{BEQ}+2I_{CQ}R_E
+\\
+I_{CQ1}=I_{CQ2}=\frac{U_{EE}-U_{BEQ}}{2R_E}
+\\
+U_{CE1Q}=U_{CE2Q}=U_{CEQ}=U_{CQ}-U_{EQ}=\left( U_{CC}-I_{CQ}R_C \right) -U_{BEQ}</script><p>​    至于动态指标分析，这里直接给出结论，背下来算了，没时间了。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>差模双端</th>
+<th>差模单端</th>
+<th>共模双端</th>
+<th>共模单端</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增益</td>
+<td>$-\frac{\beta \left( R_C//\frac{R_L}{2} \right)}{r_{be}}$</td>
+<td>$\pm \frac{\beta \left( R_C//\frac{R_L}{2} \right)}{2r_{be}}$</td>
+<td>0</td>
+<td>$-\frac{R_C}{2R_E}$</td>
+</tr>
+<tr>
+<td>输入电阻</td>
+<td>$2r_{be}$</td>
+<td>$2r_{be}$</td>
+<td>$\frac{1}{2}\left[ r_{be}+\left( 1+\beta \right) 2R_E \right] $</td>
+<td>$\frac{1}{2}\left[ r_{be}+\left( 1+\beta \right) 2R_E \right] $</td>
+</tr>
+<tr>
+<td>输出电阻</td>
+<td>$2R_C$</td>
+<td>$R_C$</td>
+<td>0</td>
+<td>$R_C$</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 		
 
@@ -813,5 +897,20 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
 </body>
 </html>
