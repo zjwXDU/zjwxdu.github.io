@@ -15,13 +15,16 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    本篇记录一些信号与系统中的练习题来备考。“大梦一场三千载，悲喜穿肠莫挂怀。大风翕张浪形骸，疏狂放歌死便埋。”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/Signal_System_2.png">
+<meta property="og:image" content="http://example.com/images/Signal_System_2.png">
+<meta property="og:image" content="http://example.com/images/Signal_System_3.png">
+<meta property="og:image" content="http://example.com/images/Signal_System_3.png">
+<meta property="og:image" content="http://example.com/images/Signal_System_5.png">
 <meta property="article:published_time" content="2022-06-14T14:47:05.000Z">
-<meta property="article:modified_time" content="2022-06-14T17:14:55.391Z">
+<meta property="article:modified_time" content="2022-06-15T17:18:08.208Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/Signal_System_2.png">
+<meta name="twitter:image" content="http://example.com/images/Signal_System_2.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -221,7 +224,7 @@ H\left( j\omega \right) =\left\{ \begin{array}{c}
     e^{-j\frac{\pi}{3}\omega},\left| \omega \right|<1.5\mathrm{rad}/s\\
     0,\left| \omega \right|>1.5\mathrm{rad}/s\\
 \end{array} \right.</script><p>​    求系统响应$y(t)$ 。</p>
-<p>​    <img src="/Signal_System_2.png" alt=""></p>
+<p>​    <img src="/images/Signal_System_2.png" alt=""></p>
 <p>​    解：这个题实际上开了个玩笑，上述是一个载波调制的基本雏形，但是这里的$s(t)$作用与否不影响结果，当然是因为这是理想状态，首先对于$f(t)$，它天然就是一个傅里叶级数，$F_n =1$，根据周期信号的傅里叶变换：</p>
 <script type="math/tex; mode=display">
 F\left( j\omega \right) =2\pi \sum_{n=-\infty}^{\infty}{\delta \left( \omega -n \right)}</script><p>​    这里$\varOmega =1$，然后啊，如果乘一个$\mathrm{cos}(t)$ ，那么根据傅里叶变换的性质：</p>
@@ -253,12 +256,83 @@ h\left( k \right) =-8\delta \left( k \right) -4\delta \left( k-1 \right) -2\delt
 =\left( \frac{1}{2} \right) ^{k-3}\varepsilon \left( k-3 \right)</script><p>​    ④判定：$y\left( t \right) =\left| f\left( t \right) -f\left( t-1 \right) \right|$ 的因果性，时变性，线性。</p>
 <p>​    解：我们一项一项的看，因果性说的是，当$f(t)=0,t&lt;0$时，是否有$y(t)=0$，若有则是因果的，反之则是反因果的（响应先于激励发生）。</p>
 <p>​    设$f(t)=0,t&lt;0$,则$f(t-1)=0$ ，可知$y\left( t \right) =\left| f\left( t \right) -f\left( t-1 \right) \right| \equiv 0$恒成立，它是因果性的。</p>
-<p>​    时变性即验证$f(t-t_0)$能否推出$y(t-t_0)$ ，这里指出，一般两种情形会带来时变，第一是各项系数出现与时间有关的量，例如$t,\mathrm{sin}(t)$等。第二种是$f(-t)$，这种形式的激励会直接导致不满足时变性，例如形如：</p>
+<p>​    时变性即验证$f(t-t_0)$能否推出$y(t-t_0)$ ，换句话说，即进入系统和时移两者能否对换。这里指出，一般两种情形会带来时变，第一是各项系数出现与时间有关的量，例如$t,\mathrm{sin}(t)$等。第二种是$f(-t)$，这种形式的激励会直接导致不满足时变性，例如形如：</p>
 <script type="math/tex; mode=display">
-y\left( t \right) =\int_{-\infty}^{1-2t}{f\left( \tau \right) \mathrm{d}\tau}</script><p>​    这会直接导出$y\left( t-t_0 \right) \rightarrow f\left( -t+t_0 \right) \ne f\left( -t-t_0 \right) $ 。</p>
+y\left( t \right) =\int_{-\infty}^{1-2t}{f\left( \tau \right) \mathrm{d}\tau}</script><p>​    (PS:即使积分上限是$1+2t$也是时变的，读者自证不难。)</p>
+<p>​    这会直接导出$y\left( t-t_0 \right) \rightarrow f\left( -t+t_0 \right) \ne f\left( -t-t_0 \right) $ 。</p>
 <p>​    我们验证发现它也是满足时不变性的。</p>
 <p>​    至于线性，我们在高等代数中验证过许多次了，这里就不作赘述了。</p>
-<p>​    </p>
+<p>​    ⑤图示某离散$LTI$因果系统的信号流图：</p>
+<p><img src="/images/Signal_System_3.png" alt=""></p>
+<p>​    (1)求系统函数$H(z)$</p>
+<p>​    (2)写出输入输出之间的差分方程</p>
+<p>​    (3)判断该系统是否稳定</p>
+<p>​    解：依次写出回路增益，以及互不接触的回路增益的乘积：</p>
+<script type="math/tex; mode=display">
+L_1=-z^{-1},L_2=-2z^{-2},L_3=8z^{-2},L_4=4
+\\
+L_1L_4=-4z^{-1},L_2L_4=-8z^{-2}</script><p>​    一般互不接触的只有两两互不接触的，之后列写特征行列式，以及找出前向增益和其子行列式：</p>
+<script type="math/tex; mode=display">
+\varDelta =1-\left( -z^{-1}-2z^{-2}+8z^{-2}+4 \right) +\left( -4z^{-1}-8z^{-2} \right) 
+\\
+=-3-3z^{-1}-14z^{-2}
+\\
+P_1=2z^{-2},\varDelta_{1}=1
+\\
+P_2=2z^{-1},\varDelta _2=1-4=-3</script><p>​    由梅森公式：</p>
+<script type="math/tex; mode=display">
+H\left( z \right) =\frac{1}{\varDelta}\sum_i{P_i\varDelta _i}=\frac{2z^{-2}-6z^{-1}}{-3-3z^{-1}-14z^{-2}}</script><p>​    由$Y(z)=H(z)F(z)$，展开得：</p>
+<script type="math/tex; mode=display">
+-3Y\left( z \right) -3z^{-1}Y\left( z \right) -14z^{-2}Y\left( z \right) =2z^{-2}F\left( z \right) -6z^{-1}F\left( z \right)</script><p>​    作逆$z$变换：</p>
+<script type="math/tex; mode=display">
+-3y\left( k \right) -3y\left( k-1 \right) -14y\left( k-2 \right) =2f\left( k-2 \right) -6f\left( k-1 \right)</script><p>​    对于离散因果系统，我们考虑它极点的位置，若都在单位圆内，说明系统是稳定的。（这一段说来话长了，还是有点故事的。）</p>
+<p><img src="/images/Signal_System_3.png" alt=""></p>
+<p>​    （顺带一提这张图中间其实就是信号最后一章状态方程的建立）</p>
+<p>​    求极点，得一对共轭复根都在单位圆外，系统不稳定。</p>
+<p>​    ⑥电路如图所示，原已稳定，$t=0$将开关$S$由1打到2，求之后的$u_0(t)$:</p>
+<p><img src="/images/Signal_System_5.png" alt=""></p>
+<p>​    我很不喜欢这个，实际上这个只是套了个皮，本质上是个电路分析，我一般只记微分式变化的，因为那样简单，老记积分的version容易错。</p>
+<script type="math/tex; mode=display">
+u_L\left( t \right) =L\frac{\mathrm{d}i_L\left( t \right)}{\mathrm{d}t}\leftrightarrow U_L\left( s \right) =sLI_L\left( s \right) -Li_L\left( 0_- \right) 
+\\
+i_C\left( t \right) =C\frac{\mathrm{d}u_C\left( t \right)}{\mathrm{d}t}\leftrightarrow I_C\left( s \right) =sCU_C\left( s \right) -Cu_C\left( 0_- \right)</script><p>​    显然初始状态：$i_L\left( 0_- \right) =1\mathrm{A},u_C\left( 0_- \right) =2\mathrm{V}$​ ，当$t\geqslant 0$​时，$u_S(t)=2\varepsilon(t)\mathrm{V}$​ 。然后我们就开始列写式子嗷：</p>
+<script type="math/tex; mode=display">
+\left\{ \begin{array}{c}
+    U_C=U_L+I_LR\\
+    \frac{2}{s}=\left( I_C+I_L \right) \cdot r+U_C\\
+    U_L=sLI_L-Li_L\left( 0_- \right)\\
+    I_C=sCU_C-Cu_C\left( 0_- \right)\\
+\end{array} \right.</script><p>​    解得：</p>
+<script type="math/tex; mode=display">
+U_C\left( s \right) =\frac{4s^2+9s+4}{s\left( 2s+3 \right) \left( s+1 \right)}=\frac{\frac{4}{3}}{s}-\frac{\frac{1}{3}}{s+\frac{3}{2}}+\frac{1}{s+1}</script><p>​    得：</p>
+<script type="math/tex; mode=display">
+\left( \frac{4}{3}-\frac{1}{3}e^{-\frac{3}{2}t}+e^{-t} \right) \varepsilon \left( t \right)</script><p>​    ⑦设因果序列$f(k)$满足方程：</p>
+<script type="math/tex; mode=display">
+\sum_{i=0}^{k-1}{f\left( i \right)}=\left[ k\varepsilon \left( k \right) \right] \ast \left[ \left( \frac{1}{2} \right) ^k\varepsilon \left( k \right) \right]</script><p>​    解出序列$f(k)$</p>
+<p>​    解：这个是基本$z$变换的性质，注意到左边的部分和，可以看成$\varepsilon(k-1)$与其卷积，分析得：</p>
+<script type="math/tex; mode=display">
+\varepsilon \left( k \right) \leftrightarrow \frac{z}{z-1}
+\\
+\varepsilon \left( k-1 \right) \leftrightarrow \frac{1}{z-1}
+\\
+\sum_{i=0}^{k-1}{f\left( i \right)}=\varepsilon \left( k-1 \right) \ast f\left( k \right) \leftrightarrow \frac{1}{z-1}F\left( z \right)</script><p>​    右侧道理是一样的，至于$k\varepsilon(k)$应用$z$域微分：</p>
+<script type="math/tex; mode=display">
+k\varepsilon \left( k \right) \leftrightarrow \frac{z}{\left( z-1 \right) ^2}</script><p>​    右端得：</p>
+<script type="math/tex; mode=display">
+\left[ k\varepsilon \left( k \right) \right] \ast \left[ \left( \frac{1}{2} \right) ^k\varepsilon \left( k \right) \right] \leftrightarrow \frac{z}{\left( z-1 \right) ^2}\cdot \frac{1}{z-\frac{1}{2}}</script><p>​    所以$F(z)$为：</p>
+<script type="math/tex; mode=display">
+F\left( z \right) =\frac{z}{\left( z-1 \right) \left( z-\frac{1}{2} \right)}</script><p>​    用熟悉的部分分式展开，得逆变换为：</p>
+<script type="math/tex; mode=display">
+f\left( k \right) =\left[ 2-\left( \frac{1}{2} \right) ^k \right] \varepsilon \left( k \right)</script><p>​    ⑧已知象函数$F\left( z \right) =\frac{z^2}{\left( z+1 \right) \left( z-2 \right)}$ ，其收敛域分别为$|z|&gt;2,|z|&lt;1,1&lt;|z|&lt;2$ ，求其原函数。</p>
+<p>​    解：在之前的整理中，我忽略了收敛域的问题，因为第一这一部分没那么有趣，第二是考核中比较少。实际上，$z$变换就是洛朗级数，不同收敛域下的洛朗级数不唯一，在复变函数中我们有定理来保证，在不同收敛域下我们可以构造收敛的泰勒级数，来构造出洛朗级数的闭式解。在那块会对常用级数求和有着一定要求，但在这里倒不用，我们只需知道一个重要的变换对：</p>
+<script type="math/tex; mode=display">
+\varepsilon \left( k \right) \leftrightarrow \frac{z}{z-1},\left| z \right|>1
+\\
+-\varepsilon \left( -k-1 \right) \leftrightarrow \frac{z}{z-1},\left| z \right|<1</script><p>​    $z$变换中的正幂项是反因果部分，构造$-\varepsilon \left( -k-1 \right)$ 有助于我们作部分分式展开后，在$|z|&lt;1$时构造闭式解。有了这个基础上述问题就很好表达了：</p>
+<script type="math/tex; mode=display">
+F\left( z \right) =\frac{1}{3}\frac{z}{z+1}+\frac{2}{3}\frac{z}{z-2}</script><p>​    当$|z|&gt;2$时，序列是因果序列，得$f\left( k \right) =\left[ \frac{1}{3}\left( -1 \right) ^k+\frac{2}{3}\left( 2 \right) ^k \right] \varepsilon \left( k \right) $</p>
+<p>​    当$|z|&lt;1$时，序列是反因果序列，得$f\left( k \right) =\left[ -\frac{1}{3}\left( -1 \right) ^k-\frac{2}{3}\left( 2 \right) ^k \right] \varepsilon \left( -k-1 \right) $</p>
+<p>​    当$1&lt;|z|&lt;2$时，序列收敛于一个圆环：$f\left( k \right) =\frac{1}{3}\left( -1 \right) ^k\varepsilon \left( k \right) -\frac{2}{3}\left( 2 \right) ^k\varepsilon \left( -k-1 \right) $</p>
 
 		
 
@@ -798,5 +872,20 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
 </body>
 </html>
