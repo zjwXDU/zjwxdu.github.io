@@ -19,11 +19,15 @@
 <meta property="og:image" content="http://example.com/images/CS_2_2.png">
 <meta property="og:image" content="http://example.com/images/CS_2_3.png">
 <meta property="og:image" content="http://example.com/images/CS_2_4.png">
+<meta property="og:image" content="http://example.com/images/CS_2_9.png">
 <meta property="og:image" content="http://example.com/images/CS_2_5.png">
 <meta property="og:image" content="http://example.com/images/CS_2_6.png">
 <meta property="og:image" content="http://example.com/images/CS_2_7.png">
+<meta property="og:image" content="http://example.com/images/CS_2_8.png">
+<meta property="og:image" content="http://example.com/images/CS_2_10.png">
+<meta property="og:image" content="http://example.com/images/CS_2_11.png">
 <meta property="article:published_time" content="2022-06-10T13:44:19.000Z">
-<meta property="article:modified_time" content="2022-06-22T14:57:12.812Z">
+<meta property="article:modified_time" content="2022-06-23T16:17:22.736Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="计算机组成">
 <meta name="twitter:card" content="summary">
@@ -216,6 +220,12 @@
 <p>​    (1)主存1MB，共20位，每块1KB，那么块内地址占10位。四路组相联，即分成了四组，每组2块。那么组号占两位，组内区号占一位。所以标记占20-(10+2+1)=7位。</p>
 <p>​    (2)ABCDEH写成二进制为1010 1011 1100 1101 1110 我们依次读，前7位是区号，即标记。1010101，路号11，组号1，块内地址0011011110。这里关于组号和路号的解释其实是无所谓的，按照书上用的以“路”的概念来解释，组相联时，是分成四路，每路两块（组）。题目中是分成了四个再分两个，可见它是按照路来解释的。这里组号为1，也叫索引(index)。标记tag为1010101连上路号11，为157H.发现它在第三路第一组，命中了，Cache地址为：路号+组号+块内地址1110011011110=</p>
 <p>1CDEH，就是从Cache的角度看，索引加原来的块内地址。</p>
+<p>​    我们再看一种经典的找位数分区的题目：</p>
+<p>​    某计算机采用页式虚拟存储管理方式，按字节编址，虚拟地址为32位，物理地址为26位，页大小为4KB，TLB采用全相联映射；Cache数据区大小为64KB，按2路组相联方式组织，主存块大小为64B。</p>
+<p><img src="/images/CS_2_9.png" alt=""></p>
+<p>​    (1)A~G的位数各是多少？TLB标记字段B中存放的是什么信息？</p>
+<p>​    解：</p>
+<p>​    A,B是虚页号，虚拟地址32位，页大小4KB是12位，所以A=B=32-12=20位，D是真实地址中的页内地址，是12位。那么C是26-12=14位。之后考虑主存和Cache，由于是2路组相联，主存块大小为64B，Cache一共64KB大小，那么Cache一共1K块，两路，即512组。所以F(index)是9位，块内地址G是6位(64B)，E是26-6-9=11.</p>
 <h1 id="quiz4"><a href="#quiz4" class="headerlink" title="quiz4:"></a>quiz4:</h1><p>​    根据对PPT和作业的观测，有两种level的设计编码方案的练习题：</p>
 <p>​    ①假设某种计算机有14条指令，使用频度由大到小为0.15,0.15,0.14,0.13,0.12,0.11,0.04,0.04,0.03</p>
 <p>,0.02,0.02,0.01,0.01。给出定长操作码，霍夫曼编码，只用两种码长的扩展操作码的三种方案。</p>
@@ -234,6 +244,60 @@
 <p>​    我们会在习题中看见他们的复合，但是只要按照上图捋清楚，都是很直接的。例如：</p>
 <p><img src="/images/CS_2_7.png" alt=""></p>
 <p>​    (1)是立即寻址，R1直接等于1200H。(2)是寄存器寻址，R1=0100H。(3)是间接寻址，查表得，注意目标寄存器是16位的数据，采用小端存储，所以4C2AH。(4)是寄存器间接寻址，0100H是12H，0101H是34H，小端存储为3412H。(5)寄存器相对寻址，看到这种表示直接相加即可，1100H与0100H相加，得1200H，是4C2AH。(6)基址变址寻址，看这个意思是两个间接寻址的地址相加，即0100H+0002H=0102H，查表得7856H。(7)EA=0100+0002+1100=1202H，得65B7H。</p>
+<h1 id="quiz6"><a href="#quiz6" class="headerlink" title="quiz6:"></a>quiz6:</h1><p>​    一些概念性的指标类运算：</p>
+<p>​    CPI(Clock Cycles Per Instruction)</p>
+<p>​    执行一条指令平均需要的时钟周期数：</p>
+<script type="math/tex; mode=display">
+CPI=\text{所有指令时钟周期之和}/\text{程序指令总数}
+\\
+=\sum{\left( \text{程序各类指令的}CPI×\text{程序中该类指令的比例} \right)}</script><p>​    MIPS(Million Instructions Per Second)</p>
+<p>​    每秒钟CPU能执行的指令总条数：</p>
+<script type="math/tex; mode=display">
+MIPS=\frac{\text{指令条数}}{\text{执行时间}\times 10^6}</script><p>​    CPU时间：</p>
+<script type="math/tex; mode=display">
+CPU\text{时间}=\text{总指令数}\times CPI\times T</script><p>​    $T$为时钟周期，注意CPU的时钟周期单位一般是ns(10的负9次方)，转换为时钟频率为GHz。</p>
+<p>​    $Amdahl$​定律：</p>
+<script type="math/tex; mode=display">
+S_p=\frac{1}{\left( 1-f_e \right) +\frac{f_e}{r_e}}</script><p>​    $f_e$是可改进部分的比例，$r_e$是部件加速比。</p>
+<p>​    Cache命中率：</p>
+<script type="math/tex; mode=display">
+h=\frac{N_c}{N}</script><p>​    Cache平均访问时间：</p>
+<script type="math/tex; mode=display">
+T=h\times T_C+\left( 1-h \right) \times T_M</script><p>​    磁盘指标：</p>
+<script type="math/tex; mode=display">
+\text{格式化容量}=\text{每扇区字节数}\times \text{每道扇区数}\times \text{每盘面磁道数}\times \text{盘面数}
+\\
+\text{非格式化容量}=\text{位密度}\times \frac{\text{内圈磁道周长}+\text{外圈磁道周长}}{2}\times \text{每盘面磁道数}\times \text{盘面数}
+\\
+\text{数据传输率}=\text{每扇区字节数}\times \text{每道扇区数}\times \text{磁盘转速}</script><p><img src="/images/CS_2_8.png" alt=""></p>
+<p>​    磁头沿盘径向移动，找磁道。磁头不动，盘片旋转，找扇区。最后一个指标是平均访问时间，它分为寻道时间$T_s$，等待时间$T_r$，数据传输时间$T_t$。</p>
+<script type="math/tex; mode=display">
+T_r=\frac{1}{2r}
+\\
+T_t=\frac{b}{rN}</script><p>​    $T_s$一般题目给出，$b$是传输的字节数，$N$是一个磁道的字节数。</p>
+<p>​    流水线：</p>
+<p>​    我们假设每个指令的每个阶段都只用一个时钟周期，这样算指标简单。</p>
+<p>​    $n$表示完成了$n$个任务，$m$为流水线段数。</p>
+<p>​    吞吐率：单位时间内流水线完成任务数里，分为实际吞吐率和最大吞吐率：</p>
+<script type="math/tex; mode=display">
+TP_{\max}=1/\max \left\{ \tau _i \right\}
+\\
+TP=\frac{n}{\left( m+\left( n-1 \right) \right) \times T_{CLK}}</script><p>​    当各流水线运行时间不等时，</p>
+<script type="math/tex; mode=display">
+TP=\frac{n}{\sum_{i=1}^m{\tau _i}+\left( n-1 \right) \times \max \left\{ \tau _i \right\}}</script><p>​    加速比：类比$Amdahl$定律：</p>
+<script type="math/tex; mode=display">
+S_n\left( m \right) =\frac{mn\tau}{\left( m+n-1 \right) \tau}=\frac{m}{1+\frac{m-1}{n}}</script><p>​    效率：占用时空区之比。</p>
+<script type="math/tex; mode=display">
+E=\frac{mn\tau}{m\left( m+n-1 \right) \tau}=\frac{1}{1+\frac{m-1}{n}}</script><h1 id="quiz7"><a href="#quiz7" class="headerlink" title="quiz7:"></a>quiz7:</h1><p>​    第六章考核上给我一种波将金村的感觉，遂记录一下。</p>
+<p>​    某计算机系统简化的CPU结构如下图：</p>
+<p><img src="/images/CS_2_10.png" alt=""></p>
+<p>​    (1)写出ADD R0 R1（功能为$\mathrm{R}_0\gets \left( \mathrm{R}_0 \right) +\left( \mathrm{R}_1 \right) $）的微流程。</p>
+<p>​    (2)写出ADD R0 (R1) 的微流程。</p>
+<p>​    (3)写出ADD R1, B(R2)的微流程。其中B是偏移量。</p>
+<p>​    (4)写出减法指令SUB R1 100(PC)的微流程。</p>
+<p>​    实际上我们可以发现，这一定程度考察了前面的寻址方式。</p>
+<p>​    我们都是先取指令(fetch)，在我们这里是直接执行(execute)，即二级时序。注意不同寻址方式下的差别。</p>
+<p><img src="/images/CS_2_11.png" alt="">    </p>
 
 		
 
