@@ -329,7 +329,7 @@ body {
 	/* background-color:#fff; */
 	/*background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
     url('http://qykz8qw1j.hn-bkt.clouddn.com/picGo/82213401_p1.jpg?image') no-repeat 0% 0%/ cover; */
-	background: linear-gradient(-45deg, #ff2a2a, #b6e5f8);
+	background: linear-gradient(-45deg, #87CEFA, #B0C4DE);
 	animation: gradientBG 8s ease infinite;
 	background-size: 400% 400%;
 	min-height: 100%
@@ -873,7 +873,8 @@ body {
 	/*background:#fff;*/
 	/*background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
     url('http://bucket836.oss-cn-shenzhen.aliyuncs.com/wallpaper/381535373.jpeg') no-repeat 0% 20%/ cover;*/
-    background: url('https://liiz.coding.net/p/cdn/d/images/git/raw/master/img/2021/9/17/myblogleftcolbackground_tiny.png') no-repeat 0% 0%/ cover;
+    /*background: linear-gradient(120deg,#6699ff,#48D1CC) no-repeat 0% 0%/ cover;*/
+	background: rgba(255, 255, 255, 0.1) no-repeat 0% 0%/ cover;
 	width: 300px;
 	position: fixed;
 	/* opacity: 1; */
@@ -2147,8 +2148,8 @@ pre .css~* .id,pre .id {
 	border: 1px solid #ddd;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #fff;
-	border-radius: 20px;
-	background: rgba(255, 255, 255, 0.9);
+	border-radius: 0px;
+	background: rgba(255, 255, 255, 0.5);
 	transition: all .2s ease-in;
 	animation: before_load_article 2s 1, after_load_arricle .5s 0;
 }
@@ -2164,13 +2165,16 @@ pre .css~* .id,pre .id {
 }
 
 .article img {
-	max-width: 100%
+	box-shadow: 0 0 15px rgba(0, 0, 0, 10);
+    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 10);
+    -moz-box-shadow: 0 0 15px rgba(0,0,0,10);
+    border: 1px solid #e0dfcc;
 }
 
 .article-inner h1.article-title,.article-title {
-	font-family: STXingkai;
+	font-family: Xingkai;
 	/* color: #696969; */
-	color: rgb(59, 0, 65);
+	color: rgb(0, 0, 0);;
 	margin-left: 0;
 	/* font-weight: 300; */
 	font-weight: 700;
@@ -2179,8 +2183,8 @@ pre .css~* .id,pre .id {
 	font-size: 36px;
 	transition: 0.3s;
 	display: inline-flex;
-	animation: shake-title 2s linear 0s infinite;
-	animation-play-state: running;
+	/*animation: shake-title 2s linear 0s infinite;
+	animation-play-state: running;*/
 }
 
 .article-title:hover{
@@ -2240,12 +2244,12 @@ pre .css~* .id,pre .id {
 }
 
 .article-more-link a {
-	background: rgb(255, 112, 112);
+	background: rgb(135, 206, 250);
 	color: #fff;
 	font-size: 15px;
 	padding: 5px 8px;
 	line-height: 16px;
-	border: 1px solid rgb(255, 112, 112);
+	border: 1px solid rgb(135, 206, 250);
 	border-radius: 5px;
 	transition: 0.3s
 }
@@ -2271,7 +2275,7 @@ pre .css~* .id,pre .id {
 	padding-top: 20px;
 	margin: 30px 7.6923% 0;
 	min-height: 72px;
-	border-top: 3px solid rgb(255, 112, 112)
+	border-top: 3px solid rgb(135, 206, 250)
 }
 
 .article-info-post.article-info {
