@@ -2177,7 +2177,7 @@ pre .css~* .id,pre .id {
 	color: rgb(0, 0, 0);;
 	margin-left: 0;
 	/* font-weight: 300; */
-	font-weight: 700;
+	font-weight: 300;
 	line-height: 35px;
 	margin-bottom: 20px;
 	font-size: 36px;
@@ -4251,7 +4251,7 @@ a.pswp__share--download:hover {
 /* 手机端背景 */
 @media screen and (max-width:800px){
     body {
-		background: rgb(255, 112, 112);
+		background: rgb(135, 206, 250);
     }
 	.article-title{
 		font-family: 'Times New Roman', Times, serif;
