@@ -15,18 +15,18 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    军训结束了，迎来了上大学以后的第二个暑假。这个暑假意义十分重大，就夹杂着写日记的成份记录一下吧。五月份左右，当时玩了一下渐进生成的GAN，觉得很有意思，比单纯无脑的model.py直球forward更精巧，就记录一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/summer_practice_1.png">
+<meta property="og:image" content="http://example.com/images/summer_practice_1.png">
 <meta property="og:image" content="http://example.com/images/summer_practice_2.png">
 <meta property="og:image" content="http://example.com/images/summer_practice_3.gif">
 <meta property="og:image" content="http://example.com/images/summer_practice_4.png">
 <meta property="article:published_time" content="2022-07-06T07:06:08.000Z">
-<meta property="article:modified_time" content="2022-07-08T09:57:13.966Z">
+<meta property="article:modified_time" content="2022-07-08T10:00:39.556Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="杂记">
 <meta property="article:tag" content="大二暑假">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/summer_practice_1.png">
+<meta name="twitter:image" content="http://example.com/images/summer_practice_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -194,7 +194,7 @@
 <p>​    在过去比较划水的军训里，我没有从那些形式主义的各种安排和一些不必要的折磨中学到什么，我当时只希望这赶紧结束。但我们排的教官-韩排长，阳光积极的性格令我印象深刻。上大学后我时不时为各种方面不如别人啊，自己干啥啥不行啊非常烦恼焦虑，变得有点愤世嫉俗。所以，当我知道我们因为口嗨，让排长被连长一顿没理由的喷，以及可能由于排长年级低而被另外俩带训教官排挤，而经历了这些排长依然非常的阳光乐观，没有把火撒在我们身上，也没有怨天尤人。他在闲聊的时候，跟我们说他们训练的辛苦，他：“我不想给你们心理那么大压迫，最后我们班那个孩子直接说：我不想练了，班长你把我打死吧。那样把人心理都搞崩了，不太好。”那一刻韩排长的形象直接就高大了起来，他真的，我哭死。总之，祝他前途似锦，早日娶上将军的女儿。</p>
 <p>​    重点就是这个乐观，道理谁都懂，比如中学考试考差了，道理都是“吸取教训”“走出来”。但是放自己身上就未必能行了。上次我被这么震惊的时候，是大一下学期，看见一个同学努力的在操场上跑步，宛如摩西分海。这种来自身边例子的身体力行，才能带来真正的质变。</p>
 <p>​    然后，我就整理一下之前偷偷用老师的机器生成anime girl的这个小demo吧，最简单的那种GAN生成的质量不太行，所以一种优雅的progressive growing GAN(PGGAN)就被我采用了，由于最后显卡的资源限制，只能生成到128×128的了，而且当时的训练时间也长到无法承受了，但是至少能看了。（这也没办法啊，别人开源的上来就4联Tesla V100我这儿就两块快报废的2080ti，动不动就显存溢出，我后面尝试了一个trick，然后失败了，这个后面说。）</p>
-<p><img src="/summer_practice_1.png" alt=""></p>
+<p><img src="/images/summer_practice_1.png" alt=""></p>
 <p>​    （虽然这个生成的sample还是很有瑕疵，但是由于数据集没有清洗/以及是完全无监督/训练时间不够，但这已经可以了。）</p>
 <p>​    实际上，那个trick失败的原因，也正是我想记录那次demo的原因，因为当时我还没整明白，就得忙别的了。</p>
 <p>​    首先是网络参数的初始化，这在平时是无关紧要的，按照框架默认的来一般问题都不大，在PGGAN里有一个更精细的设计，首先先回顾一下常见的初始化方式：</p>
